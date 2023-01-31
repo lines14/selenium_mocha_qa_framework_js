@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chromedriver": "^109.0.0",
+    "js-yaml": "^4.1.0",
+    "mocha": "^10.2.0",
+    "selenium-webdriver": "^4.8.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha test/test.js --timeout 10000"
+  }
+}
