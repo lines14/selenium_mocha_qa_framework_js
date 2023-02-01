@@ -4,127 +4,39 @@ const chai = require('chai');
 const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
 require('chromedriver');
 
-describe('"Invalid login"', function () {
-    let driver = new Builder().forBrowser(Browser.CHROME).build();
-    it('Navigate to main page', async () => {
-      try {
-        await driver.get('https://yaroslaw.org/');
-        let title = await driver.getTitle();
-        chai.assert.equal(title, 'Главная', 'Main page is not displayed');
-        //   await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
-      } finally {
-        await driver.quit();
-      };
-    });
-    // it('Clock login button', function () {
-    //     chai.assert(, 'Login page is not open');
-    // });
-    // it('Input random strings as credentials. Click sign in button', function () {
-    //     chai.assert(, 'Loading element is not displayed');
-    //     chai.assert(, 'Error text is not displayed (after loading element disappearing)');
-    // });
+describe('"Test scenario: Invalid login"', function () {
+  let driver = new Builder().forBrowser(Browser.CHROME).build();
+  driver.manage().window().maximize();
+
+  it('Navigate to main page', async () => {
+    await driver.get('https://store.steampowered.com/');
+    let steamDownloader = await driver.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="header_installsteam_btn_content"]')).getText();
+    chai.assert.equal(steamDownloader.slice(steamDownloader.length -5, steamDownloader.length), 'Steam', 'Main page is not displayed');
+  });
+
+  it('Click login button', async () => {
+    await driver.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="global_action_link"]')).click();
+    let loginPage = await driver.findElement(By.xpath('//body[contains(@class, "login")]')).isDisplayed();
+    chai.assert.equal(loginPage, true, 'Login page is not open');
+  });
+
+  it('Input random strings as credentials. Click sign in button', async () => {
+    await driver.wait(until.elementLocated(By.xpath('//input[@type="text"]')), 9000);
+    await driver.findElement(By.xpath('//input[@type="password"]')).sendKeys("kfdddd");
+    await driver.findElement(By.xpath('//input[@type="text"]')).sendKeys("kffff");
+    await driver.findElement(By.xpath('//button[@type="submit"]')).click();
+    let loadingButton = await driver.findElement(By.xpath("//button[@type='submit']")).isEnabled();
+    await driver.wait(until.elementIsEnabled(driver.findElement(By.xpath('//button[@type="submit"]'))), 9000);
+    let errorMessage = await driver.findElement(By.xpath("//form//div[5]")).getText();
+
+    chai.assert.equal(loadingButton, false, 'Loading element is not displayed');
+    chai.assert.notEqual(errorMessage, '', 'Error text is not displayed (after loading element disappearing)');
+    
+  });
+  after(async () => driver.quit());
 });
 
-
-
-
-
-
-// async function mainPageOpened() {
-//     let driver = await new Builder().forBrowser(Browser.CHROME).build();
-//     try {
-//       await driver.get('https://yaroslaw.org/');
-//       return await driver.getTitle();
-//     //   await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
-//     } finally {
-//       await driver.quit();
-//     };
-//   };
-
-// mainPageOpened()
-// .then(function (res) {
-//     console.log(res);
-// });
-
-
-
-
-
-// async function mainPageOpened() {
-//     let driver = new Builder().forBrowser(Browser.CHROME).build();
-
-//     try {
-//         // await driver.manage().setTimeouts({implicit: 100000});
-//         await driver.get('https://store.steampowered.com/');
-//         return await driver.getTitle();
-//     } finally {
-//         await driver.quit();
-//     };
-//   };
-// mainPageOpened()
-// .then(res => console.log(res))
-// .catch(err => console.error(err))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// await driver.executeScript('return document.readyState') == 'complete')
-// mainPageOpened().then(result => result = driver.getTitle());
-// console.log(mainPageOpened());
-
-// function FunctionWhichReturnsAPromise().then(mainPageOpened(result){console.log(result)})
-   
-
-// WebDriverWait(driver, 10).until(lambda driver: driver.executeScript('return document.readyState') == 'complete')
-
-
-
-
-
-
- //   await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
-
-// let driver = new Builder().forBrowser(Browser.CHROME).build();
-
-// const documentInitialised = () =>
-//     driver.executeScript('return initialised');
-
-// driver.get('https://store.steampowered.com/');
-// driver.wait(() => documentInitialised(), 10000);
-
-// console.log(documentInitialised())
+// await driver.sleep(2000);
+// await driver.manage().setTimeouts({implicit: 15000});
+// await driver.manage().setTimeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+// await driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
