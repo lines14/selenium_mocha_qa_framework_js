@@ -1,0 +1,9 @@
+{
+  "textSteam": "//div[@id='global_action_menu']//a[@class='header_installsteam_btn_content']",
+  "loginButton": "//div[@id='global_action_menu']//a[@class='global_action_link']",
+  "CssClassLogin": "//body[contains(@class, 'login')]",
+  "inputLoginForm": "//input[@type='text']",
+  "inputPasswordForm": "//input[@type='password']",
+  "submitButton": "//button[@type='submit']",
+  "errorMessage": "//form//div[5]"
+}

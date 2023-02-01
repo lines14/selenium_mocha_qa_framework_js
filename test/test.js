@@ -1,50 +1,59 @@
 // to run the test you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-const {By, until} = require('selenium-webdriver');
-const myDriver = require('./main.js');
-const testData = require('./test_data.json');
+const homepage = require('../Page/homepage');
+const loginpage = require('../Page/loginpage');
 
 before(function() {
-  driverInstance = new myDriver().driverSet();
-  data = JSON.parse(JSON.stringify(testData));
+    const configureData = require('../Page/configureData.json');
+    path = JSON.parse(JSON.stringify(configureData));
+    const testData = require('./testData.json');
+    data = JSON.parse(JSON.stringify(testData));
 });
 
-describe('"Test scenario: Invalid login"', function () {
+describe('Test scenario: Invalid login', function(){
+    // this.timeout(50000);
+   
+    // beforeEach(function(){
 
-  it('Navigate to main page', async () => {
-    await driverInstance.get('https://store.steampowered.com/');
-    let steamDownloader = await driverInstance.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="header_installsteam_btn_content"]')).getText();
-    chai.assert.equal(steamDownloader.slice(steamDownloader.length -5, steamDownloader.length), 'Steam', 'Main page is not displayed');
-  });
+    // });
 
-  it('Click login button', async () => {
-    await driverInstance.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="global_action_link"]')).click();
-    let loginPage = await driverInstance.findElement(By.xpath('//body[contains(@class, "login")]')).isDisplayed();
-    chai.assert.equal(loginPage, true, 'Login page is not open');
-  });
+    it('Navigate to main page', async function(){
+        await homepage.enter_url(data.baseurl);
+        let returnedMainPageText = await homepage.verifyHomePageByCustomText(path.textSteam);
+        
+        chai.assert.equal(returnedMainPageText.slice(returnedMainPageText.length -5, returnedMainPageText.length), 'Steam', 'Main page is not displayed');
+    });
 
-  it('Input random strings as credentials. Click sign in button', async () => {
-    await driverInstance.wait(until.elementLocated(By.xpath('//input[@type="text"]')), 9000);
-    await driverInstance.findElement(By.xpath('//input[@type="password"]')).sendKeys(data.password);
-    await driverInstance.findElement(By.xpath('//input[@type="text"]')).sendKeys(data.login);
-    await driverInstance.findElement(By.xpath('//button[@type="submit"]')).click();
-    let loadingButton = await driverInstance.findElement(By.xpath("//button[@type='submit']")).isEnabled();
-    await driverInstance.wait(until.elementIsEnabled(driverInstance.findElement(By.xpath('//button[@type="submit"]'))), 9000);
-    let errorMessage = await driverInstance.findElement(By.xpath("//form//div[5]")).getText();
+    it('Click login button', async function(){
+        await homepage.clickLoginButton(path.loginButton);
+        let returnedLoginPageElement = await loginpage.verifyLoginPageByDisplayedElement(path.CssClassLogin);
 
-    chai.assert.equal(loadingButton, false, 'Loading element is not displayed');
-    chai.assert.notEqual(errorMessage, '', 'Error text is not displayed (after loading element disappearing)');
-  });
+        chai.assert.equal(returnedLoginPageElement, true, 'Login page is not open');
+      });
+
+    it('Input random strings as credentials. Click sign in button', async function(){
+        await loginpage.verifyLoginFormIsDisplayed(path.inputLoginForm);
+        await loginpage.inputForm(path.inputPasswordForm, data.password);
+        await loginpage.inputForm(path.inputLoginForm, data.login);
+        await loginpage.clickSubmitButton(path.submitButton);
+        let returnedAnimationInfo = await loginpage.verifyLoadingAnimation(path.submitButton);
+
+        chai.assert.equal(returnedAnimationInfo, false, 'Loading element is not displayed');
+
+        await loginpage.waitUntilErrorMessageExpects(path.submitButton);
+        let returnedErrorMessage = await loginpage.verifyErrorMessageShowed(path.errorMessage);
+
+        chai.assert.notEqual(returnedErrorMessage, '', 'Error text is not displayed (after loading element disappearing)');
+    });
+
+    // afterEach(async function(){
+        
+    // });
+    
 });
 
-after(function() {
-  driverInstance.quit();
+after(async function() {
+    await loginpage.finishTest();
+    
 });
-
-// after(async () => driverInstance.quit());
-// driver.manage().window().maximize();
-// await driver.sleep(2000);
-// await driver.manage().setTimeouts({implicit: 15000});
-// await driver.manage().setTimeouts().setScriptTimeout(10, TimeUnit.SECONDS);
-// await driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
