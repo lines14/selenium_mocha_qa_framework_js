@@ -1,6 +1,4 @@
-[
-    {
-      "login": "qwerty",
-      "password": "12345678"
-    }
-]
+{
+  "login": "qwert",
+  "password": "1234567"
+}

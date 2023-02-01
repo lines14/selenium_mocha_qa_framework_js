@@ -3,9 +3,11 @@
 const chai = require('chai');
 const {By, until} = require('selenium-webdriver');
 const myDriver = require('./main.js');
+const testData = require('./test_data.json');
 
 before(function() {
   driverInstance = new myDriver().driverSet();
+  data = JSON.parse(JSON.stringify(testData));
 });
 
 describe('"Test scenario: Invalid login"', function () {
@@ -24,8 +26,8 @@ describe('"Test scenario: Invalid login"', function () {
 
   it('Input random strings as credentials. Click sign in button', async () => {
     await driverInstance.wait(until.elementLocated(By.xpath('//input[@type="text"]')), 9000);
-    await driverInstance.findElement(By.xpath('//input[@type="password"]')).sendKeys("kfdddd");
-    await driverInstance.findElement(By.xpath('//input[@type="text"]')).sendKeys("kffff");
+    await driverInstance.findElement(By.xpath('//input[@type="password"]')).sendKeys(data.password);
+    await driverInstance.findElement(By.xpath('//input[@type="text"]')).sendKeys(data.login);
     await driverInstance.findElement(By.xpath('//button[@type="submit"]')).click();
     let loadingButton = await driverInstance.findElement(By.xpath("//button[@type='submit']")).isEnabled();
     await driverInstance.wait(until.elementIsEnabled(driverInstance.findElement(By.xpath('//button[@type="submit"]'))), 9000);
