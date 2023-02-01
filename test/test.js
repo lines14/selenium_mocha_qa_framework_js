@@ -1,16 +1,11 @@
 // to run the test you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
-require('chromedriver');
-
-class myDriver {
-  driver = new Builder().forBrowser(Browser.CHROME).build();
-};
+const {By, until} = require('selenium-webdriver');
+const myDriver = require('./main.js');
 
 before(function() {
-  driverInstance = new myDriver().driver;
-  driverInstance.manage().window().maximize();
+  driverInstance = new myDriver().driverSet();
 });
 
 describe('"Test scenario: Invalid login"', function () {
