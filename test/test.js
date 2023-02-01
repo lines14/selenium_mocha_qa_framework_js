@@ -4,38 +4,49 @@ const chai = require('chai');
 const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
 require('chromedriver');
 
+class myDriver {
+  driver = new Builder().forBrowser(Browser.CHROME).build();
+};
+
+before(function() {
+  driverInstance = new myDriver().driver;
+  driverInstance.manage().window().maximize();
+});
+
 describe('"Test scenario: Invalid login"', function () {
-  let driver = new Builder().forBrowser(Browser.CHROME).build();
-  driver.manage().window().maximize();
 
   it('Navigate to main page', async () => {
-    await driver.get('https://store.steampowered.com/');
-    let steamDownloader = await driver.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="header_installsteam_btn_content"]')).getText();
+    await driverInstance.get('https://store.steampowered.com/');
+    let steamDownloader = await driverInstance.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="header_installsteam_btn_content"]')).getText();
     chai.assert.equal(steamDownloader.slice(steamDownloader.length -5, steamDownloader.length), 'Steam', 'Main page is not displayed');
   });
 
   it('Click login button', async () => {
-    await driver.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="global_action_link"]')).click();
-    let loginPage = await driver.findElement(By.xpath('//body[contains(@class, "login")]')).isDisplayed();
+    await driverInstance.findElement(By.xpath('//div[@id="global_action_menu"]//a[@class="global_action_link"]')).click();
+    let loginPage = await driverInstance.findElement(By.xpath('//body[contains(@class, "login")]')).isDisplayed();
     chai.assert.equal(loginPage, true, 'Login page is not open');
   });
 
   it('Input random strings as credentials. Click sign in button', async () => {
-    await driver.wait(until.elementLocated(By.xpath('//input[@type="text"]')), 9000);
-    await driver.findElement(By.xpath('//input[@type="password"]')).sendKeys("kfdddd");
-    await driver.findElement(By.xpath('//input[@type="text"]')).sendKeys("kffff");
-    await driver.findElement(By.xpath('//button[@type="submit"]')).click();
-    let loadingButton = await driver.findElement(By.xpath("//button[@type='submit']")).isEnabled();
-    await driver.wait(until.elementIsEnabled(driver.findElement(By.xpath('//button[@type="submit"]'))), 9000);
-    let errorMessage = await driver.findElement(By.xpath("//form//div[5]")).getText();
+    await driverInstance.wait(until.elementLocated(By.xpath('//input[@type="text"]')), 9000);
+    await driverInstance.findElement(By.xpath('//input[@type="password"]')).sendKeys("kfdddd");
+    await driverInstance.findElement(By.xpath('//input[@type="text"]')).sendKeys("kffff");
+    await driverInstance.findElement(By.xpath('//button[@type="submit"]')).click();
+    let loadingButton = await driverInstance.findElement(By.xpath("//button[@type='submit']")).isEnabled();
+    await driverInstance.wait(until.elementIsEnabled(driverInstance.findElement(By.xpath('//button[@type="submit"]'))), 9000);
+    let errorMessage = await driverInstance.findElement(By.xpath("//form//div[5]")).getText();
 
     chai.assert.equal(loadingButton, false, 'Loading element is not displayed');
     chai.assert.notEqual(errorMessage, '', 'Error text is not displayed (after loading element disappearing)');
-    
   });
-  after(async () => driver.quit());
 });
 
+after(function() {
+  driverInstance.quit();
+});
+
+// after(async () => driverInstance.quit());
+// driver.manage().window().maximize();
 // await driver.sleep(2000);
 // await driver.manage().setTimeouts({implicit: 15000});
 // await driver.manage().setTimeouts().setScriptTimeout(10, TimeUnit.SECONDS);
