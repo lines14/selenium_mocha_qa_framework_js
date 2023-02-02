@@ -1,22 +1,10 @@
 const {By, until} = require('selenium-webdriver');
 var driverinit = require ('../main/driver_init');
 
-class DriverInit{
-
-    constructor(){
-        global.driverinit = driverinit;
-    }
-    initDriver(browser){
-        var driver = driverinit.getInstance(browser);
-        return driver;
-    }
-    
-}
-
-class Base extends DriverInit{
+class Base{
 
     async initTheDriver(browser){
-        global.driver = await this.initDriver(browser);
+        global.driver = await driverinit.getInstance(browser);
     }
     async go_to_url(theURL){
         await driver.get(theURL);

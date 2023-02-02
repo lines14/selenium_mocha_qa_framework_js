@@ -1,11 +1,12 @@
-// to run the test you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
+// to run the test in multiple browsers you may execute console command "BROWSER='browser alias' npm test" if preinstalled "mocha" and "chai" modules
 
+var browser = process.env.BROWSER;
 const chai = require('chai');
 const homepage = require('../main/homepage');
 const loginpage = require('../main/loginpage');
 
 before(async function() {
-    await homepage.driverInit('firefox');
+    await homepage.driverInit(browser);
 
     const configureData = require('../main/configure_data.json');
     path = JSON.parse(JSON.stringify(configureData));
@@ -14,7 +15,6 @@ before(async function() {
 });
 
 describe('Test scenario: Invalid login', function(){
-    // this.timeout(50000);
    
     // beforeEach(function(){
 
