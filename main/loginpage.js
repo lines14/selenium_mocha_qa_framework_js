@@ -1,6 +1,6 @@
-var BasePage = require ('../Page/basepage');
+var Base = require ('../main/base');
 
-class LoginPage extends BasePage{
+class LoginPage extends Base{
 
     async verifyLoginPageByDisplayedElement(path){
         return await this.verifyWebPageByDisplayedElement(path)

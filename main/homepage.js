@@ -1,8 +1,8 @@
-var BasePage = require ('../Page/basepage');
+var Base = require ('../main/base');
 
-class HomePage extends BasePage{
+class HomePage extends Base{
 
-    async initSeleniumDriver(){
+    async driverInit(){
         await this.initTheDriver();
     }
     async enter_url(theURL){

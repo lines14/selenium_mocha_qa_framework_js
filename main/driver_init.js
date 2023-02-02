@@ -1,7 +1,7 @@
 var webdriver = require('selenium-webdriver');
 const {chromeOptions} = require('selenium-webdriver');
 
-const SingletonFactory = (function(){
+const DriverInit = (function(){
     function singletonClass() {
     }
     let driver = new webdriver.Builder().forBrowser('chrome').build();
@@ -23,4 +23,4 @@ const SingletonFactory = (function(){
    };
 })
 
-module.exports = SingletonFactory();
+module.exports = DriverInit();

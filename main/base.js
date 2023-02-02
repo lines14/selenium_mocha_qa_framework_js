@@ -1,20 +1,19 @@
 const {By, until} = require('selenium-webdriver');
-var singletonfactory = require ('../Page/singleton_factory');
+var driverinit = require ('../main/driver_init');
 
 class DriverInit{
 
     constructor(){
-        global.singletonfactory = singletonfactory;
+        global.driverinit = driverinit;
     }
     initDriver(){
-        var driver = singletonfactory.getInstance();
+        var driver = driverinit.getInstance();
         return driver;
     }
     
 }
 
-
-class BasePage extends DriverInit{
+class Base extends DriverInit{
 
     constructor(){
         super();
@@ -62,4 +61,4 @@ class BasePage extends DriverInit{
 
 }
 
-module.exports = BasePage;
+module.exports = Base;

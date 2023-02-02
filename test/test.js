@@ -1,15 +1,15 @@
 // to run the test you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-const homepage = require('../Page/homepage');
-const loginpage = require('../Page/loginpage');
+const homepage = require('../main/homepage');
+const loginpage = require('../main/loginpage');
 
 before(function() {
-    homepage.initSeleniumDriver();
+    homepage.driverInit();
 
-    const configureData = require('../Page/configure_data.json');
+    const configureData = require('../main/configure_data.json');
     path = JSON.parse(JSON.stringify(configureData));
-    const testData = require('./test_data.json');
+    const testData = require('../test/test_data.json');
     data = JSON.parse(JSON.stringify(testData));
 });
 
