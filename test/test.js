@@ -4,8 +4,8 @@ const chai = require('chai');
 const homepage = require('../main/homepage');
 const loginpage = require('../main/loginpage');
 
-before(function() {
-    homepage.driverInit();
+before(async function() {
+    await homepage.driverInit('firefox');
 
     const configureData = require('../main/configure_data.json');
     path = JSON.parse(JSON.stringify(configureData));
@@ -55,7 +55,6 @@ describe('Test scenario: Invalid login', function(){
     
 });
 
-after(function() {
-    loginpage.driverQuit();
-    
+after(async function() {
+    await loginpage.driverQuit();
 });

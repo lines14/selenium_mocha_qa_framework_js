@@ -2,8 +2,8 @@ var Base = require ('../main/base');
 
 class HomePage extends Base{
 
-    async driverInit(){
-        await this.initTheDriver();
+    async driverInit(browser){
+        await this.initTheDriver(browser);
     }
     async enter_url(theURL){
         await this.go_to_url(theURL);

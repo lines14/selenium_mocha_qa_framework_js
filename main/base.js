@@ -6,8 +6,8 @@ class DriverInit{
     constructor(){
         global.driverinit = driverinit;
     }
-    initDriver(){
-        var driver = driverinit.getInstance();
+    initDriver(browser){
+        var driver = driverinit.getInstance(browser);
         return driver;
     }
     
@@ -15,12 +15,8 @@ class DriverInit{
 
 class Base extends DriverInit{
 
-    constructor(){
-        super();
-        global.driver = this.initDriver();
-    }
-    async initTheDriver(){
-        await this.initDriver();
+    async initTheDriver(browser){
+        global.driver = await this.initDriver(browser);
     }
     async go_to_url(theURL){
         await driver.get(theURL);
