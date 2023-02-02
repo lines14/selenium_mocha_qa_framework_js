@@ -2,6 +2,9 @@ var BasePage = require ('../Page/basepage');
 
 class HomePage extends BasePage{
 
+    async initSeleniumDriver(){
+        await this.initTheDriver();
+    }
     async enter_url(theURL){
         await this.go_to_url(theURL);
     }

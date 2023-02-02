@@ -23,9 +23,10 @@ class LoginPage extends BasePage{
     async verifyErrorMessageShowed(path){
         await this.verifyWebPageByCustomText(path)
     }
-    async finishTest(){
-        await this.closeBrowser()
+    async driverQuit(){
+        await this.quitDriver()
     }
+    
 }
 
 module.exports = new LoginPage();

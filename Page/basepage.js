@@ -1,12 +1,27 @@
-var webdriver = require('selenium-webdriver');
 const {By, until} = require('selenium-webdriver');
-var driver = new webdriver.Builder().forBrowser('chrome').build();
-driver.manage().window().maximize();
-// driver.manage().setTimeouts({implicit: (10000)});
+var singletonfactory = require ('../Page/singleton_factory');
 
-class BasePage{
+class DriverInit{
+
     constructor(){
-        global.driver = driver;
+        global.singletonfactory = singletonfactory;
+    }
+    initDriver(){
+        var driver = singletonfactory.getInstance();
+        return driver;
+    }
+    
+}
+
+
+class BasePage extends DriverInit{
+
+    constructor(){
+        super();
+        global.driver = this.initDriver();
+    }
+    async initTheDriver(){
+        await this.initDriver();
     }
     async go_to_url(theURL){
         await driver.get(theURL);
@@ -41,9 +56,10 @@ class BasePage{
     async clickById(id){
         await driver.findElement(By.id(id)).click();
     }
-    async closeBrowser(){
+    async quitDriver(){
         await driver.quit();
     }
+
 }
 
 module.exports = BasePage;

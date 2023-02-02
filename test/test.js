@@ -5,9 +5,11 @@ const homepage = require('../Page/homepage');
 const loginpage = require('../Page/loginpage');
 
 before(function() {
-    const configureData = require('../Page/configureData.json');
+    homepage.initSeleniumDriver();
+
+    const configureData = require('../Page/configure_data.json');
     path = JSON.parse(JSON.stringify(configureData));
-    const testData = require('./testData.json');
+    const testData = require('./test_data.json');
     data = JSON.parse(JSON.stringify(testData));
 });
 
@@ -33,9 +35,9 @@ describe('Test scenario: Invalid login', function(){
       });
 
     it('Input random strings as credentials. Click sign in button', async function(){
-        await loginpage.verifyLoginFormIsDisplayed(path.inputLoginForm);
-        await loginpage.inputForm(path.inputPasswordForm, data.password);
+        await loginpage.verifyLoginFormIsDisplayed(path.inputPasswordForm);
         await loginpage.inputForm(path.inputLoginForm, data.login);
+        await loginpage.inputForm(path.inputPasswordForm, data.password);
         await loginpage.clickSubmitButton(path.submitButton);
         let returnedAnimationInfo = await loginpage.verifyLoadingAnimation(path.submitButton);
 
@@ -47,13 +49,13 @@ describe('Test scenario: Invalid login', function(){
         chai.assert.notEqual(returnedErrorMessage, '', 'Error text is not displayed (after loading element disappearing)');
     });
 
-    // afterEach(async function(){
+    // afterEach(function(){
         
     // });
     
 });
 
-after(async function() {
-    await loginpage.finishTest();
+after(function() {
+    loginpage.driverQuit();
     
 });
