@@ -1,4 +1,4 @@
-// to run the test in multiple browsers you may execute console command "BROWSER='browser alias' npm test" if preinstalled "mocha" and "chai" modules
+// to run the test in multiple browsers you may execute sequential console commands "BROWSER='browser alias' npm test" if preinstalled "mocha" and "chai" modules
 
 var browser = process.env.BROWSER;
 const chai = require('chai');
