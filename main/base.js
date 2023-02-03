@@ -61,10 +61,15 @@ class Base{
     async parseTheChildElements(path, childPath, attr){
         let children = [];
         let counter = 1;
-        while (counter <= 9){
-            let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`));
-            children.push(child.getAttribute(attr))
-            counter += 1;
+        while (true) {
+            try {
+                let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`));
+                // console.log(child)
+                children.push(child.getAttribute(attr))
+                counter += 1;
+            } catch(err) {
+                break;
+            }
         }
         return Promise.all(children).then(function(atr) {
             return atr;

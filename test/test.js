@@ -29,8 +29,8 @@ describe('Test scenario: Privacy policy', function(){
         await privacypage.switchDriverToAnotherTab(1);
         let listStatus = await privacypage.verifyLanguagesListOnPrivacyPage('//*[@id="languages"]');
         chai.assert.equal(listStatus, true, 'Switch language elements list is not displayed');
-        let kek = await privacypage.parseChildElements('//*[@id="languages"]', '//a', 'href');
-        console.log(kek)
+        let languagesList = await privacypage.parseChildElements('//*[@id="languages"]', '//a', 'href');
+        chai.assert.equal(languagesList.map(a => a.slice(49, a.length-1)).toString(), dataprovider.getTestData().languagesList, 'Supported languages list is not complete');
     });
 
     // it('Policy revision signed in the current year.', async function(){
