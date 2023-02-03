@@ -1,6 +1,5 @@
 const {By, until} = require('selenium-webdriver');
 var driverinit = require ('../main/driver_init');
-var webdriver = require('selenium-webdriver');
 
 class Base{
 
@@ -10,29 +9,17 @@ class Base{
     async go_to_url(theURL){
         await driver.get(theURL);
     }
-    async scrollToTheElement(path) {
-        // await driver.sleep(3000)
-        let element = await driver.findElement(By.xpath(path));
-        // const deltaY = (await element.getRect()).y
-        await driver.actions().scroll(1000, 1000, 1000, 1000).perform()
-        // console.log(element)
-        // let clickAction = new Actions(driver).click(element);
-        // await clickAction.build().perform();
-        // await driver.sleep(5000);
-        // await element.scrollIntoView(false);
-        // var actions = driver.actions({ bridge: true });
-        // actions.mouse().move({x: 400, y: 1100, duration: 2000, origin: webdriver.VIEWPORT}).perform();;
-        // await driver.actions({ bridge: true }).move({origin: element}).perform()
-        // await driver.executeScript("arguments[0].scrollIntoView()", element);
-        // await driver.sleep(300);
+    async scrollToTheBottom() {
+        await driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
+        await driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
     };
     async verifyWebPageByCustomText(path) {
         let pageVerified = await driver.findElement(By.xpath(path)).getText();
         return pageVerified;
     }
     async verifyWebPageByDisplayedElement(path) {
-        let pageConfirmed = await driver.findElement(By.xpath(path)).isDisplayed();
-        return pageConfirmed;
+        let confirmed = await driver.findElement(By.xpath(path)).isDisplayed();
+        return confirmed;
     }
     async waitUntilElementIsDisplayed(path) {
         await driver.wait(until.elementLocated(By.xpath(path)), 9000);
@@ -40,8 +27,11 @@ class Base{
     async waitUntilElementIsEnabled(path) {
         await driver.wait(until.elementIsEnabled(driver.findElement(By.xpath(path))), 9000);
     }
-    async clickButton(path) {
+    async clickButtonByXpath(path) {
         await driver.findElement(By.xpath(path)).click();
+    }
+    async clickButtonByCss(path) {
+        await driver.findElement(By.css(path)).click();
     }
     async enterTextByCss(css, text){
         await driver.findElement(By.css(css)).sendKeys(text);
@@ -55,6 +45,30 @@ class Base{
     }
     async clickById(id){
         await driver.findElement(By.id(id)).click();
+    }
+    async checkTheTabsCount(){
+        let tabsCount = (await driver.getAllWindowHandles()).length;
+        return tabsCount;
+    }
+    async switchDriverToTheAnotherTab(number){
+        await driver.wait(async () => (await driver.getAllWindowHandles()).length === 2, 9000);
+        // var parent = await driver.getWindowHandle();
+        var windows = await driver.getAllWindowHandles();
+        await driver.switchTo().window(windows[number]);
+        // driver.close();
+        // driver.switchTo().window(parent);
+    }
+    async parseTheChildElements(path, childPath, attr){
+        let children = [];
+        let counter = 1;
+        while (counter <= 9){
+            let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`));
+            children.push(child.getAttribute(attr))
+            counter += 1;
+        }
+        return Promise.all(children).then(function(atr) {
+            return atr;
+        })
     }
     async quitDriver(){
         await driver.quit();

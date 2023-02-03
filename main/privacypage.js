@@ -2,10 +2,13 @@ var Base = require ('../main/base');
 
 class LoginPage extends Base{
 
-    async verifyLoginPageByDisplayedElement(path){
+    async checkTabsCount(){
+        return await this.checkTheTabsCount();
+    }
+    async verifyLanguagesListOnPrivacyPage(path){
         return await this.verifyWebPageByDisplayedElement(path)
     }
-    async verifyLoginFormIsDisplayed(path){
+    async verifyLanguagesListIsDisplayed(path){
         await this.waitUntilElementIsDisplayed(path)
     }
     async inputForm(path, text){
@@ -22,6 +25,12 @@ class LoginPage extends Base{
     }
     async verifyErrorMessageShowed(path){
         await this.verifyWebPageByCustomText(path)
+    }
+    async switchDriverToAnotherTab(number){
+        await this.switchDriverToTheAnotherTab(number);
+    }
+    async parseChildElements(path, childPath, attr){
+        return await this.parseTheChildElements(path, childPath, attr);
     }
     async driverQuit(){
         await this.quitDriver()
