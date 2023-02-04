@@ -8,9 +8,9 @@ class HomePage extends Base{
     async enter_url(theURL){
         await this.go_to_url(theURL);
     }
-    async inputForm(path, text){
-        await this.inputTextByXpath(path, text)
-    }
+    // async inputForm(path, text){
+    //     await this.inputTextByXpath(path, text)
+    // }
     async inputFormAndEnter(path, text){
         await this.enterTextByXpath(path, text)
     }

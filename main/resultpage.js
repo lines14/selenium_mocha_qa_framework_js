@@ -26,6 +26,9 @@ class ResultPage extends Base{
     async inputFormAndEnter(path, text){
         await this.enterTextByXpath(path, text)
     }
+    async driverQuit(){
+        await this.quitDriver()
+    }
     
 }
 

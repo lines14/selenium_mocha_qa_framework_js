@@ -5,6 +5,8 @@
     "selenium-webdriver": "^4.8.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha test/test.js --timeout 10000"
+    "test": "node_modules/.bin/mocha test/test.js --timeout 10000",
+    "test1": "node_modules/.bin/mocha test/test1.js --timeout 10000",
+    "test2": "node_modules/.bin/mocha test/test2.js --timeout 10000"
   }
 }

@@ -77,51 +77,7 @@ class InfoGrabber extends Base{
                 console.log('\tSuccessfully wrote file ./main/saved_data.json')
             }
         })
-    }
-
-
-
-    // async saveDataToFile(){
-    //     let firstItem = [];
-    //     let secondItem = [];
-    //     let counter = 0;
-    //     let dict = {};
-
-    //     let names = await this.namesAll(itemsCount);
-    //     let platforms = await this.platformsAll(itemsCount);
-    //     let dates = await this.releaseDatesAll(itemsCount);
-    //     let reviews = await this.reviewSummarysAll(itemsCount);
-    //     let prices = await this.pricesAll(itemsCount);
-
-    //     while (counter < itemsCount){
-    //         if (counter === 0){
-    //             firstItem.push(names[counter]);
-    //             firstItem.push(platforms[counter].toString().replace(/platform_img /g, "").split());
-    //             firstItem.push(dates[counter].toString().replace(",", "").split());
-    //             firstItem.push(reviews[counter].toString().replace("search_review_summary ", "").split());
-    //             firstItem.push(prices[counter]);
-    //         } else {
-    //             secondItem.push(names[counter]);
-    //             secondItem.push(platforms[counter].toString().replace(/platform_img /g, "").split());
-    //             secondItem.push(dates[counter].toString().replace(",", "").split());
-    //             secondItem.push(reviews[counter].toString().replace("search_review_summary ", "").split());
-    //             secondItem.push(prices[counter]);
-    //         }
-    //         counter += 1;
-    //     }
-
-    //     Object.assign(dict, {"firstItem":firstItem.toString(), "secondItem":secondItem.toString()})
-    //     let jsonString = JSON.stringify(dict);
-
-    //     fs.writeFile(`${__dirname}/saved_data.json`, jsonString, err => {
-    //         if (err) {
-    //             console.log('\tError writing file', err)
-    //         } else {
-    //             console.log('\tSuccessfully wrote file ./main/saved_data.json')
-    //         }
-    //     })
-    // }
-        
+    }        
 }
 
 module.exports = new InfoGrabber();

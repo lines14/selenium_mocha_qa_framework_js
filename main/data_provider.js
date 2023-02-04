@@ -1,6 +1,5 @@
 var configureData = require('../main/config_data.json');
-// var saveddata1 = require('../main/saved_data1.json');
-// var saveddata2 = require('../main/saved_data2.json');
+// var saveddata = require('../main/saved_data.json');
 var testData = require('../test/test_data.json');
 
 class DataProvider{
@@ -26,7 +25,6 @@ class DataProvider{
     //         return dat;
     //     }
     // }
-
 }
 
 module.exports = new DataProvider();
