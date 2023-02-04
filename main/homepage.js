@@ -8,12 +8,15 @@ class HomePage extends Base{
     async enter_url(theURL){
         await this.go_to_url(theURL);
     }
+    async inputForm(path, text){
+        await this.inputTextByXpath(path, text)
+    }
+    async inputFormAndEnter(path, text){
+        await this.enterTextByXpath(path, text)
+    }
     async scrollToBottom(){
         await this.scrollToTheBottom();
     }
-    // async verifyHomePageByCustomText(path){
-    //     return await this.verifyWebPageByCustomText(path)
-    // }
     async clickPrivacyPolicyButton(path){
         await this.clickButtonByXpath(path);
     }

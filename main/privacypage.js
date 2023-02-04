@@ -12,7 +12,7 @@ class LoginPage extends Base{
         await this.waitUntilElementIsDisplayed(path)
     }
     async inputForm(path, text){
-        await this.enterTextByXpath(path, text)
+        await this.inputTextByXpath(path, text)
     }
     async clickSubmitButton(path){
         await this.clickButton(path)
@@ -23,14 +23,14 @@ class LoginPage extends Base{
     async waitUntilErrorMessageExpects(path){
         await this.waitUntilElementIsEnabled(path)
     }
-    async verifyErrorMessageShowed(path){
-        await this.verifyWebPageByCustomText(path)
+    async chechPolicySignYear(path){
+        return await this.verifyWebPageByCustomText(path)
     }
     async switchDriverToAnotherTab(number){
         await this.switchDriverToTheAnotherTab(number);
     }
-    async parseChildElements(path, childPath, attr){
-        return await this.parseTheChildElements(path, childPath, attr);
+    async parseChildElementsUnlimited(path, childPath, attr){
+        return await this.parseTheChildElementsUnlimited(path, childPath, attr);
     }
     async driverQuit(){
         await this.quitDriver()

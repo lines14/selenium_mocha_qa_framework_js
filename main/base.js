@@ -1,4 +1,4 @@
-const {By, until} = require('selenium-webdriver');
+const {By, until, Key} = require('selenium-webdriver');
 var driverinit = require ('../main/driver_init');
 
 class Base{
@@ -14,8 +14,8 @@ class Base{
         await driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
     };
     async verifyWebPageByCustomText(path) {
-        let pageVerified = await driver.findElement(By.xpath(path)).getText();
-        return pageVerified;
+        let text = await driver.findElement(By.xpath(path)).getText();
+        return text;
     }
     async verifyWebPageByDisplayedElement(path) {
         let confirmed = await driver.findElement(By.xpath(path)).isDisplayed();
@@ -33,11 +33,14 @@ class Base{
     async clickButtonByCss(path) {
         await driver.findElement(By.css(path)).click();
     }
-    async enterTextByCss(css, text){
+    async inputTextByCss(css, text){
         await driver.findElement(By.css(css)).sendKeys(text);
     }
-    async enterTextByXpath(path, text){
+    async inputTextByXpath(path, text){
         await driver.findElement(By.xpath(path)).sendKeys(text);
+    }
+    async enterTextByXpath(path, text){
+        await driver.findElement(By.xpath(path)).sendKeys(text, Key.ENTER);
     }
     async checkElementIsEnabled(path) {
         let enabledElement = await driver.findElement(By.xpath(path)).isEnabled();
@@ -58,13 +61,12 @@ class Base{
         // driver.close();
         // driver.switchTo().window(parent);
     }
-    async parseTheChildElements(path, childPath, attr){
+    async parseTheChildElementsUnlimited(path, childPath, attr){
         let children = [];
         let counter = 1;
         while (true) {
             try {
                 let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`));
-                // console.log(child)
                 children.push(child.getAttribute(attr))
                 counter += 1;
             } catch(err) {
@@ -73,6 +75,50 @@ class Base{
         }
         return Promise.all(children).then(function(atr) {
             return atr;
+        })
+    }
+    async parseTheChildElements(path, childPath, maxCount, childSubPath, attr){
+        let children = [];
+        let counter = 1;
+        while (counter <= maxCount) {
+            let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath));
+            children.push(child.getAttribute(attr))
+            counter += 1;
+        }
+        return Promise.all(children).then(function(atr) {
+            return atr;
+        })
+    }
+    async parseTheChildElementsForText(path, childPath, maxCount, childSubPath){
+        let children = [];
+        let counter = 1;
+        while (counter <= maxCount) {
+            let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
+            children.push(child)
+            counter += 1;
+        }
+        return children;
+    }
+    async parseTheChildElementsUnlimitedForText(path, childPath, childSubPath){
+        let children = [];
+        let counter = 1;
+        while (true) {
+            try {
+                let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
+                children.push(child)
+                counter += 1;
+            } catch(err) {
+                break;
+            }
+        }
+        return children;
+    }
+    async verifyWebElementAttributeValue(path, attr) {
+        let element = await driver.findElement(By.xpath(path));
+        let atr = element.getAttribute(attr);
+
+        return Promise.resolve(atr).then(function(at) {
+            return at;
         })
     }
     async quitDriver(){
