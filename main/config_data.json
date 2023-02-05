@@ -1,9 +1,12 @@
 {
-  "textSteam": "//div[@id='global_action_menu']//a[@class='header_installsteam_btn_content']",
-  "loginButton": "//div[@id='global_action_menu']//a[@class='global_action_link']",
-  "CssClassLogin": "//body[contains(@class, 'login')]",
-  "inputLoginForm": "//input[@type='text']",
-  "inputPasswordForm": "//input[@type='password']",
-  "submitButton": "//button[@type='submit']",
-  "errorMessage": "//form//div[5]"
+  "privacyPolicyButton": "//div[@id = 'footer_text']//following-sibling::a[1]",
+  "languagesList": "//*[@id='languages']",
+  "childLinks": "//a",
+  "policySignYear": "//div[@id = 'newsColumn']//i[contains(text(), '2023')]",
+  "headerSearchInput": "//input[@id = 'store_nav_search_term']",
+  "resultsSorter": "//a[@id = 'sort_by_trigger']",
+  "leftSearchInput": "//div[@class = 'searchbar_left']//input[@type = 'text']",
+  "firstSearchResultLink": "//*[@id='search_resultsRows']//a[1]//following-sibling::span[@class='title']",
+  "resultsList": "//*[@id='search_resultsRows']",
+  "childSubPath": "//following-sibling::span[@class='title']"
 }

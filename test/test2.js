@@ -4,8 +4,8 @@ const chai = require('chai');
 const dataprovider = require('../main/data_provider');
 const infograbber = require('../main/info_grabber');
 const homepage = require('../main/homepage');
-// const privacypage = require('../main/privacypage');
 const resultpage = require('../main/resultpage');
+// const privacypage = require('../main/privacypage');
 
 describe('Test scenario: Game search', function(){
    
@@ -18,34 +18,34 @@ describe('Test scenario: Game search', function(){
 
     it('Dota 2 page is open', async function(){
         await homepage.enter_url(dataprovider.getTestData().url);
-        await homepage.inputFormAndEnter('//input[@id = "store_nav_search_term"]', 'Dota 2')
-        let isResultPage = await resultpage.verifyResultPageOpened('//a[@id = "sort_by_trigger"]');
+        await homepage.inputFormAndEnter(dataprovider.getConfigData().headerSearchInput, 'Dota 2')
+        let isResultPage = await resultpage.verifyResultPageOpened(dataprovider.getConfigData().resultsSorter);
         chai.assert.equal(isResultPage, true, 'Result page is not open');
     });
 
     it('Search box on first result page contains searched name', async function(){
-        let value1 = await resultpage.verifySearchBoxValue('//div[@class = "searchbar_left"]//input[1]', 'value');
+        let value1 = await resultpage.verifySearchBoxValue(dataprovider.getConfigData().leftSearchInput, 'value');
         chai.assert.equal(value1, 'Dota 2', 'Search box on first result page not contains searched name');
     });
 
     it('The first name is equal to searched name', async function(){
-        let name = await resultpage.verifyFirstNameInList('//*[@id="search_resultsRows"]//a[1]//following-sibling::span');
-        chai.assert.equal(name, 'Dota 2', 'The first name is not equal to searched name');
-        // customize saveDataToFile() in the ./main/info_grabber.js
-        await infograbber.saveDataToFile(); 
+        let name = await resultpage.verifyFirstNameInList(dataprovider.getConfigData().firstSearchResultLink);
+        chai.assert.equal(name, 'Dota 2', 'The first name is not equal to searched name'); 
     });
 
     it('Search box on second result page contains searched name', async function(){
-        allSavedData1 = await infograbber.combineAllData();
         allSavedNames = await infograbber.namesAll();
+        allSavedData1 = await infograbber.combineAllData();
+        // customize saveDataToFile() method in the ./main/info_grabber.js
+        await infograbber.saveDataToFile();
         let secondName = allSavedNames[1].toString();
-        await resultpage.inputFormAndEnter('//input[@id = "store_nav_search_term"]', secondName)
-        let value2 = await resultpage.verifySearchBoxValue('//div[@class = "searchbar_left"]//input[1]', 'value');
+        await resultpage.inputFormAndEnter(dataprovider.getConfigData().headerSearchInput, secondName)
+        let value2 = await resultpage.verifySearchBoxValue(dataprovider.getConfigData().leftSearchInput, 'value');
         chai.assert.equal(value2, secondName, 'Search box on second result page not contains searched name');
     });
 
     it('Result list contains 2 stored items from the previous search. All stored data are matched', async function(){
-        let allListNames = await resultpage.parseChildElementsUnlimitedForText('//*[@id="search_resultsRows"]', '//a', '//div[2]//div[1]//span');
+        let allListNames = await resultpage.parseChildElementsUnlimitedForText(dataprovider.getConfigData().resultsList, dataprovider.getConfigData().childLinks, dataprovider.getConfigData().childSubPath);
         chai.assert.includeDeepMembers(allListNames, allSavedNames, 'Result list not contains 2 stored items from the previous search');
         let allSavedData2 = await infograbber.combineAllData();
         chai.assert.equal(allSavedData2.firstItem, allSavedData1.secondItem, 'Stored data not matched');

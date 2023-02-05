@@ -17,21 +17,6 @@ class LoginPage extends Base{
     async chechPolicySignYear(path){
         return await this.verifyWebPageByCustomText(path)
     }
-    // async verifyLanguagesListIsDisplayed(path){
-    //     await this.waitUntilElementIsDisplayed(path)
-    // }
-    // async inputForm(path, text){
-    //     await this.inputTextByXpath(path, text)
-    // }
-    // async clickSubmitButton(path){
-    //     await this.clickButton(path)
-    // }
-    // async verifyLoadingAnimation(path){
-    //     return await this.checkElementIsEnabled(path)
-    // }
-    // async waitUntilErrorMessageExpects(path){
-    //     await this.waitUntilElementIsEnabled(path)
-    // }
     async driverQuit(){
         await this.quitDriver()
     }
