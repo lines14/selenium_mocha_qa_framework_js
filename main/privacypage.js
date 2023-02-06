@@ -14,7 +14,7 @@ class LoginPage extends Base{
     async parseChildElementsUnlimited(path, childPath, attr){
         return await this.parseTheChildElementsUnlimited(path, childPath, attr);
     }
-    async chechPolicySignYear(path){
+    async checkPolicySignYear(path){
         return await this.verifyWebPageByCustomText(path)
     }
     async driverQuit(){

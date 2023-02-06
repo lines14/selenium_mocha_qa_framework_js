@@ -30,7 +30,7 @@ describe('Test scenario: Privacy policy', function(){
     });
 
     it('Policy revision signed in the current year', async function(){
-        let str = await privacypage.chechPolicySignYear(dataprovider.getConfigData().policySignYear);
+        let str = await privacypage.checkPolicySignYear(dataprovider.getConfigData().policySignYear);
         let result = str.match(2023);
         chai.assert.equal(result[0], '2023', 'Policy revision signed not in the current year');
     });
