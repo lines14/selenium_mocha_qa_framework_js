@@ -10,7 +10,7 @@ const privacypage = require('../main/privacypage');
 describe('Test scenario: Privacy policy', function(){
    
     before(async function() {
-        await homepage.driverInit('chrome');
+        await homepage.driverInit(dataprovider.getConfigData().browser);
     });
 
     it('Privacy policy page is open in the new tab', async function(){

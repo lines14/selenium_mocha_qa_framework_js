@@ -1,6 +1,6 @@
-var Base = require ('../main/base');
+var BasePage = require ('../main/basepage');
 
-class HomePage extends Base{
+class HomePage extends BasePage{
 
     async driverInit(browser){
         await this.initTheDriver(browser);

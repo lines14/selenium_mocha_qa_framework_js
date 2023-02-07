@@ -1,7 +1,7 @@
 const {By, until, Key} = require('selenium-webdriver');
 var driverinit = require ('../main/driver_init');
 
-class Base{
+class BasePage{
 
     async initTheDriver(browser){
         global.driver = await driverinit.getInstance(browser);
@@ -127,4 +127,4 @@ class Base{
 
 }
 
-module.exports = Base;
+module.exports = BasePage;

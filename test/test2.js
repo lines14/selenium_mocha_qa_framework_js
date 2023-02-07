@@ -13,7 +13,7 @@ describe('Test scenario: Game search', function(){
     var allSavedData1;
 
     before(async function() {
-        await homepage.driverInit('chrome');
+        await homepage.driverInit(dataprovider.getConfigData().browser);
     });
 
     it('Dota 2 page is open', async function(){

@@ -1,8 +1,8 @@
 const fs = require('fs');
-var Base = require ('../main/base');
+var BasePage = require ('../main/basepage');
 const resultpage = require('../main/resultpage');
 
-class InfoGrabber extends Base{
+class InfoGrabber extends BasePage{
 
     constructor(){
         super();

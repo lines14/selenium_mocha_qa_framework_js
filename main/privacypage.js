@@ -1,6 +1,6 @@
-var Base = require ('../main/base');
+var BasePage = require ('../main/basepage');
 
-class LoginPage extends Base{
+class LoginPage extends BasePage{
 
     async checkTabsCount(){
         return await this.checkTheTabsCount();
