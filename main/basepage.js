@@ -1,18 +1,8 @@
 const {By, until, Key} = require('selenium-webdriver');
-var driverinit = require ('../main/driver_init');
+var Browser = require ('../main/browser');
 
-class BasePage{
+class BasePage extends Browser{
 
-    async initTheDriver(browser){
-        global.driver = await driverinit.getInstance(browser);
-    }
-    async go_to_url(theURL){
-        await driver.get(theURL);
-    }
-    async scrollToTheBottom() {
-        await driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
-        await driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
-    };
     async verifyWebPageByCustomText(path) {
         let text = await driver.findElement(By.xpath(path)).getText();
         return text;
@@ -48,18 +38,6 @@ class BasePage{
     }
     async clickById(id){
         await driver.findElement(By.id(id)).click();
-    }
-    async checkTheTabsCount(){
-        let tabsCount = (await driver.getAllWindowHandles()).length;
-        return tabsCount;
-    }
-    async switchDriverToTheAnotherTab(number){
-        await driver.wait(async () => (await driver.getAllWindowHandles()).length === 2, 9000);
-        // var parent = await driver.getWindowHandle();
-        var windows = await driver.getAllWindowHandles();
-        await driver.switchTo().window(windows[number]);
-        // driver.close();
-        // driver.switchTo().window(parent);
     }
     async parseTheChildElementsUnlimited(path, childPath, attr){
         let children = [];
@@ -120,9 +98,6 @@ class BasePage{
         return Promise.resolve(atr).then(function(at) {
             return at;
         })
-    }
-    async quitDriver(){
-        await driver.quit();
     }
 
 }
