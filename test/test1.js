@@ -14,7 +14,7 @@ describe('Test scenario: Privacy policy', function(){
     });
 
     it('Privacy policy page is open in the new tab', async function(){
-        await homepage.enter_url(dataprovider.getTestData().url);
+        await homepage.enter_url(dataprovider.getConfigData().url);
         await homepage.scrollToBottom();
         await homepage.clickPrivacyPolicyButton(dataprovider.getConfigData().privacyPolicyButton);
         let tabsCount = await privacypage.checkTheTabsCount();

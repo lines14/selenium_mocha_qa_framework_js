@@ -17,7 +17,7 @@ describe('Test scenario: Game search', function(){
     });
 
     it('Dota 2 page is open', async function(){
-        await homepage.enter_url(dataprovider.getTestData().url);
+        await homepage.enter_url(dataprovider.getConfigData().url);
         await homepage.inputFormAndEnter(dataprovider.getConfigData().headerSearchInput, 'Dota 2')
         let isResultPage = await resultpage.verifyResultPageOpened(dataprovider.getConfigData().resultsSorter);
         chai.assert.equal(isResultPage, true, 'Result page is not open');

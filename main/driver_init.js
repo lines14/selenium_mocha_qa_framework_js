@@ -1,8 +1,8 @@
 var webdriver = require('selenium-webdriver');
 
-var DriverInit = (function(){
+var driverInit = (function(){
 
-    function Driver(browser) {
+    function initDriver(browser) {
         if (browser === 'chrome'){
             let chromeCapabilities = webdriver.Capabilities.chrome();
             let chromeOptions = {'args': ['--incognito']};
@@ -26,7 +26,7 @@ var DriverInit = (function(){
     return {
         getInstance: function(browser){
             if (driver == null) {
-                driver = new Driver(browser);
+                driver = new initDriver(browser);
                 // Hide the constructor so the returned object can't be new'd
                 driver.constructor = null;
             }
@@ -36,4 +36,4 @@ var DriverInit = (function(){
 
   })
 
-module.exports = DriverInit();
+module.exports = driverInit();
