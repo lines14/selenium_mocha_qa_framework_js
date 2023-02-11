@@ -2,11 +2,11 @@ const BasePage = require('../main/basepage');
 
 class HomePage extends BasePage{
 
-    static async inputFormAndEnter(path, text){
-        await this.enterTextByXpath(path, text)
+    static async inputFormAndEnter(text){
+        await this.enterTextByXpath("//input[@id = 'store_nav_search_term']", text)
     }
-    static async clickPrivacyPolicyButton(path){
-        await this.clickButtonByXpath(path);
+    static async clickPrivacyPolicyButton(){
+        await this.clickButtonByXpath("//div[@id = 'footer_text']//following-sibling::a[1]");
     }
 
 }

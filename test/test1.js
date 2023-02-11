@@ -17,21 +17,21 @@ describe('Test scenario: Privacy policy', function(){
     it('Privacy policy page is open in the new tab', async function(){
         await Browser.go_to_url(DataProvider.getConfigData().url);
         await Browser.scrollToTheBottom();
-        await HomePage.clickPrivacyPolicyButton(DataProvider.getConfigData().privacyPolicyButton);
+        await HomePage.clickPrivacyPolicyButton();
         const tabsCount = await Browser.checkTheTabsCount();
         chai.assert.equal(tabsCount, 2, 'Privacy policy page is not open in the new tab');
     });
 
     it('Switch language elements list displayed. Supported languages: English, Spanish, French, German, Italian, Russian, Japanese, Portuguese, Brazilian', async function(){
         await Browser.switchDriverToTheAnotherTab(1);
-        const listStatus = await PrivacyPage.verifyLanguagesListOnPrivacyPage(DataProvider.getConfigData().languagesList);
+        const listStatus = await PrivacyPage.verifyLanguagesListOnPrivacyPage();
         chai.assert.equal(listStatus, true, 'Switch language elements list is not displayed');
-        const languagesList = await PrivacyPage.parseChildElementsUnlimited(DataProvider.getConfigData().languagesList, DataProvider.getConfigData().childLinks, 'href');
+        const languagesList = await PrivacyPage.parseChildElementsUnlimited();
         chai.assert.equal(languagesList.map(a => a.slice(49, a.length-1)).toString(), DataProvider.getTestData().languagesList, 'Supported languages list is not complete');
     });
 
     it('Policy revision signed in the current year', async function(){
-        const str = await PrivacyPage.checkPolicySignYear(DataProvider.getConfigData().policySignYear);
+        const str = await PrivacyPage.checkPolicySignYear();
         const result = str.match(2023);
         chai.assert.equal(result[0], '2023', 'Policy revision signed not in the current year');
     });
