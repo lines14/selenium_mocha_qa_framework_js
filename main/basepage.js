@@ -39,6 +39,48 @@ class BasePage extends Browser{
     static async clickById(id){
         await this.driver.findElement(By.id(id)).click();
     }
+    static async parseTheChildElementsForText(path, childPath, maxCount, childSubPath){
+        const children = [];
+        let counter = 1;
+        while (counter <= maxCount) {
+            const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
+            children.push(child)
+            counter += 1;
+        }
+        return children;
+    }
+    static async parseTheChildElementsUnlimitedForText(path, childPath, childSubPath){
+        const children = [];
+        let counter = 1;
+        while (true) {
+            try {
+                const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
+                children.push(child)
+                counter += 1;
+            } catch(err) {
+                break;
+            }
+        }
+        return children;
+    }
+    static async verifyWebElementAttributeValue(path, attr) {
+        const element = await this.driver.findElement(By.xpath(path));
+        const atr = element.getAttribute(attr);
+        return atr;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     static async parseTheChildElementsUnlimited(path, childPath, attr){
         const children = [];
         let counter = 1;
@@ -67,39 +109,6 @@ class BasePage extends Browser{
             return atr;
         })
     }
-    static async parseTheChildElementsForText(path, childPath, maxCount, childSubPath){
-        const children = [];
-        let counter = 1;
-        while (counter <= maxCount) {
-            const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
-            children.push(child)
-            counter += 1;
-        }
-        return children;
-    }
-    static async parseTheChildElementsUnlimitedForText(path, childPath, childSubPath){
-        const children = [];
-        let counter = 1;
-        while (true) {
-            try {
-                const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
-                children.push(child)
-                counter += 1;
-            } catch(err) {
-                break;
-            }
-        }
-        return children;
-    }
-    static async verifyWebElementAttributeValue(path, attr) {
-        const element = await this.driver.findElement(By.xpath(path));
-        const atr = element.getAttribute(attr);
-
-        return Promise.resolve(atr).then(function(at) {
-            return at;
-        })
-    }
-
 }
 
 module.exports = BasePage;

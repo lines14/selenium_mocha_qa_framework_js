@@ -1,34 +1,33 @@
 const fs = require('fs');
 const BasePage = require ('../main/basepage');
-const ResultPage = require('../main/resultpage');
 const itemsCount = 2;
 
 class InfoGrabber extends BasePage{
 
     static async namesAll(){
-        const namesAll = await ResultPage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[1]/span');
+        const namesAll = await this.parseTheChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[1]/span');
         return namesAll;
     }
     static async platformsAll(){
         const platformsListAll = [];
         let counter = 1;
         while (counter <= itemsCount){
-            const platformsList = await ResultPage.parseChildElementsUnlimited(`//*[@id="search_resultsRows"]/a[${counter}]/div[2]/div[1]/div`, '//span', 'class');
+            const platformsList = await this.parseTheChildElementsUnlimited(`//*[@id="search_resultsRows"]/a[${counter}]/div[2]/div[1]/div`, '//span', 'class');
             platformsListAll.push(platformsList);
             counter += 1;
         }
         return platformsListAll;
     }
     static async releaseDatesAll(){
-        const releaseDatesAll = await ResultPage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[2]');
+        const releaseDatesAll = await this.parseTheChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[2]');
         return releaseDatesAll;
     }
     static async reviewSummarysAll(){
-        const reviewSummarysAll = await ResultPage.parseChildElements('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[3]/span', 'class');
+        const reviewSummarysAll = await this.parseTheChildElements('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[3]/span', 'class');
         return reviewSummarysAll;
     }
     static async pricesAll(){
-        const pricesAll = await ResultPage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[4]/div[2]');
+        const pricesAll = await this.parseTheChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[4]/div[2]');
         return pricesAll;
     }
     static async combineAllData(){

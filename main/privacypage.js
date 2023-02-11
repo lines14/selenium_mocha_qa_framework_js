@@ -11,7 +11,6 @@ class LoginPage extends BasePage{
     static async checkPolicySignYear(){
         return await this.verifyWebPageByCustomText("//div[@id = 'newsColumn']//i[contains(text(), '2023')]")
     }
-    
 }
 
 module.exports = LoginPage;
