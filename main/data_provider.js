@@ -1,20 +1,16 @@
-var configureData = require('../main/config_data.json');
-var testData = require('../test/test_data.json');
+const configureData = require('../main/config_data.json');
+const testData = require('../test/test_data.json');
 
 class DataProvider{
 
-    constructor(){
-        global.configureData = configureData;
-        global.testData = testData;
-    }
-    getConfigData(){
-        let path = JSON.parse(JSON.stringify(configureData));
+    static getConfigData(){
+        const path = JSON.parse(JSON.stringify(configureData));
         return path;
     }
-    getTestData(){
-        let data = JSON.parse(JSON.stringify(testData));
+    static getTestData(){
+        const data = JSON.parse(JSON.stringify(testData));
         return data;
     }
 }
 
-module.exports = new DataProvider();
+module.exports = DataProvider;

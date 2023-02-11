@@ -1,6 +1,6 @@
 {
-  "url": "https://store.steampowered.com/",
   "browser": "chrome",
+  "url": "https://store.steampowered.com/",
   "privacyPolicyButton": "//div[@id = 'footer_text']//following-sibling::a[1]",
   "languagesList": "//*[@id='languages']",
   "childLinks": "//a",

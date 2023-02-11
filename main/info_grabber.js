@@ -1,51 +1,47 @@
 const fs = require('fs');
-var BasePage = require ('../main/basepage');
-const resultpage = require('../main/resultpage');
+const BasePage = require ('../main/basepage');
+const ResultPage = require('../main/resultpage');
+const itemsCount = 2;
 
 class InfoGrabber extends BasePage{
 
-    constructor(){
-        super();
-        let itemsCount = 2;
-        global.itemsCount = itemsCount;
-    }
-    async namesAll(){
-        let namesAll = await resultpage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[1]/span');
+    static async namesAll(){
+        const namesAll = await ResultPage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[1]/span');
         return namesAll;
     }
-    async platformsAll(){
-        let platformsListAll = [];
+    static async platformsAll(){
+        const platformsListAll = [];
         let counter = 1;
         while (counter <= itemsCount){
-            let platformsList = await resultpage.parseChildElementsUnlimited(`//*[@id="search_resultsRows"]/a[${counter}]/div[2]/div[1]/div`, '//span', 'class');
+            const platformsList = await ResultPage.parseChildElementsUnlimited(`//*[@id="search_resultsRows"]/a[${counter}]/div[2]/div[1]/div`, '//span', 'class');
             platformsListAll.push(platformsList);
             counter += 1;
         }
         return platformsListAll;
     }
-    async releaseDatesAll(){
-        let releaseDatesAll = await resultpage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[2]');
+    static async releaseDatesAll(){
+        const releaseDatesAll = await ResultPage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[2]');
         return releaseDatesAll;
     }
-    async reviewSummarysAll(){
-        let reviewSummarysAll = await resultpage.parseChildElements('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[3]/span', 'class');
+    static async reviewSummarysAll(){
+        const reviewSummarysAll = await ResultPage.parseChildElements('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[3]/span', 'class');
         return reviewSummarysAll;
     }
-    async pricesAll(){
-        let pricesAll = await resultpage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[4]/div[2]');
+    static async pricesAll(){
+        const pricesAll = await ResultPage.parseChildElementsForText('//*[@id="search_resultsRows"]', '//a', itemsCount, '//div[2]/div[4]/div[2]');
         return pricesAll;
     }
-    async combineAllData(){
-        let firstItem = [];
-        let secondItem = [];
+    static async combineAllData(){
+        const firstItem = [];
+        const secondItem = [];
         let counter = 0;
-        let dict = {};
+        const dict = {};
 
-        let names = await this.namesAll(itemsCount);
-        let platforms = await this.platformsAll(itemsCount);
-        let dates = await this.releaseDatesAll(itemsCount);
-        let reviews = await this.reviewSummarysAll(itemsCount);
-        let prices = await this.pricesAll(itemsCount);
+        const names = await this.namesAll(itemsCount);
+        const platforms = await this.platformsAll(itemsCount);
+        const dates = await this.releaseDatesAll(itemsCount);
+        const reviews = await this.reviewSummarysAll(itemsCount);
+        const prices = await this.pricesAll(itemsCount);
 
         while (counter < itemsCount){
             if (counter === 0){
@@ -67,8 +63,8 @@ class InfoGrabber extends BasePage{
         Object.assign(dict, {"firstItem":firstItem.toString(), "secondItem":secondItem.toString()})
         return dict;
     }
-    async saveDataToFile(){
-        let jsonString = JSON.stringify(await this.combineAllData());
+    static async saveDataToFile(){
+        const jsonString = JSON.stringify(await this.combineAllData());
 
         fs.writeFile(`${__dirname}/saved_data.json`, jsonString, err => {
             if (err) {
@@ -80,4 +76,4 @@ class InfoGrabber extends BasePage{
     }        
 }
 
-module.exports = new InfoGrabber();
+module.exports = InfoGrabber;

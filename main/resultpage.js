@@ -1,35 +1,32 @@
-var BasePage = require ('../main/basepage');
+const BasePage = require('../main/basepage');
 
 class ResultPage extends BasePage{
 
-    async verifyResultPageOpened(path){
+    static async verifyResultPageOpened(path){
         return await this.verifyWebPageByDisplayedElement(path)
     }
-    async verifySearchBoxValue(path, attr){
+    static async verifySearchBoxValue(path, attr){
         return await this.verifyWebElementAttributeValue(path, attr);
     }
-    async verifyFirstNameInList(path){
+    static async verifyFirstNameInList(path){
         return await this.verifyWebPageByCustomText(path);
     }
-    async parseChildElementsUnlimited(path, childPath, attr){
+    static async parseChildElementsUnlimited(path, childPath, attr){
         return await this.parseTheChildElementsUnlimited(path, childPath, attr);
     }
-    async parseChildElementsUnlimitedForText(path, childPath, childSubPath){
+    static async parseChildElementsUnlimitedForText(path, childPath, childSubPath){
         return await this.parseTheChildElementsUnlimitedForText(path, childPath, childSubPath);
     }
-    async parseChildElements(path, childPath, maxCount, childSubPath, attr){
+    static async parseChildElements(path, childPath, maxCount, childSubPath, attr){
         return await this.parseTheChildElements(path, childPath, maxCount, childSubPath, attr);
     }
-    async parseChildElementsForText(path, childPath, maxCount, childSubPath){
+    static async parseChildElementsForText(path, childPath, maxCount, childSubPath){
         return await this.parseTheChildElementsForText(path, childPath, maxCount, childSubPath);
     }
-    async inputFormAndEnter(path, text){
+    static async inputFormAndEnter(path, text){
         await this.enterTextByXpath(path, text)
-    }
-    async driverQuit(){
-        await this.quitDriver()
     }
     
 }
 
-module.exports = new ResultPage();
+module.exports = ResultPage;

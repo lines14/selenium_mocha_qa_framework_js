@@ -1,28 +1,27 @@
-var driverinit = require ('../main/driver_init');
+const driverInit = require('../main/driver_init');
 
 class Browser{
 
-    async initTheDriver(browser){
-        global.driver = await driverinit.getInstance(browser);
+    static async initTheDriver(browser){
+        this.driver = await driverInit.getInstance(browser);
     }
-    async go_to_url(theURL){
-        await driver.get(theURL);
+    static async go_to_url(theURL){
+        await this.driver.get(theURL);
     }
-    async scrollToTheBottom() {
-        await driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
-        await driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
+    static async scrollToTheBottom() {
+        await this.driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');
     }
-    async checkTheTabsCount(){
-        let tabsCount = (await driver.getAllWindowHandles()).length;
+    static async checkTheTabsCount(){
+        const tabsCount = (await this.driver.getAllWindowHandles()).length;
         return tabsCount;
     }
-    async switchDriverToTheAnotherTab(number){
-        await driver.wait(async () => (await driver.getAllWindowHandles()).length === 2, 9000);
-        var windows = await driver.getAllWindowHandles();
-        await driver.switchTo().window(windows[number]);
+    static async switchDriverToTheAnotherTab(number){
+        await this.driver.wait(async () => (await this.driver.getAllWindowHandles()).length === 2, 9000);
+        const windows = await this.driver.getAllWindowHandles();
+        await this.driver.switchTo().window(windows[number]);
     }
-    async quitDriver(){
-        await driver.quit();
+    static async quitDriver(){
+        await this.driver.quit();
     }
 }
 

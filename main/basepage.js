@@ -1,50 +1,50 @@
 const {By, until, Key} = require('selenium-webdriver');
-var Browser = require ('../main/browser');
+const Browser = require('../main/browser');
 
 class BasePage extends Browser{
 
-    async verifyWebPageByCustomText(path) {
-        let text = await driver.findElement(By.xpath(path)).getText();
+    static async verifyWebPageByCustomText(path) {
+        const text = await this.driver.findElement(By.xpath(path)).getText();
         return text;
     }
-    async verifyWebPageByDisplayedElement(path) {
-        let confirmed = await driver.findElement(By.xpath(path)).isDisplayed();
+    static async verifyWebPageByDisplayedElement(path) {
+        const confirmed = await this.driver.findElement(By.xpath(path)).isDisplayed();
         return confirmed;
     }
-    async waitUntilElementIsDisplayed(path) {
-        await driver.wait(until.elementLocated(By.xpath(path)), 9000);
+    static async waitUntilElementIsDisplayed(path) {
+        await this.driver.wait(until.elementLocated(By.xpath(path)), 9000);
     }
-    async waitUntilElementIsEnabled(path) {
-        await driver.wait(until.elementIsEnabled(driver.findElement(By.xpath(path))), 9000);
+    static async waitUntilElementIsEnabled(path) {
+        await this.driver.wait(until.elementIsEnabled(this.driver.findElement(By.xpath(path))), 9000);
     }
-    async clickButtonByXpath(path) {
-        await driver.findElement(By.xpath(path)).click();
+    static async clickButtonByXpath(path) {
+        await this.driver.findElement(By.xpath(path)).click();
     }
-    async clickButtonByCss(path) {
-        await driver.findElement(By.css(path)).click();
+    static async clickButtonByCss(path) {
+        await this.driver.findElement(By.css(path)).click();
     }
-    async inputTextByCss(css, text){
-        await driver.findElement(By.css(css)).sendKeys(text);
+    static async inputTextByCss(css, text){
+        await this.driver.findElement(By.css(css)).sendKeys(text);
     }
-    async inputTextByXpath(path, text){
-        await driver.findElement(By.xpath(path)).sendKeys(text);
+    static async inputTextByXpath(path, text){
+        await this.driver.findElement(By.xpath(path)).sendKeys(text);
     }
-    async enterTextByXpath(path, text){
-        await driver.findElement(By.xpath(path)).sendKeys(text, Key.ENTER);
+    static async enterTextByXpath(path, text){
+        await this.driver.findElement(By.xpath(path)).sendKeys(text, Key.ENTER);
     }
-    async checkElementIsEnabled(path) {
-        let enabledElement = await driver.findElement(By.xpath(path)).isEnabled();
+    static async checkElementIsEnabled(path) {
+        const enabledElement = await this.driver.findElement(By.xpath(path)).isEnabled();
         return enabledElement;
     }
-    async clickById(id){
-        await driver.findElement(By.id(id)).click();
+    static async clickById(id){
+        await this.driver.findElement(By.id(id)).click();
     }
-    async parseTheChildElementsUnlimited(path, childPath, attr){
-        let children = [];
+    static async parseTheChildElementsUnlimited(path, childPath, attr){
+        const children = [];
         let counter = 1;
         while (true) {
             try {
-                let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`));
+                const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`));
                 children.push(child.getAttribute(attr))
                 counter += 1;
             } catch(err) {
@@ -55,11 +55,11 @@ class BasePage extends Browser{
             return atr;
         })
     }
-    async parseTheChildElements(path, childPath, maxCount, childSubPath, attr){
-        let children = [];
+    static async parseTheChildElements(path, childPath, maxCount, childSubPath, attr){
+        const children = [];
         let counter = 1;
         while (counter <= maxCount) {
-            let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath));
+            const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath));
             children.push(child.getAttribute(attr))
             counter += 1;
         }
@@ -67,22 +67,22 @@ class BasePage extends Browser{
             return atr;
         })
     }
-    async parseTheChildElementsForText(path, childPath, maxCount, childSubPath){
-        let children = [];
+    static async parseTheChildElementsForText(path, childPath, maxCount, childSubPath){
+        const children = [];
         let counter = 1;
         while (counter <= maxCount) {
-            let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
+            const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
             children.push(child)
             counter += 1;
         }
         return children;
     }
-    async parseTheChildElementsUnlimitedForText(path, childPath, childSubPath){
-        let children = [];
+    static async parseTheChildElementsUnlimitedForText(path, childPath, childSubPath){
+        const children = [];
         let counter = 1;
         while (true) {
             try {
-                let child = await driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
+                const child = await this.driver.findElement(By.xpath(path+childPath+`[${counter}]`+childSubPath)).getText();
                 children.push(child)
                 counter += 1;
             } catch(err) {
@@ -91,9 +91,9 @@ class BasePage extends Browser{
         }
         return children;
     }
-    async verifyWebElementAttributeValue(path, attr) {
-        let element = await driver.findElement(By.xpath(path));
-        let atr = element.getAttribute(attr);
+    static async verifyWebElementAttributeValue(path, attr) {
+        const element = await this.driver.findElement(By.xpath(path));
+        const atr = element.getAttribute(attr);
 
         return Promise.resolve(atr).then(function(at) {
             return at;

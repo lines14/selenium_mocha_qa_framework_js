@@ -1,27 +1,26 @@
-var webdriver = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver');
 
-var driverInit = (function(){
+const driverInit = (function(){
 
-    function initDriver(browser) {
+    function initDriver(browser){
         if (browser === 'chrome'){
-            let chromeCapabilities = webdriver.Capabilities.chrome();
-            let chromeOptions = {'args': ['--incognito']};
+            const chromeCapabilities = webdriver.Capabilities.chrome();
+            const chromeOptions = {'args': ['--incognito']};
             chromeCapabilities.set("goog:chromeOptions", chromeOptions);
-            let driver = new webdriver.Builder().forBrowser(browser).withCapabilities(chromeCapabilities).build();
+            const driver = new webdriver.Builder().forBrowser(browser).withCapabilities(chromeCapabilities).build();
             driver.manage().window().maximize();
             // driver.manage().setTimeouts({implicit: (100000)});
             Object.freeze(driver);
             return driver;
         } else {
-            let driver = new webdriver.Builder().forBrowser(browser).build();
+            const driver = new webdriver.Builder().forBrowser(browser).build();
             driver.manage().window().maximize();
             Object.freeze(driver);
             return driver;
         }
-        
     }
 
-    var driver;
+    let driver;
   
     return {
         getInstance: function(browser){

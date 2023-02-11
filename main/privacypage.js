@@ -1,26 +1,17 @@
-var BasePage = require ('../main/basepage');
+const BasePage = require('../main/basepage');
 
 class LoginPage extends BasePage{
 
-    async checkTabsCount(){
-        return await this.checkTheTabsCount();
-    }
-    async switchDriverToAnotherTab(number){
-        await this.switchDriverToTheAnotherTab(number);
-    }
-    async verifyLanguagesListOnPrivacyPage(path){
+    static async verifyLanguagesListOnPrivacyPage(path){
         return await this.verifyWebPageByDisplayedElement(path)
     }
-    async parseChildElementsUnlimited(path, childPath, attr){
+    static async parseChildElementsUnlimited(path, childPath, attr){
         return await this.parseTheChildElementsUnlimited(path, childPath, attr);
     }
-    async checkPolicySignYear(path){
+    static async checkPolicySignYear(path){
         return await this.verifyWebPageByCustomText(path)
-    }
-    async driverQuit(){
-        await this.quitDriver()
     }
     
 }
 
-module.exports = new LoginPage();
+module.exports = LoginPage;
