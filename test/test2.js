@@ -37,8 +37,6 @@ describe('Test scenario: Game search', function(){
     it('Search box on second result page contains searched name', async function(){
         allSavedNames = await InfoGrabber.namesAll();
         allSavedData1 = await InfoGrabber.combineAllData();
-        // customize saveDataToFile() method in the ./main/info_grabber.js
-        await InfoGrabber.saveDataToFile();
         const secondName = allSavedNames[1].toString();
         await ResultPage.inputFormAndEnter(DataProvider.getConfigData().headerSearchInput, secondName)
         const value2 = await ResultPage.verifySearchBoxValue(DataProvider.getConfigData().leftSearchInput, 'value');
