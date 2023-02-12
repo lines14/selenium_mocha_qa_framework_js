@@ -6,12 +6,14 @@ const InfoGrabber = require('../main/info_grabber');
 const HomePage = require('../main/homepage');
 const ResultPage = require('../main/resultpage');
 const Browser = require('../main/browser');
+const Models = require ('../main/models');
 // const PrivacyPage = require('../main/privacypage');
 
 describe('Test scenario: Game search', function(){
    
     let allSavedNames;
-    let allSavedData1;
+    let firstModelsList;
+    let secondModelsList;
 
     before(async function() {
         await Browser.initTheDriver(DataProvider.getConfigData().browser);
@@ -35,8 +37,8 @@ describe('Test scenario: Game search', function(){
     });
 
     it('Search box on second result page contains searched name', async function(){
+        firstModelsList = await InfoGrabber.returnAllModels()
         allSavedNames = await InfoGrabber.namesAll();
-        allSavedData1 = await InfoGrabber.combineAllData();
         const secondName = allSavedNames[1].toString();
         await ResultPage.inputFormAndEnter(secondName)
         const value2 = await ResultPage.verifySearchBoxValue();
@@ -46,8 +48,8 @@ describe('Test scenario: Game search', function(){
     it('Result list contains 2 stored items from the previous search. All stored data are matched', async function(){
         const allListNames = await ResultPage.parseChildElementsUnlimitedForText();
         chai.assert.includeDeepMembers(allListNames, allSavedNames, 'Result list not contains 2 stored items from the previous search');
-        const allSavedData2 = await InfoGrabber.combineAllData();
-        chai.assert.equal(allSavedData2.firstItem, allSavedData1.secondItem, 'Stored data not matched');
+        secondModelsList = await InfoGrabber.returnAllModels()
+        chai.assert.equal(firstModelsList[0], secondModelsList[0], 'Stored data not matched');
     });
 
     after(async function() {

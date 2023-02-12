@@ -5,6 +5,7 @@ const DataProvider = require('../main/data_provider');
 const HomePage = require('../main/homepage');
 const PrivacyPage = require('../main/privacypage');
 const Browser = require('../main/browser');
+// const Models = require ('../main/models');
 // const ResultPage = require('../main/resultpage');
 // const InfoGrabber = require('../main/info_grabber');
 
