@@ -68,19 +68,6 @@ class BasePage extends Browser{
         const atr = element.getAttribute(attr);
         return atr;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
     static async parseTheChildElementsUnlimited(path, childPath, attr){
         const children = [];
         let counter = 1;
