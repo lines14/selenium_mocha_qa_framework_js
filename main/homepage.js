@@ -5,9 +5,6 @@ class HomePage extends BasePage{
     static async clickPrivacyPolicyButton(){
         await this.clickButtonByXpath("//div[@id = 'footer_text']//following-sibling::a[1]");
     }
-    static async inputFormAndEnter(text){
-        await this.enterTextByXpath("//input[@id = 'store_nav_search_term']", text)
-    }
 }
 
 module.exports = HomePage;

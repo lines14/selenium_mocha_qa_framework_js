@@ -5,14 +5,14 @@ const DataProvider = require('../main/data_provider');
 const HomePage = require('../main/homepage');
 const PrivacyPage = require('../main/privacypage');
 const Browser = require('../main/browser');
-// const Models = require ('../main/models');
+// const HeaderSearchField = require('../main/header_search_field');
 // const ResultPage = require('../main/resultpage');
 // const InfoGrabber = require('../main/info_grabber');
 
 describe('Test scenario: Privacy policy', function(){
    
     before(async function() {
-        await Browser.initTheDriver(DataProvider.getConfigData().browser);
+        await Browser.initTheDriver(DataProvider.getConfigData().chrome);
     });
 
     it('Privacy policy page is open in the new tab', async function(){

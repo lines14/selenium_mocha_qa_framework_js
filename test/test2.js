@@ -3,10 +3,9 @@
 const chai = require('chai');
 const DataProvider = require('../main/data_provider');
 const InfoGrabber = require('../main/info_grabber');
-const HomePage = require('../main/homepage');
 const ResultPage = require('../main/resultpage');
 const Browser = require('../main/browser');
-const Models = require ('../main/models');
+const HeaderSearchField = require('../main/header_search_field');
 // const PrivacyPage = require('../main/privacypage');
 
 describe('Test scenario: Game search', function(){
@@ -16,12 +15,12 @@ describe('Test scenario: Game search', function(){
     let secondModelsList;
 
     before(async function() {
-        await Browser.initTheDriver(DataProvider.getConfigData().browser);
+        await Browser.initTheDriver(DataProvider.getConfigData().chrome);
     });
 
     it('Dota 2 page is open', async function(){
         await Browser.go_to_url(DataProvider.getConfigData().url);
-        await HomePage.inputFormAndEnter(DataProvider.getTestData().firstGame)
+        await HeaderSearchField.inputFormAndEnter(DataProvider.getTestData().firstGame);
         const isResultPage = await ResultPage.verifyResultPageOpened();
         chai.assert.equal(isResultPage, true, 'Result page is not open');
     });
@@ -37,10 +36,10 @@ describe('Test scenario: Game search', function(){
     });
 
     it('Search box on second result page contains searched name', async function(){
-        firstModelsList = await InfoGrabber.returnAllModels()
+        firstModelsList = await InfoGrabber.getAllModels()
         allSavedNames = await InfoGrabber.namesAll();
         const secondName = allSavedNames[1].toString();
-        await ResultPage.inputFormAndEnter(secondName)
+        await HeaderSearchField.inputFormAndEnter(secondName);
         const value2 = await ResultPage.verifySearchBoxValue();
         chai.assert.equal(value2, secondName, 'Search box on second result page not contains searched name');
     });
@@ -48,7 +47,7 @@ describe('Test scenario: Game search', function(){
     it('Result list contains 2 stored items from the previous search. All stored data are matched', async function(){
         const allListNames = await ResultPage.parseChildElementsUnlimitedForText();
         chai.assert.includeDeepMembers(allListNames, allSavedNames, 'Result list not contains 2 stored items from the previous search');
-        secondModelsList = await InfoGrabber.returnAllModels()
+        secondModelsList = await InfoGrabber.getAllModels()
         chai.assert.equal(firstModelsList[0], secondModelsList[0], 'Stored data not matched');
     });
 

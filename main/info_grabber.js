@@ -1,6 +1,6 @@
-const fs = require('fs');
 const BasePage = require ('../main/basepage');
 const Models = require ('../main/models');
+// const fs = require('fs');
 const itemsCount = 2;
 const firstModel = new Models;
 const secondModel = new Models;
@@ -47,7 +47,7 @@ class InfoGrabber extends BasePage{
         secondModel.priceInToInstance = pricesAll[1];
         // return pricesAll;
     }
-    static async returnAllModels(){
+    static async getAllModels(){
         await this.namesAll(itemsCount);
         await this.platformsAll(itemsCount);
         await this.releaseDatesAll(itemsCount);

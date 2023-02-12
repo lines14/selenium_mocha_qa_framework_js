@@ -11,9 +11,6 @@ class ResultPage extends BasePage{
     static async verifyFirstNameInList(){
         return await this.verifyWebPageByCustomText("//*[@id='search_resultsRows']//a[1]//following-sibling::span[@class='title']");
     }
-    static async inputFormAndEnter(text){
-        await this.enterTextByXpath("//input[@id = 'store_nav_search_term']", text)
-    }
     static async parseChildElementsUnlimitedForText(){
         return await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']", "//a", "//following-sibling::span[@class='title']");
     }
