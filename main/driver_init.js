@@ -1,8 +1,8 @@
 const webdriver = require('selenium-webdriver');
 
-const driverInit = (function(){
+class DriverInit{
 
-    function initDriver(browser){
+    initDriver(browser){
         if (browser === 'chrome'){
             const chromeCapabilities = webdriver.Capabilities.chrome();
             const chromeOptions = {'args': ['--incognito']};
@@ -19,20 +19,33 @@ const driverInit = (function(){
             return driver;
         }
     }
+}
 
-    let driver;
-  
-    return {
-        getInstance: function(browser){
-            if (driver == null) {
-                driver = new initDriver(browser);
-                // Hide the constructor so the returned object can't be new'd
-                driver.constructor = null;
-            }
-            return driver;
-        }
-    }
+module.exports = new DriverInit();
 
-  })
+// class DriverInit{
 
-module.exports = driverInit();
+//     singletonFactory = (function(){
+//         function singleton(){
+//             const chromeCapabilities = webdriver.Capabilities.chrome();
+//             const chromeOptions = {'args': ['--incognito']};
+//             chromeCapabilities.set("goog:chromeOptions", chromeOptions);
+//             let driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(chromeCapabilities).build();
+//             driver.manage().window().maximize();
+//             // driver.manage().setTimeouts({implicit: (100000)});
+//             return driver;
+//         }
+      
+//         let driver;
+        
+//         return {
+//             getInstance: function(){
+//                 if (!driver){
+//                     driver = new singleton();
+//                     delete driver.constructor;
+//                 }
+//                 return driver;
+//             }
+//         }
+//     })();
+// }

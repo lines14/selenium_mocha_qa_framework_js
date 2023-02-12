@@ -2,13 +2,9 @@ const BasePage = require('../main/basepage');
 
 class HomePage extends BasePage{
 
-    static async inputFormAndEnter(path, text){
-        await this.enterTextByXpath(path, text)
+    static async clickPrivacyPolicyButton(){
+        await this.clickButtonByXpath("//div[@id = 'footer_text']//following-sibling::a[1]");
     }
-    static async clickPrivacyPolicyButton(path){
-        await this.clickButtonByXpath(path);
-    }
-
 }
 
 module.exports = HomePage;

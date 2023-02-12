@@ -2,16 +2,15 @@ const BasePage = require('../main/basepage');
 
 class LoginPage extends BasePage{
 
-    static async verifyLanguagesListOnPrivacyPage(path){
-        return await this.verifyWebPageByDisplayedElement(path)
+    static async verifyLanguagesListOnPrivacyPage(){
+        return await this.verifyWebPageByDisplayedElement("//*[@id='languages']")
     }
-    static async parseChildElementsUnlimited(path, childPath, attr){
-        return await this.parseTheChildElementsUnlimited(path, childPath, attr);
+    static async parseChildElementsUnlimited(){
+        return await this.parseTheChildElementsUnlimited("//*[@id='languages']", "//a", 'href');
     }
-    static async checkPolicySignYear(path){
-        return await this.verifyWebPageByCustomText(path)
+    static async checkPolicySignYear(){
+        return await this.verifyWebPageByCustomText("//div[@id = 'newsColumn']//i[contains(text(), '2023')]")
     }
-    
 }
 
 module.exports = LoginPage;
