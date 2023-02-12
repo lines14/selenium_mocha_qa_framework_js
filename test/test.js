@@ -1,13 +1,13 @@
-// to run the tests you may execute console command "npm run test1 && npm run test2" if preinstalled "mocha" and "chai" modules
+// to run the tests you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-const DataProvider = require('../main/data_provider');
-const HomePage = require('../main/homepage');
-const PrivacyPage = require('../main/privacypage');
-const Browser = require('../main/browser');
-const HeaderSearchField = require('../main/header_search_field');
-const ResultPage = require('../main/resultpage');
-const InfoGrabber = require('../main/info_grabber');
+let DataProvider = require('../main/data_provider');
+let HomePage = require('../main/homepage');
+let PrivacyPage = require('../main/privacypage');
+let Browser = require('../main/browser');
+let HeaderSearchField = require('../main/header_search_field');
+let ResultPage = require('../main/resultpage');
+let InfoGrabber = require('../main/info_grabber');
 
 describe('Test scenario: Privacy policy', function(){
    

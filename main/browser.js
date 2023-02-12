@@ -3,7 +3,7 @@ const driverInit = require('../main/driver_init');
 class Browser{
 
     static async initTheDriver(browser){
-        this.driver = await driverInit.getInstance(browser);
+        this.driver = await driverInit.initDriver(browser);
     }
     static async go_to_url(theURL){
         await this.driver.get(theURL);
