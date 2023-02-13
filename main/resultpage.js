@@ -9,7 +9,7 @@ class ResultPage extends BasePage{
         return await this.verifyWebElementAttributeValue("//div[@class = 'searchbar_left']//input[@type = 'text']", 'value');
     }
     static async verifyFirstNameInList(){
-        return await this.verifyWebPageByCustomText("//*[@id='search_resultsRows']//a[1]//following-sibling::span[@class='title']");
+        return await this.verifyWebPageByCustomText("//*[@id='search_resultsRows']//a//following-sibling::span[@class='title']");
     }
     static async parseResultPageElementsUnlimitedForNames(){
         let textList = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a");

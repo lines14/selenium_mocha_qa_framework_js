@@ -5,7 +5,7 @@ class InfoGrabber extends BasePage{
 
     static async namesAll(){
         const twoNames = [];
-        const namesAll = await this.parseTheChildElementsUnlimitedForText('//*[@id="search_resultsRows"]//a//div[2]/div[1]/span');
+        const namesAll = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a//following-sibling::span[@class='title']");
         twoNames.push(namesAll[0]);
         twoNames.push(namesAll[1]);
         return twoNames;
@@ -15,7 +15,7 @@ class InfoGrabber extends BasePage{
         const platformsListAll = [];
         let counter = 1;
         while (counter <= itemsCount){
-            const platformsList = await this.parseTheChildElementsUnlimitedByCounter(`//*[@id="search_resultsRows"]//a[${counter}]//div[2]//div[1]//div//span`, 'class');
+            const platformsList = await this.parseTheChildElementsUnlimitedByCounter(`//*[@id="search_resultsRows"]//a[${counter}]//following-sibling::span[@class='platform_img']`, 'class');
             platformsListAll.push(platformsList);
             counter += 1;
         }
@@ -24,17 +24,17 @@ class InfoGrabber extends BasePage{
         return platformsListAll;
     }
     static async releaseDatesAll(){
-        const releaseDatesAll = await this.parseTheChildElementsUnlimitedForText('//*[@id="search_resultsRows"]//a//div[2]/div[2]');
+        const releaseDatesAll = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a//following-sibling::span[@class='search_released']");
         return releaseDatesAll;
     }
     static async reviewSummarysAll(){
-        const reviewSummarysAll = await this.parseTheChildElementsUnlimitedForAttr('//*[@id="search_resultsRows"]/a/div[2]/div[3]/span', 'class');
+        const reviewSummarysAll = await this.parseTheChildElementsUnlimitedForAttr("//*[@id='search_resultsRows']/a/div[2]/div[3]/span", 'class');
         reviewSummarysAll[0] = reviewSummarysAll[0].toString().replace("search_review_summary ", "").split().toString();
         reviewSummarysAll[1] = reviewSummarysAll[1].toString().replace("search_review_summary ", "").split().toString();
         return reviewSummarysAll;
     }
     static async pricesAll(){
-        const pricesAll = await this.parseTheChildElementsUnlimitedForText('//*[@id="search_resultsRows"]/a/div[2]/div[4]/div[2]');
+        const pricesAll = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a//following-sibling::div[@class='search_price']");
         return pricesAll;
     }
     static async modelsCreator(){
