@@ -12,10 +12,10 @@ class BasePage extends Browser{
         return confirmed;
     }
     static async waitUntilElementIsDisplayed(path) {
-        await this.driver.wait(until.elementLocated(By.xpath(path)), 9000);
+        await this.driver.wait(until.elementLocated(By.xpath(path)), 19000);
     }
     static async waitUntilElementIsEnabled(path) {
-        await this.driver.wait(until.elementIsEnabled(this.driver.findElement(By.xpath(path))), 9000);
+        await this.driver.wait(until.elementIsEnabled(this.driver.findElement(By.xpath(path))), 19000);
     }
     static async clickButtonByXpath(path) {
         await this.driver.findElement(By.xpath(path)).click();

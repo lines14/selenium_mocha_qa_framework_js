@@ -2,6 +2,9 @@ const BasePage = require('../main/basepage');
 
 class LoginPage extends BasePage{
 
+    static async waitForLanguagesList(){
+        await this.waitUntilElementIsDisplayed("//*[@id='languages']")
+    }
     static async verifyLanguagesListOnPrivacyPage(){
         return await this.verifyWebPageByDisplayedElement("//*[@id='languages']")
     }

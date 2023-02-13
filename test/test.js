@@ -25,6 +25,7 @@ describe('Test scenario: Privacy policy', function(){
 
     it('Switch language elements list displayed. Supported languages: English, Spanish, French, German, Italian, Russian, Japanese, Portuguese, Brazilian', async function(){
         await Browser.switchDriverToTheAnotherTab(1);
+        await PrivacyPage.waitForLanguagesList();
         const listStatus = await PrivacyPage.verifyLanguagesListOnPrivacyPage();
         chai.assert.equal(listStatus, true, 'Switch language elements list is not displayed');
         const languagesList = await PrivacyPage.parseLanguages();
