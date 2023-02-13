@@ -27,7 +27,7 @@ describe('Test scenario: Privacy policy', function(){
         await Browser.switchDriverToTheAnotherTab(1);
         const listStatus = await PrivacyPage.verifyLanguagesListOnPrivacyPage();
         chai.assert.equal(listStatus, true, 'Switch language elements list is not displayed');
-        const languagesList = await PrivacyPage.parseChildElementsUnlimited();
+        const languagesList = await PrivacyPage.parseLanguages();
         chai.assert.equal(languagesList.map(a => a.slice(49, a.length-1)).toString(), DataProvider.getTestData().languagesList, 'Supported languages list is not complete');
     });
 
