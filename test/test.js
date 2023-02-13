@@ -1,14 +1,13 @@
 // to run the tests you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-let DataProvider = require('../main/data_provider');
-let HomePage = require('../main/homepage');
-let PrivacyPage = require('../main/privacypage');
-let Browser = require('../main/browser');
-let HeaderSearchField = require('../main/header_search_field');
-let ResultPage = require('../main/resultpage');
-let InfoGrabber = require('../main/info_grabber');
-const Models = require ('../main/models');
+const DataProvider = require('../main/data_provider');
+const HomePage = require('../main/homepage');
+const PrivacyPage = require('../main/privacypage');
+const Browser = require('../main/browser');
+const HeaderSearchField = require('../main/header_search_field');
+const ResultPage = require('../main/resultpage');
+const InfoGrabber = require('../main/info_grabber');
 
 describe('Test scenario: Privacy policy', function(){
    
@@ -45,9 +44,7 @@ describe('Test scenario: Privacy policy', function(){
 });
 
 describe('Test scenario: Game search', function(){
-   
-    const firstModel = new Models();
-    const secondModel = new Models();
+
     let twoNames;
     let firstModelsList;
 
@@ -73,23 +70,8 @@ describe('Test scenario: Game search', function(){
     });
 
     it('Search box on second result page contains searched name', async function(){
-        let platformsListAll = await InfoGrabber.platformsAll()
-        firstModel.platforms = platformsListAll[0];
-        secondModel.platforms = platformsListAll[1];
-        let releaseDatesAll = await InfoGrabber.releaseDatesAll()
-        firstModel.releaseDate = releaseDatesAll[0];
-        secondModel.releaseDate = releaseDatesAll[1];
-        let reviewSummarysAll = await InfoGrabber.reviewSummarysAll()
-        firstModel.feedback = reviewSummarysAll[0];
-        secondModel.feedback = reviewSummarysAll[1];
-        let pricesAll = await InfoGrabber.pricesAll()
-        firstModel.price = pricesAll[0];
-        secondModel.price = pricesAll[1];
+        firstModelsList = await InfoGrabber.modelsCreator();
         twoNames = await InfoGrabber.namesAll();
-        firstModel.name = twoNames[0];
-        secondModel.name = twoNames[1];
-        firstModelsList = [JSON.stringify(firstModel), JSON.stringify(secondModel)];
-
         const secondName = twoNames[1].toString();
         await HeaderSearchField.inputFormAndEnter(secondName);
         const value2 = await ResultPage.verifySearchBoxValue();
@@ -99,25 +81,8 @@ describe('Test scenario: Game search', function(){
     it('Result list contains 2 stored items from the previous search. All stored data are matched', async function(){
         const allListNames = await ResultPage.parseResultPageElementsUnlimitedForNames();
         chai.assert.includeDeepMembers(allListNames, twoNames, 'Result list not contains 2 stored items from the previous search');
-
-        let platformsListAll = await InfoGrabber.platformsAll()
-        firstModel.platforms = platformsListAll[0];
-        secondModel.platforms = platformsListAll[1];
-        let releaseDatesAll = await InfoGrabber.releaseDatesAll()
-        firstModel.releaseDate = releaseDatesAll[0];
-        secondModel.releaseDate = releaseDatesAll[1];
-        let reviewSummarysAll = await InfoGrabber.reviewSummarysAll()
-        firstModel.feedback = reviewSummarysAll[0];
-        secondModel.feedback = reviewSummarysAll[1];
-        let pricesAll = await InfoGrabber.pricesAll()
-        firstModel.price = pricesAll[0];
-        secondModel.price = pricesAll[1];
-        twoNames = await InfoGrabber.namesAll();
-        firstModel.name = twoNames[0];
-        secondModel.name = twoNames[1];
-        let secondModelsList = [JSON.stringify(firstModel), JSON.stringify(secondModel)];
-
-        chai.assert.deepEqual(firstModelsList[0], secondModelsList[1], 'Stored data not matched');
+        secondModelsList = await InfoGrabber.modelsCreator();
+        chai.assert.equal(firstModelsList[0], secondModelsList[1], 'Stored data not matched');
     });
 
     after(async function() {

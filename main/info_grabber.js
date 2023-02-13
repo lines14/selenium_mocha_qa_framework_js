@@ -1,4 +1,7 @@
 const BasePage = require ('../main/basepage');
+const Models = require ('../main/models');
+const firstModel = new Models();
+const secondModel = new Models();
 
 class InfoGrabber extends BasePage{
 
@@ -35,6 +38,30 @@ class InfoGrabber extends BasePage{
     static async pricesAll(){
         const pricesAll = await this.parseTheChildElementsUnlimitedForText('//*[@id="search_resultsRows"]/a/div[2]/div[4]/div[2]');
         return pricesAll;
+    }
+    static async modelsCreator(){
+        const platformsListAll = await InfoGrabber.platformsAll()
+        firstModel.platforms = platformsListAll[0];
+        secondModel.platforms = platformsListAll[1];
+
+        const releaseDatesAll = await InfoGrabber.releaseDatesAll()
+        firstModel.releaseDate = releaseDatesAll[0];
+        secondModel.releaseDate = releaseDatesAll[1];
+
+        const reviewSummarysAll = await InfoGrabber.reviewSummarysAll()
+        firstModel.feedback = reviewSummarysAll[0];
+        secondModel.feedback = reviewSummarysAll[1];
+
+        const pricesAll = await InfoGrabber.pricesAll()
+        firstModel.price = pricesAll[0];
+        secondModel.price = pricesAll[1];
+
+        const twoNames = await InfoGrabber.namesAll();
+        firstModel.name = twoNames[0];
+        secondModel.name = twoNames[1];
+
+        const modelsList = [JSON.stringify(firstModel), JSON.stringify(secondModel)];
+        return modelsList;
     }
 }
 
