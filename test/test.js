@@ -1,13 +1,13 @@
 // to run the tests you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-let DataProvider = require('../main/data_provider');
-let HomePage = require('../main/homepage');
-let PrivacyPage = require('../main/privacypage');
-let Browser = require('../main/browser');
-let HeaderSearchField = require('../main/header_search_field');
-let ResultPage = require('../main/resultpage');
-let InfoGrabber = require('../main/info_grabber');
+const DataProvider = require('../main/data_provider');
+const HomePage = require('../main/homepage');
+const PrivacyPage = require('../main/privacypage');
+const Browser = require('../main/browser');
+const HeaderSearchField = require('../main/header_search_field');
+const ResultPage = require('../main/resultpage');
+const InfoGrabber = require('../main/info_grabber');
 
 describe('Test scenario: Privacy policy', function(){
    
@@ -44,10 +44,9 @@ describe('Test scenario: Privacy policy', function(){
 });
 
 describe('Test scenario: Game search', function(){
-   
+
     let twoNames;
     let firstModelsList;
-    let secondModelsList;
 
     before(async function() {
         await Browser.initTheDriver(DataProvider.getConfigData().chrome);
@@ -68,10 +67,10 @@ describe('Test scenario: Game search', function(){
     it('The first name is equal to searched name', async function(){
         const name = await ResultPage.verifyFirstNameInList();
         chai.assert.equal(name, 'Dota 2', 'The first name is not equal to searched name'); 
-        firstModelsList = await InfoGrabber.getAllModels()
     });
 
     it('Search box on second result page contains searched name', async function(){
+        firstModelsList = await InfoGrabber.modelsCreator();
         twoNames = await InfoGrabber.namesAll();
         const secondName = twoNames[1].toString();
         await HeaderSearchField.inputFormAndEnter(secondName);
@@ -82,8 +81,8 @@ describe('Test scenario: Game search', function(){
     it('Result list contains 2 stored items from the previous search. All stored data are matched', async function(){
         const allListNames = await ResultPage.parseResultPageElementsUnlimitedForNames();
         chai.assert.includeDeepMembers(allListNames, twoNames, 'Result list not contains 2 stored items from the previous search');
-        secondModelsList = await InfoGrabber.getAllModels()
-        chai.assert.equal(firstModelsList[0], secondModelsList[0], 'Stored data not matched');
+        secondModelsList = await InfoGrabber.modelsCreator();
+        chai.assert.equal(firstModelsList[0], secondModelsList[1], 'Stored data not matched');
     });
 
     after(async function() {

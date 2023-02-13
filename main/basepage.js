@@ -44,6 +44,20 @@ class BasePage extends Browser{
         const atr = element.getAttribute(attr);
         return atr;
     }
+    static async parseTheChildElementsUnlimitedForAttr(path, attr){
+        const children = await this.driver.findElements(By.xpath(path));
+        const childrenAttr = children.map(element => element.getAttribute(attr));
+        return Promise.all(childrenAttr).then(function(resolvedAttr){
+            return resolvedAttr;
+        })
+    }
+    static async parseTheChildElementsUnlimitedForText(path){
+        const children = await this.driver.findElements(By.xpath(path));
+        const childrenText = children.map(element => element.getText());
+        return Promise.all(childrenText).then(function(resolvedText){
+            return resolvedText;
+        }) 
+    }
     static async parseTheChildElementsUnlimitedByCounter(path, attr){
         const children = [];
         let counter = 1;
@@ -59,20 +73,6 @@ class BasePage extends Browser{
         return Promise.all(children).then(function(atr) {
             return atr;
         })
-    }
-    static async parseTheChildElementsUnlimitedForAttr(path, attr){
-        const children = await this.driver.findElements(By.xpath(path));
-        const childrenAttr = children.map(element => element.getAttribute(attr));
-        return Promise.all(childrenAttr).then(function(resolvedAttr){
-            return resolvedAttr;
-        })
-    }
-    static async parseTheChildElementsUnlimitedForText(path){
-        const children = await this.driver.findElements(By.xpath(path));
-        const childrenText = children.map(element => element.getText());
-        return Promise.all(childrenText).then(function(resolvedText){
-            return resolvedText;
-        }) 
     }
 }
 
