@@ -1,7 +1,5 @@
 const BasePage = require ('../main/basepage');
 const Models = require ('../main/models');
-const firstModel = new Models();
-const secondModel = new Models();
 
 class InfoGrabber extends BasePage{
 
@@ -40,6 +38,9 @@ class InfoGrabber extends BasePage{
         return pricesAll;
     }
     static async modelsCreator(){
+        const firstModel = new Models();
+        const secondModel = new Models();
+
         const platformsListAll = await InfoGrabber.platformsAll()
         firstModel.platforms = platformsListAll[0];
         secondModel.platforms = platformsListAll[1];
