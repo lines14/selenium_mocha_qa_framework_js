@@ -11,8 +11,10 @@ class ResultPage extends BasePage{
     static async verifyFirstNameInList(){
         return await this.verifyWebPageByCustomText("//*[@id='search_resultsRows']//a[1]//following-sibling::span[@class='title']");
     }
-    static async parseChildElementsUnlimitedForText(){
-        return await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']", "//a", "//following-sibling::span[@class='title']");
+    static async parseResultPageElementsUnlimitedForNames(){
+        let textList = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a");
+        let namesList = textList.map(element => element.split('\n')[0].toString());
+        return namesList;
     }
 }
 

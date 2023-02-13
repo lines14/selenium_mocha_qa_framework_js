@@ -10,7 +10,7 @@ const HeaderSearchField = require('../main/header_search_field');
 
 describe('Test scenario: Game search', function(){
    
-    let allSavedNames;
+    let twoNames;
     let firstModelsList;
     let secondModelsList;
 
@@ -33,22 +33,24 @@ describe('Test scenario: Game search', function(){
     it('The first name is equal to searched name', async function(){
         const name = await ResultPage.verifyFirstNameInList();
         chai.assert.equal(name, 'Dota 2', 'The first name is not equal to searched name'); 
+        firstModelsList = await InfoGrabber.getAllModels()
     });
 
     it('Search box on second result page contains searched name', async function(){
-        firstModelsList = await InfoGrabber.getAllModels()
-        allSavedNames = await InfoGrabber.namesAll();
-        const secondName = allSavedNames[1].toString();
+        twoNames = await InfoGrabber.namesAll();
+        const secondName = twoNames[1].toString();
         await HeaderSearchField.inputFormAndEnter(secondName);
         const value2 = await ResultPage.verifySearchBoxValue();
         chai.assert.equal(value2, secondName, 'Search box on second result page not contains searched name');
     });
 
     it('Result list contains 2 stored items from the previous search. All stored data are matched', async function(){
-        const allListNames = await ResultPage.parseChildElementsUnlimitedForText();
-        chai.assert.includeDeepMembers(allListNames, allSavedNames, 'Result list not contains 2 stored items from the previous search');
+        const allListNames = await ResultPage.parseResultPageElementsUnlimitedForNames();
+        chai.assert.includeDeepMembers(allListNames, twoNames, 'Result list not contains 2 stored items from the previous search');
         secondModelsList = await InfoGrabber.getAllModels()
         chai.assert.equal(firstModelsList[0], secondModelsList[0], 'Stored data not matched');
+        console.log(firstModelsList)
+        console.log(secondModelsList)
     });
 
     after(async function() {

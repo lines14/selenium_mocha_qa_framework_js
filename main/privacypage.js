@@ -5,8 +5,8 @@ class LoginPage extends BasePage{
     static async verifyLanguagesListOnPrivacyPage(){
         return await this.verifyWebPageByDisplayedElement("//*[@id='languages']")
     }
-    static async parseChildElementsUnlimited(){
-        return await this.parseTheChildElementsUnlimited("//*[@id='languages']", "//a", 'href');
+    static async parseLanguages(){
+        return await this.parseTheChildElementsUnlimitedForAttr("//*[@id='languages']//a", 'href');
     }
     static async checkPolicySignYear(){
         return await this.verifyWebPageByCustomText("//div[@id = 'newsColumn']//i[contains(text(), '2023')]")
