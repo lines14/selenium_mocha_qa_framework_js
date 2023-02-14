@@ -1,16 +1,15 @@
 const BasePage = require ('../main/basepage');
 const Models = require ('../main/models');
 
-class InfoGrabber extends BasePage{
-
-    static async namesAll(){
+class InfoGrabber extends BasePage {
+    static async namesAll() {
         const twoNames = [];
         const namesAll = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a//following-sibling::span[@class='title']");
         twoNames.push(namesAll[0]);
         twoNames.push(namesAll[1]);
         return twoNames;
     }
-    static async platformsAll(){
+    static async platformsAll() {
         const itemsCount = 2;
         const platformsListAll = [];
         let counter = 1;
@@ -23,21 +22,21 @@ class InfoGrabber extends BasePage{
         platformsListAll[1] = platformsListAll[1].toString().replace(/platform_img /g, "").split().toString();
         return platformsListAll;
     }
-    static async releaseDatesAll(){
+    static async releaseDatesAll() {
         const releaseDatesAll = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a//following-sibling::span[@class='search_released']");
         return releaseDatesAll;
     }
-    static async reviewSummarysAll(){
+    static async reviewSummarysAll() {
         const reviewSummarysAll = await this.parseTheChildElementsUnlimitedForAttr("//*[@id='search_resultsRows']/a/div[2]/div[3]/span", 'class');
         reviewSummarysAll[0] = reviewSummarysAll[0].toString().replace("search_review_summary ", "").split().toString();
         reviewSummarysAll[1] = reviewSummarysAll[1].toString().replace("search_review_summary ", "").split().toString();
         return reviewSummarysAll;
     }
-    static async pricesAll(){
+    static async pricesAll() {
         const pricesAll = await this.parseTheChildElementsUnlimitedForText("//*[@id='search_resultsRows']//a//following-sibling::div[@class='search_price']");
         return pricesAll;
     }
-    static async modelsCreator(){
+    static async modelsCreator() {
         const firstModel = new Models();
         const secondModel = new Models();
 

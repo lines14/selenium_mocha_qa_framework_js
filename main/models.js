@@ -1,5 +1,4 @@
-class Models{
-
+class Models {
     name = null;
     platforms = null;
     releaseDate = null;

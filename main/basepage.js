@@ -1,8 +1,7 @@
 const {By, until, Key} = require('selenium-webdriver');
 const Browser = require('../main/browser');
 
-class BasePage extends Browser{
-
+class BasePage extends Browser {
     static async verifyWebPageByCustomText(path) {
         const text = await this.driver.findElement(By.xpath(path)).getText();
         return text;
@@ -29,20 +28,20 @@ class BasePage extends Browser{
     static async clickButtonByCss(path) {
         await this.driver.findElement(By.css(path)).click();
     }
-    static async inputTextByCss(css, text){
+    static async inputTextByCss(css, text) {
         await this.driver.findElement(By.css(css)).sendKeys(text);
     }
-    static async inputTextByXpath(path, text){
+    static async inputTextByXpath(path, text) {
         await this.driver.findElement(By.xpath(path)).sendKeys(text);
     }
-    static async enterTextByXpath(path, text){
+    static async enterTextByXpath(path, text) {
         await this.driver.findElement(By.xpath(path)).sendKeys(text, Key.ENTER);
     }
     static async checkElementIsEnabled(path) {
         const enabledElement = await this.driver.findElement(By.xpath(path)).isEnabled();
         return enabledElement;
     }
-    static async clickById(id){
+    static async clickById(id) {
         await this.driver.findElement(By.id(id)).click();
     }
     static async verifyWebElementAttributeValue(path, attr) {
@@ -50,21 +49,21 @@ class BasePage extends Browser{
         const atr = element.getAttribute(attr);
         return atr;
     }
-    static async parseTheChildElementsUnlimitedForAttr(path, attr){
+    static async parseTheChildElementsUnlimitedForAttr(path, attr) {
         const children = await this.driver.findElements(By.xpath(path));
         const childrenAttr = children.map(element => element.getAttribute(attr));
-        return Promise.all(childrenAttr).then(function(resolvedAttr){
+        return Promise.all(childrenAttr).then(function(resolvedAttr) {
             return resolvedAttr;
         })
     }
-    static async parseTheChildElementsUnlimitedForText(path){
+    static async parseTheChildElementsUnlimitedForText(path) {
         const children = await this.driver.findElements(By.xpath(path));
         const childrenText = children.map(element => element.getText());
-        return Promise.all(childrenText).then(function(resolvedText){
+        return Promise.all(childrenText).then(function(resolvedText) {
             return resolvedText;
         }) 
     }
-    static async parseTheChildElementsUnlimitedByCounter(path, attr){
+    static async parseTheChildElementsUnlimitedByCounter(path, attr) {
         const children = [];
         let counter = 1;
         while (true) {
