@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "resolve-nested-promises": "^1.1.0",
+    "selenium-webdriver": "^4.8.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha test/test.js --timeout 20000",
+    "test1": "node_modules/.bin/mocha test/test1.js --timeout 20000",
+    "test2": "node_modules/.bin/mocha test/test2.js --timeout 20000"
+  }
+}
