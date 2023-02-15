@@ -1,10 +1,10 @@
 // to run the tests you may execute console command "npm run test1 && npm run test2" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-const DataProvider = require('../main/data_provider');
+const dataProvider = require('../main/data_provider');
 const infoGrabber = require('../main/info_grabber');
 const resultPage = require('../main/resultpage');
-const Browser = require('../main/browser');
+const browser = require('../main/browser');
 const headerSearchBar = require('../main/header_search_field');
 // const privacyPage = require('../main/privacypage');
 
@@ -14,12 +14,12 @@ describe('Test scenario: Game search', function() {
     let firstModelsList;
 
     before(async function() {
-        await Browser.initTheDriver(DataProvider.getConfigData().chrome);
+        await browser.initTheDriver(dataProvider.getConfigData().chrome);
     });
 
     it('Dota 2 page is open', async function() {
-        await Browser.go_to_url(DataProvider.getConfigData().url);
-        await headerSearchBar.inputFormAndEnter(DataProvider.getTestData().firstGame);
+        await browser.go_to_url(dataProvider.getConfigData().url);
+        await headerSearchBar.inputFormAndEnter(dataProvider.getTestData().firstGame);
         const isResultPage = await resultPage.verifyResultPageOpened();
         chai.assert.equal(isResultPage, true, 'Result page is not open');
     });
@@ -51,7 +51,7 @@ describe('Test scenario: Game search', function() {
     });
 
     after(async function() {
-        await Browser.quitDriver();
+        await browser.quitDriver();
     });
     
 });

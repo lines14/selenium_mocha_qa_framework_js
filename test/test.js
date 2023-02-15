@@ -1,34 +1,34 @@
 // to run the tests you may execute console command "npm test" if preinstalled "mocha" and "chai" modules
 
 const chai = require('chai');
-const DataProvider = require('../main/data_provider');
+const dataProvider = require('../main/data_provider');
 const homePage = require('../main/homepage');
 const privacyPage = require('../main/privacypage');
-const Browser = require('../main/browser');
+const browser = require('../main/browser');
 const headerSearchField = require('../main/header_search_field');
 const resultPage = require('../main/resultpage');
 const infoGrabber = require('../main/info_grabber');
 
 describe('Test scenario: Privacy policy', function() {
     before(async function() {
-        await Browser.initTheDriver(DataProvider.getConfigData().chrome);
+        await browser.initTheDriver(dataProvider.getConfigData().chrome);
     });
 
     it('Privacy policy page is open in the new tab', async function() {
-        await Browser.go_to_url(DataProvider.getConfigData().url);
-        await Browser.scrollToTheBottom();
+        await browser.go_to_url(dataProvider.getConfigData().url);
+        await browser.scrollToTheBottom();
         await homePage.clickPrivacyPolicyButton();
-        const tabsCount = await Browser.checkTheTabsCount();
+        const tabsCount = await browser.checkTheTabsCount();
         chai.assert.equal(tabsCount, 2, 'Privacy policy page is not open in the new tab');
     });
 
     it('Switch language elements list displayed. Supported languages: English, Spanish, French, German, Italian, Russian, Japanese, Portuguese, Brazilian', async function() {
-        await Browser.switchDriverToTheAnotherTab(1);
+        await browser.switchDriverToTheAnotherTab(1);
         await privacyPage.waitForLanguagesList();
         const listStatus = await privacyPage.verifyLanguagesListOnPrivacyPage();
         chai.assert.equal(listStatus, true, 'Switch language elements list is not displayed');
         const languagesList = await privacyPage.parseLanguages();
-        chai.assert.equal(languagesList.map(a => a.slice(49, a.length-1)).toString(), DataProvider.getTestData().languagesList, 'Supported languages list is not complete');
+        chai.assert.equal(languagesList.map(a => a.slice(49, a.length-1)).toString(), dataProvider.getTestData().languagesList, 'Supported languages list is not complete');
     });
 
     it('Policy revision signed in the current year', async function() {
@@ -38,7 +38,7 @@ describe('Test scenario: Privacy policy', function() {
     });
 
     after(async function() {
-        await Browser.quitDriver();
+        await browser.quitDriver();
     });
 });
 
@@ -47,12 +47,12 @@ describe('Test scenario: Game search', function() {
     let firstModelsList;
 
     before(async function() {
-        await Browser.initTheDriver(DataProvider.getConfigData().chrome);
+        await browser.initTheDriver(dataProvider.getConfigData().chrome);
     });
 
     it('Dota 2 page is open', async function() {
-        await Browser.go_to_url(DataProvider.getConfigData().url);
-        await headerSearchField.inputFormAndEnter(DataProvider.getTestData().firstGame);
+        await browser.go_to_url(dataProvider.getConfigData().url);
+        await headerSearchField.inputFormAndEnter(dataProvider.getTestData().firstGame);
         const isResultPage = await resultPage.verifyResultPageOpened();
         chai.assert.equal(isResultPage, true, 'Result page is not open');
     });
@@ -84,6 +84,6 @@ describe('Test scenario: Game search', function() {
     });
 
     after(async function() {
-        await Browser.quitDriver();
+        await browser.quitDriver();
     }); 
 });
