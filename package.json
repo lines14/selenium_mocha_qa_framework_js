@@ -1,7 +1,6 @@
 {
   "devDependencies": {
     "chai": "^4.3.7",
-    "chromedriver": "^110.0.0",
     "mocha": "^10.2.0",
     "resolve-nested-promises": "^1.1.0",
     "selenium-webdriver": "^4.8.0"
