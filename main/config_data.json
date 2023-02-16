@@ -1,5 +1,4 @@
 {
-  "chrome": "chrome",
-  "firefox": "firefox",
+  "browser": "chrome",
   "url": "https://store.steampowered.com/"
 }
