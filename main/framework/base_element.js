@@ -1,4 +1,4 @@
-const DriverInit = require('../main/driver_init');
+const DriverInit = require('./driver_init');
 const {By, until, Key} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
 
@@ -9,10 +9,10 @@ class BaseElement {
         this.driver = DriverInit.getInstance();
     }
     async getElement() {
-        return await this.driver.findElement(By.xpath(this.uniqueLocator));
+        return await this.driver.findElement(this.uniqueLocator);
     }
     async getElements() {
-        return await this.driver.findElements(By.xpath(this.uniqueLocator));
+        return await this.driver.findElements(this.uniqueLocator);
     }
     async getText() {
         const element = await this.getElement();
@@ -70,13 +70,13 @@ class BaseElement {
         return resolveNestedPromises(platformsListAll);
     }
     async boolWaitIsLocated() {
-        await this.driver.wait(until.elementLocated(By.xpath(this.uniqueLocator)), 19000);
+        await this.driver.wait(until.elementLocated(this.uniqueLocator), 19000);
     }
     async boolWaitIsVisible() {
         await this.waitBoolIsLocated().then(element => {return this.driver.wait(until.elementIsVisible(element), 19000)});
     }
     async boolWaitStalenessOf() {
-        await this.driver.wait(until.stalenessOf(By.xpath(this.uniqueLocator)), 19000);
+        await this.driver.wait(until.stalenessOf(this.uniqueLocator), 19000);
     }
     async boolWaitIsEnabled() {
         await this.driver.wait(until.elementIsEnabled(this.getElement(), 19000));

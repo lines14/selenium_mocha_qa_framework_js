@@ -2,12 +2,12 @@
 
 const chai = require('chai');
 const dataProvider = require('../main/data_provider');
-const homePage = require('../main/homepage');
-const privacyPage = require('../main/privacypage');
-const browser = require('../main/browser');
-// const headerSearchField = require('../main/header_search_field');
-// const resultPage = require('../main/resultpage');
-// const infoGrabber = require('../main/info_grabber');
+const homePage = require('../main/page_objects/homepage');
+const privacyPage = require('../main/page_objects/privacypage');
+const browser = require('../main/framework/browser');
+// const headerSearchForm = require('../main/page_objects/header_search_form');
+// const resultPage = require('../main/page_objects/resultpage');
+// const infoGrabber = require('../main/framework/info_grabber');
 
 describe('Test scenario: Privacy policy', function(){
    

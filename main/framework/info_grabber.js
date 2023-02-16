@@ -1,13 +1,14 @@
-const BaseElement = require('../main/base_element');
-const Models = require ('../main/models');
+const BaseElement = require('./base_element');
+const Models = require ('./models');
+const {By} = require('selenium-webdriver');
 
 class InfoGrabber {
     constructor() {
-        this.allNames = new BaseElement("//*[@id='search_resultsRows']//a//following-sibling::span[@class='title']", 'all names in list');
+        this.allNames = new BaseElement(By.xpath("//*[@id='search_resultsRows']//a//following-sibling::span[@class='title']"), 'all names in list');
         this.allPlatforms = new BaseElement("//*[@id='search_resultsRows']//a", 'all platforms in list');
-        this.allDates = new BaseElement("//*[@id='search_resultsRows']//a//following-sibling::span[@class='search_released']", 'all dates in list');
-        this.allSummaries = new BaseElement("//*[@id='search_resultsRows']/a/div[2]/div[3]/span", 'all summaries in list');
-        this.allPrices = new BaseElement("//*[@id='search_resultsRows']//a//following-sibling::div[@class='search_price']", 'all prices in list');
+        this.allDates = new BaseElement(By.xpath("//*[@id='search_resultsRows']//a//following-sibling::span[@class='search_released']"), 'all dates in list');
+        this.allSummaries = new BaseElement(By.xpath("//*[@id='search_resultsRows']/a/div[2]/div[3]/span"), 'all summaries in list');
+        this.allPrices = new BaseElement(By.xpath("//*[@id='search_resultsRows']//a//following-sibling::div[@class='search_price']"), 'all prices in list');
     }
     async namesAll() {
         const twoNames = [];

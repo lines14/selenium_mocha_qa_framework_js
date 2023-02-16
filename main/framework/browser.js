@@ -1,4 +1,4 @@
-const DriverInit = require('../main/driver_init');
+const DriverInit = require('./driver_init');
 
 class Browser {
     async initTheDriver(browser) {

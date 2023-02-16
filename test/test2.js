@@ -2,11 +2,11 @@
 
 const chai = require('chai');
 const dataProvider = require('../main/data_provider');
-const infoGrabber = require('../main/info_grabber');
-const resultPage = require('../main/resultpage');
-const browser = require('../main/browser');
-const headerSearchBar = require('../main/header_search_field');
-// const privacyPage = require('../main/privacypage');
+const infoGrabber = require('../main/framework/info_grabber');
+const resultPage = require('../main/page_objects/resultpage');
+const browser = require('../main/framework/browser');
+const headerSearchForm = require('../main/page_objects/header_search_form');
+// const privacyPage = require('../main/page_objects/privacypage');
 
 describe('Test scenario: Game search', function() {
 
@@ -19,7 +19,7 @@ describe('Test scenario: Game search', function() {
 
     it('Dota 2 page is open', async function() {
         await browser.go_to_url(dataProvider.getConfigData().url);
-        await headerSearchBar.inputFormAndEnter(dataProvider.getTestData().firstGame);
+        await headerSearchForm.inputFormAndEnter(dataProvider.getTestData().firstGame);
         const isResultPage = await resultPage.verifyResultPageOpened();
         chai.assert.equal(isResultPage, true, 'Result page is not open');
     });
@@ -38,7 +38,7 @@ describe('Test scenario: Game search', function() {
         firstModelsList = await infoGrabber.modelsCreator();
         twoNames = await infoGrabber.namesAll();
         const secondName = twoNames[1].toString();
-        await headerSearchBar.inputFormAndEnter(secondName);
+        await headerSearchForm.inputFormAndEnter(secondName);
         const value2 = await resultPage.verifySearchBoxValue();
         chai.assert.equal(value2, secondName, 'Search box on second result page not contains searched name');
     });

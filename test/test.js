@@ -2,14 +2,17 @@
 
 const chai = require('chai');
 const dataProvider = require('../main/data_provider');
-const homePage = require('../main/homepage');
-const privacyPage = require('../main/privacypage');
-const browser = require('../main/browser');
-const headerSearchField = require('../main/header_search_field');
-const resultPage = require('../main/resultpage');
-const infoGrabber = require('../main/info_grabber');
+const homePage = require('../main/page_objects/homepage');
+const privacyPage = require('../main/page_objects/privacypage');
+const browser = require('../main/framework/browser');
+const headerSearchForm = require('../main/page_objects/header_search_form');
+const resultPage = require('../main/page_objects/resultpage');
+const infoGrabber = require('../main/framework/info_grabber');
 
-describe('Test scenario: Privacy policy', function() {
+describe('Test scenario: Privacy policy && Test scenario: Game search', function() {
+    let twoNames;
+    let firstModelsList;
+
     before(async function() {
         await browser.initTheDriver(dataProvider.getConfigData().chrome);
     });
@@ -35,24 +38,13 @@ describe('Test scenario: Privacy policy', function() {
         const str = await privacyPage.checkPolicySignYear();
         const result = str.match(2023);
         chai.assert.equal(result[0], '2023', 'Policy revision signed not in the current year');
-    });
-
-    after(async function() {
         await browser.quitDriver();
-    });
-});
-
-describe('Test scenario: Game search', function() {
-    let twoNames;
-    let firstModelsList;
-
-    before(async function() {
-        await browser.initTheDriver(dataProvider.getConfigData().chrome);
     });
 
     it('Dota 2 page is open', async function() {
+        await browser.initTheDriver(dataProvider.getConfigData().chrome);
         await browser.go_to_url(dataProvider.getConfigData().url);
-        await headerSearchField.inputFormAndEnter(dataProvider.getTestData().firstGame);
+        await headerSearchForm.inputFormAndEnter(dataProvider.getTestData().firstGame);
         const isResultPage = await resultPage.verifyResultPageOpened();
         chai.assert.equal(isResultPage, true, 'Result page is not open');
     });
@@ -71,7 +63,7 @@ describe('Test scenario: Game search', function() {
         firstModelsList = await infoGrabber.modelsCreator();
         twoNames = await infoGrabber.namesAll();
         const secondName = twoNames[1].toString();
-        await headerSearchField.inputFormAndEnter(secondName);
+        await headerSearchForm.inputFormAndEnter(secondName);
         const value2 = await resultPage.verifySearchBoxValue();
         chai.assert.equal(value2, secondName, 'Search box on second result page not contains searched name');
     });
