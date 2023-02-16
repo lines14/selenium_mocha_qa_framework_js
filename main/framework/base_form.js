@@ -5,7 +5,7 @@ class BaseForm {
     constructor(pageLocator, pageName) {
         this.pageLocator = pageLocator;
         this.pageName = pageName;
-        this.driver = DriverInit.getInstance(dataProvider.getConfigData().chrome);
+        this.driver = DriverInit.getInstance(dataProvider.getConfigData().browser);
     }
     async getUniqueElement() {
         return await this.driver.findElement(this.pageLocator);
