@@ -11,7 +11,7 @@ describe('Test scenario: Game search', function() {
     let firstModelsList;
 
     before(async function() {
-        await browser.initTheDriver(dataProvider.getConfigData().chrome);
+        await browser.initTheDriver(dataProvider.getConfigData().browser);
     });
 
     it('Dota 2 page is open', async function() {
