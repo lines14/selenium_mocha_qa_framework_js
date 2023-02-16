@@ -1,4 +1,5 @@
 const DriverInit = require('./driver_init');
+const dataProvider = require('../data_provider');
 const {By, until, Key} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
 
@@ -6,7 +7,7 @@ class BaseElement {
     constructor(elementLocator, elementName) {
         this.elementLocator = elementLocator;
         this.elementName = elementName;
-        this.driver = DriverInit.getInstance();
+        this.driver = DriverInit.getInstance(dataProvider.getConfigData().chrome);
     }
     async getElement() {
         return await this.driver.findElement(this.elementLocator);
