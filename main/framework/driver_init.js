@@ -10,9 +10,9 @@ class DriverInit {
                 chromeCapabilities.set("goog:chromeOptions", chromeOptions);
                 DriverInit._instance = new webdriver.Builder().forBrowser(browser).withCapabilities(chromeCapabilities).build();
                 DriverInit._instance.manage().window().maximize();
-                // driver.manage().setTimeouts(({implicit: (19000)}));
                 Object.freeze(DriverInit._instance);
-            } else {
+            } 
+            else {
                 const firefoxCapabilities = webdriver.Capabilities.firefox();
                 const firefoxOptions = {'args': ['--private']};
                 firefoxCapabilities.set("moz:firefoxOptions", firefoxOptions);
@@ -24,15 +24,13 @@ class DriverInit {
         return DriverInit._instance;
     }
 
-    static async getInstance() {
+    static getInstance(browser) {
+        new DriverInit(browser);
         return this._instance;
     }
     static async deleteInstance() {
         this._instance = undefined;
     }
 }
-
-// console.log(new DriverInit() === new DriverInit());
-// console.log(Object.is(new DriverInit(), new DriverInit()));
 
 module.exports = DriverInit;
