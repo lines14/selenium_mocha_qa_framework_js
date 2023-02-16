@@ -2,7 +2,6 @@ const webdriver = require('selenium-webdriver');
 
 class DriverInit {
     constructor(browser) {
-        this.browser = browser;
         if (!DriverInit._instance) {
             if (browser === 'chrome') {
                 const chromeCapabilities = webdriver.Capabilities.chrome();
@@ -11,8 +10,7 @@ class DriverInit {
                 DriverInit._instance = new webdriver.Builder().forBrowser(browser).withCapabilities(chromeCapabilities).build();
                 DriverInit._instance.manage().window().maximize();
                 Object.freeze(DriverInit._instance);
-            } 
-            else {
+            } else {
                 const firefoxCapabilities = webdriver.Capabilities.firefox();
                 const firefoxOptions = {'args': ['--private']};
                 firefoxCapabilities.set("moz:firefoxOptions", firefoxOptions);

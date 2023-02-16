@@ -1,5 +1,4 @@
 {
-  "chrome": "chrome",
-  "firefox": "firefox",
-  "url": "https://store.steampowered.com/"
+  "browser": "chrome",
+  "url": "https://demoqa.com/"
 }

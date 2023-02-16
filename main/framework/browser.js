@@ -1,4 +1,5 @@
 const DriverInit = require('./driver_init');
+const {Key} = require('selenium-webdriver');
 
 class Browser {
     async initTheDriver(browser) {
@@ -18,6 +19,23 @@ class Browser {
         await this.driver.wait(async () => (await this.driver.getAllWindowHandles()).length === 2, 9000);
         const windows = await this.driver.getAllWindowHandles();
         await this.driver.switchTo().window(windows[number]);
+    }
+    async getAlert() {
+        return await this.driver.switchTo().alert();
+    }
+    async getAlertText() {
+        const alert = await this.getAlert();
+        return await alert.getText();
+    }
+    async acceptAlert() {
+        const alert = await this.getAlert();
+        await alert.accept();
+        console.log('    ▶ accepted alert')
+    }
+    async enterTextToAlert(text) {
+        const alert = await this.getAlert();
+        await alert.sendKeys(text);
+        console.log('    ▶ input text to alert form')
     }
     async quitDriver() {
         await this.driver.quit();

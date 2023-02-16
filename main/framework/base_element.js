@@ -7,7 +7,7 @@ class BaseElement {
     constructor(elementLocator, elementName) {
         this.elementLocator = elementLocator;
         this.elementName = elementName;
-        this.driver = DriverInit.getInstance(dataProvider.getConfigData().chrome);
+        this.driver = DriverInit.getInstance(dataProvider.getConfigData().browser);
     }
     async getElement() {
         return await this.driver.findElement(this.elementLocator);
@@ -22,6 +22,7 @@ class BaseElement {
     async clickButton() {
         const element = await this.getElement();
         await element.click();
+        console.log(`    ▶ ${this.elementName} is clicked`)
     }
     async inputText(text) {
         const element = await this.getElement();
@@ -38,7 +39,11 @@ class BaseElement {
     }
     async boolElementIsDisplayed() {
         const element = await this.getElement();
-        return await element.isDisplayed();
+        const bool = await element.isDisplayed();
+        if (bool === true) {
+            console.log(`    ▶ ${this.elementName} is displayed`)
+        }
+        return bool;
     }
     async checkElementIsEnabled() {
         const element = await this.getElement();
