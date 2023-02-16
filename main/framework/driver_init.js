@@ -11,8 +11,7 @@ class DriverInit {
                 DriverInit._instance = new webdriver.Builder().forBrowser(browser).withCapabilities(chromeCapabilities).build();
                 DriverInit._instance.manage().window().maximize();
                 Object.freeze(DriverInit._instance);
-            } 
-            else {
+            } else {
                 const firefoxCapabilities = webdriver.Capabilities.firefox();
                 const firefoxOptions = {'args': ['--private']};
                 firefoxCapabilities.set("moz:firefoxOptions", firefoxOptions);
