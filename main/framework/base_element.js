@@ -7,7 +7,7 @@ class BaseElement {
     constructor(elementLocator, elementName) {
         this.elementLocator = elementLocator;
         this.elementName = elementName;
-        this.driver = DriverInit.getInstance(dataProvider.getConfigData().chrome);
+        this.driver = DriverInit.getInstance(dataProvider.getConfigData().browser);
     }
     async getElement() {
         return await this.driver.findElement(this.elementLocator);

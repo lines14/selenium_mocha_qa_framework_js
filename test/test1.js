@@ -7,7 +7,7 @@ const browser = require('../main/framework/browser');
 describe('Test scenario: Privacy policy', function(){
    
     before(async function() {
-        await browser.initTheDriver(dataProvider.getConfigData().chrome);
+        await browser.initTheDriver(dataProvider.getConfigData().browser);
     });
 
     it('Privacy policy page is open in the new tab', async function(){
