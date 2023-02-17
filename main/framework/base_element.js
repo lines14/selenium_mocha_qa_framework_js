@@ -17,6 +17,7 @@ class BaseElement {
     }
     async getText() {
         const element = await this.getElement();
+        console.log(`    ▶ get ${this.elementName}`)
         return await element.getText();
     }
     async clickButton() {
@@ -76,16 +77,21 @@ class BaseElement {
         return resolveNestedPromises(platformsListAll);
     }
     async boolWaitIsLocated() {
-        await this.driver.wait(until.elementLocated(this.elementLocator), 19000);
+        await this.driver.wait(until.elementLocated(this.elementLocator), dataProvider.getConfigData().waitTime);
     }
     async boolWaitIsVisible() {
-        await this.waitBoolIsLocated().then(element => {return this.driver.wait(until.elementIsVisible(element), 19000)});
+        await this.waitBoolIsLocated().then(element => {return this.driver.wait(until.elementIsVisible(element), dataProvider.getConfigData().waitTime)});
     }
     async boolWaitStalenessOf() {
-        await this.driver.wait(until.stalenessOf(this.elementLocator), 19000);
+        await this.driver.wait(until.stalenessOf(this.elementLocator), dataProvider.getConfigData().waitTime);
     }
     async boolWaitIsEnabled() {
-        await this.driver.wait(until.elementIsEnabled(this.getElement(), 19000));
+        await this.driver.wait(until.elementIsEnabled(this.getElement(), dataProvider.getConfigData().waitTime));
+    }
+    async goIntoFrame() {
+        const element = await this.getElement();
+        await this.driver.switchTo().frame(element);
+        console.log(`    ▶ go into ${this.elementName}`)
     }
 }
     

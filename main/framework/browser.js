@@ -37,6 +37,10 @@ class Browser {
         await alert.sendKeys(text);
         console.log('    ▶ input text to alert form')
     }
+    async goOutOfFrame() {
+        await this.driver.switchTo().defaultContent();
+        console.log('    ▶ go out of frame')
+    }
     async quitDriver() {
         await this.driver.quit();
         await DriverInit.deleteInstance();
