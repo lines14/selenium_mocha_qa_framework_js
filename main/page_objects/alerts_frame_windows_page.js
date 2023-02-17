@@ -12,7 +12,7 @@ class alertsFrameWindowsPage extends BaseForm {
         return await this.boolPageIsDisplayed();
     }
     async clickAlertsButton() {
-        await this.button.clickButton();
+        await this.button1.clickButton();
     }
     async clickNestedFramesButton() {
         await this.button2.clickButton();

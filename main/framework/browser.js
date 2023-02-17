@@ -27,15 +27,15 @@ class Browser {
         const alert = await this.getAlert();
         return await alert.getText();
     }
-    async acceptAlert() {
-        const alert = await this.getAlert();
-        await alert.accept();
-        console.log('    ▶ accepted alert')
-    }
     async enterTextToAlert(text) {
         const alert = await this.getAlert();
         await alert.sendKeys(text);
         console.log('    ▶ input text to alert form')
+    }
+    async acceptAlert() {
+        const alert = await this.getAlert();
+        await alert.accept();
+        console.log('    ▶ accepted alert')
     }
     async goOutOfFrame() {
         await this.driver.switchTo().defaultContent();
