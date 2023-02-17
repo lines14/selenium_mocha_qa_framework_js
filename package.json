@@ -8,6 +8,8 @@
   "scripts": {
     "test": "node_modules/.bin/mocha test/test.js --timeout 20000",
     "test1": "node_modules/.bin/mocha test/test1.js --timeout 20000",
-    "test2": "node_modules/.bin/mocha test/test2.js --timeout 20000"
+    "test2": "node_modules/.bin/mocha test/test2.js --timeout 20000",
+    "test3": "node_modules/.bin/mocha test/test3.js --timeout 20000",
+    "test4": "node_modules/.bin/mocha test/test4.js --timeout 20000"
   }
 }

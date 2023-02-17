@@ -1,4 +1,5 @@
 const DriverInit = require('./driver_init');
+const {until} = require('selenium-webdriver');
 const dataProvider = require('../data_provider');
 
 class BaseForm {
@@ -17,6 +18,9 @@ class BaseForm {
             console.log(`    ▶ ${this.pageName} is displayed`)
         }
         return bool;
+    }
+    async boolWaitPageIsLocated() {
+        await this.driver.wait(until.elementLocated(this.pageLocator), dataProvider.getConfigData().waitTime);
     }
 }
 

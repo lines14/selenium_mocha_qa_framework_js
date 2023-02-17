@@ -27,7 +27,7 @@ describe('Test scenario: #2. Iframe:', function(){
         await alertsFrameWindowsPage.clickNestedFramesButton();
         const bool2 = await nestedFramesPage.nestedFramesPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Nested Frames form is not open');
-        await browser.goIntoFrame(1);
+        await browser.goIntoFrame('frame1');
         const text1 = await frame1.getFrameText();
         chai.assert.equal(text1, 'Parent frame', 'Message "Parent frame" not present on page');
         await browser.goIntoFrame(0);
@@ -41,10 +41,10 @@ describe('Test scenario: #2. Iframe:', function(){
         await nestedFramesPage.clickFramesButton();
         const bool3 = await framesPage.framesPageIsDisplayed();
         chai.assert.equal(bool3, true, 'Page with Frames form is not open');
-        await browser.goIntoFrame(1);
+        await browser.goIntoFrame('frame1');
         const text3 = await frame3.getFrameText();
         await browser.goOutOfFrame();
-        await browser.goIntoFrame(2);
+        await browser.goIntoFrame('frame2');
         const text4 = await frame4.getFrameText();
         await browser.goOutOfFrame();
         chai.assert.equal(text3, text4, 'Message from upper frame is not equal to the message from lower frame');

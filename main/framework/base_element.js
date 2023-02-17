@@ -24,6 +24,7 @@ class BaseElement {
         const element = await this.getElement();
         await element.click();
         console.log(`    ▶ ${this.elementName} is clicked`)
+        // await this.driver.sleep(3000)
     }
     async inputText(text) {
         const element = await this.getElement();
@@ -80,7 +81,8 @@ class BaseElement {
         await this.driver.wait(until.elementLocated(this.elementLocator), dataProvider.getConfigData().waitTime);
     }
     async boolWaitIsVisible() {
-        await this.waitBoolIsLocated().then(element => {return this.driver.wait(until.elementIsVisible(element), dataProvider.getConfigData().waitTime)});
+        // await this.boolWaitIsLocated().then(element => {return this.driver.wait(until.elementIsVisible(element), dataProvider.getConfigData().waitTime)});
+        await this.driver.wait(until.elementIsVisible(await this.getElement()), dataProvider.getConfigData().waitTime);
     }
     async boolWaitStalenessOf() {
         await this.driver.wait(until.stalenessOf(this.elementLocator), dataProvider.getConfigData().waitTime);
