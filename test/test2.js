@@ -5,6 +5,10 @@ const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_window
 const nestedFramesPage = require('../main/page_objects/nested_frames_page');
 const framesPage = require('../main/page_objects/frames_page');
 const browser = require('../main/framework/browser');
+const frame1 = require('../main/page_objects/frame1');
+const frame2 = require('../main/page_objects/frame2');
+const frame3 = require('../main/page_objects/frame3');
+const frame4 = require('../main/page_objects/frame4');
 
 describe('Test scenario: #2. Iframe:', function(){
     before(async function() {
@@ -23,11 +27,11 @@ describe('Test scenario: #2. Iframe:', function(){
         await alertsFrameWindowsPage.clickNestedFramesButton();
         const bool2 = await nestedFramesPage.nestedFramesPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Nested Frames form is not open');
-        await nestedFramesPage.goIntoFirstFrame();
-        const text1 = await nestedFramesPage.getFirstFrameText();
+        await browser.goIntoFrame(1);
+        const text1 = await frame1.getFrameText();
         chai.assert.equal(text1, 'Parent frame', 'Message "Parent frame" not present on page');
-        await nestedFramesPage.goIntoSecondFrame();
-        const text2 = await nestedFramesPage.getSecondFrameText();
+        await browser.goIntoFrame(0);
+        const text2 = await frame2.getFrameText();
         chai.assert.equal(text2, 'Child Iframe', 'Message "Child Iframe" not present on page');
         await browser.goOutOfFrame();
         await browser.goOutOfFrame();
@@ -37,11 +41,11 @@ describe('Test scenario: #2. Iframe:', function(){
         await nestedFramesPage.clickFramesButton();
         const bool3 = await framesPage.framesPageIsDisplayed();
         chai.assert.equal(bool3, true, 'Page with Frames form is not open');
-        await framesPage.goIntoFirstFrame();
-        const text3 = await framesPage.getFirstFrameText();
+        await browser.goIntoFrame(1);
+        const text3 = await frame3.getFrameText();
         await browser.goOutOfFrame();
-        await framesPage.goIntoSecondFrame();
-        const text4 = await framesPage.getSecondFrameText();
+        await browser.goIntoFrame(2);
+        const text4 = await frame4.getFrameText();
         await browser.goOutOfFrame();
         chai.assert.equal(text3, text4, 'Message from upper frame is not equal to the message from lower frame');
     });

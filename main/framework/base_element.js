@@ -88,11 +88,6 @@ class BaseElement {
     async boolWaitIsEnabled() {
         await this.driver.wait(until.elementIsEnabled(this.getElement(), dataProvider.getConfigData().waitTime));
     }
-    async goIntoFrame() {
-        const element = await this.getElement();
-        await this.driver.switchTo().frame(element);
-        console.log(`    ▶ go into ${this.elementName}`)
-    }
 }
     
 module.exports = BaseElement;

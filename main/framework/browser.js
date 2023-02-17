@@ -37,6 +37,10 @@ class Browser {
         await alert.accept();
         console.log('    ▶ accepted alert')
     }
+    async goIntoFrame(index) {
+        await this.driver.switchTo().frame(index);
+        console.log('    ▶ go into frame')
+    }
     async goOutOfFrame() {
         await this.driver.switchTo().defaultContent();
         console.log('    ▶ go out of frame')
