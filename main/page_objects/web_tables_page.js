@@ -48,11 +48,11 @@ class WebTablesPage extends BaseForm {
     async enterDepartment(text) {
         await this.registrationBox6.enterText(text);
     }
-    async waitAddButtonIsVisible() {
-        await this.button1.boolWaitIsVisible();
+    async waitPageIsEnabled() {
+        await this.boolWaitPageIsEnabled();
     }
-    async registrationFormIsPresent() {
-        return await this.registrationFormHeadingText.getElements();
+    async pageIsEnabled() {
+        return await this.boolPageIsEnabled();
     }
     async clickDeletebutton() {
         await this.button2.clickButton();

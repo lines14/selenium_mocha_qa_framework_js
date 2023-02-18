@@ -19,8 +19,16 @@ class BaseForm {
         }
         return bool;
     }
+    async boolPageIsEnabled() {
+        const element = await this.getUniqueElement();
+        console.log(`    ▶ ${this.pageName} is enabled`)
+        return await element.isEnabled();
+    }
     async boolWaitPageIsLocated() {
         await this.driver.wait(until.elementLocated(this.pageLocator), dataProvider.getConfigData().waitTime);
+    }
+    async boolWaitPageIsEnabled() {
+        await this.driver.wait(until.elementIsEnabled(await this.getUniqueElement(), dataProvider.getConfigData().waitTime));
     }
 }
 

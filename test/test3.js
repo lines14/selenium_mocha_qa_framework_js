@@ -36,12 +36,10 @@ describe('Test scenario: #3. Tables:', function(){
 
     it('Registration Form has closed. Data of User № has appeared in a table', async function() {
         await dataManager.sendTestData();
+        await webTablesPage.waitPageIsEnabled();
+        const bool4 = await webTablesPage.pageIsEnabled();
+        chai.assert.isTrue(bool4, 'Registration Form has not closed');
         rowsCount1 = await dataManager.filledRowsCounter();
-
-        await webTablesPage.waitAddButtonIsVisible();
-        const state = await webTablesPage.registrationFormIsPresent();
-        chai.assert.equal(state, 0, 'Registration Form has not closed');
-        
         dataToCompare = dataProvider.getTestData().User1.split(' ');
         const tableRowsListAll1 = await dataManager.getTableRowsAll();
         chai.assert.includeDeepMembers(tableRowsListAll1, dataToCompare, 'Data of User № has not appeared in a table');
