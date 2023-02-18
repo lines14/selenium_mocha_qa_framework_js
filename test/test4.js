@@ -2,12 +2,10 @@ const chai = require('chai');
 const dataProvider = require('../main/data_provider');
 const mainPage = require('../main/page_objects/main_page');
 const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
-const alertsPage = require('../main/page_objects/alerts_page');
 const browserWindowsPage = require('../main/page_objects/browser_windows_page');
 const samplePage = require('../main/page_objects/sample_page');
 const linksPage = require('../main/page_objects/links_page');
 const browser = require('../main/framework/browser');
-const alertChecker = require('../main/framework/alert_checker');
 
 describe('Test scenario: #4. Handles:', function(){
     let originalTab1;
