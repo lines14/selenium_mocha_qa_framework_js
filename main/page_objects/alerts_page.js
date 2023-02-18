@@ -4,7 +4,7 @@ const TextBox = require('../framework/base_element_children/text_box');
 const Button = require('../framework/base_element_children/button');
 const {By} = require('selenium-webdriver');
 
-class alertsPage extends BaseForm {
+class AlertsPage extends BaseForm {
     constructor() {
         super(By.xpath('//div[@class="main-header" and text()="Alerts"]'), 'alerts page');
         this.alertsForm = new TextBox(By.xpath('//html/body/div[2]/div/div/div[2]/div[1]/div/div/div[3]/div/ul/li[2]/span'), 'alerts form');
@@ -37,4 +37,4 @@ class alertsPage extends BaseForm {
     }
 }
 
-module.exports = new alertsPage();
+module.exports = new AlertsPage();
