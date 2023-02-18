@@ -1,17 +1,10 @@
 const chai = require('chai');
 const dataProvider = require('../main/data_provider');
 const mainPage = require('../main/page_objects/main_page');
-const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
-const nestedFramesPage = require('../main/page_objects/nested_frames_page');
-const framesPage = require('../main/page_objects/frames_page');
 const elementsPage = require('../main/page_objects/elements_page');
 const webTablesPage = require('../main/page_objects/web_tables_page');
 const browser = require('../main/framework/browser');
-const frame1 = require('../main/page_objects/frame1');
-const frame2 = require('../main/page_objects/frame2');
-const frame3 = require('../main/page_objects/frame3');
-const frame4 = require('../main/page_objects/frame4');
-const { webTablesPageIsDisplayed } = require('../main/page_objects/web_tables_page');
+const infoGrabber = require('../main/framework/info_grabber');
 
 describe('Test scenario: #3. Tables:', function(){
     before(async function() {
@@ -37,6 +30,25 @@ describe('Test scenario: #3. Tables:', function(){
         await webTablesPage.waitRegistrationFormVisible();
         const bool3 = await webTablesPage.registrationFormIsDisplayed();
         chai.assert.equal(bool3, true, 'Registration Form has not appeared on page');
+    });
+
+    it('Registration Form has closed. Data of User № has appeared in a table', async function() {
+        const dataToCompare = dataProvider.getTestData().User1.split(' ');
+        const dataToSend = dataProvider.getTestData().User1.split(',');
+        await webTablesPage.inputFirstName(dataToSend[0])
+        await webTablesPage.inputLastName(dataToSend[1])
+        await webTablesPage.inputAge(dataToSend[2])
+        await webTablesPage.inputEmail(dataToSend[3])
+        await webTablesPage.inputSalary(dataToSend[4])
+        await webTablesPage.enterDepartment(dataToSend[5])
+        await webTablesPage.waitAddButtonIsVisible();
+        const state = await webTablesPage.registrationFormIsPresent();
+        chai.assert.equal(state, 0, 'Registration Form has not closed');
+        const tableRowsListAll = await infoGrabber.tableRowsAll();
+        const strTableRowsListAll = tableRowsListAll.map(element => element.toString());
+        chai.assert.includeDeepMembers(strTableRowsListAll, dataToCompare, 'Data of User № has not appeared in a table');
+        // console.log(strTableRowsListAll);
+        // console.log(dataToCompare);
     });
 
     after(async function() {

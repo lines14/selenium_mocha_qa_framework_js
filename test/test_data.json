@@ -1,5 +1,5 @@
 {
   "randomText": "random text",
-  "User№1": "Jon, Snow, knownothing@gmail.com, 30, 3000, alpha",
-  "User№2": "Buttercup, Cumbersnatch, BudapestCandygram@mail.io, 41, 2000, beta"
+  "User1": "Jon,Snow,30,knownothing@gmail.com,3000,alpha,,",
+  "User2": "Buttercup,Cumbersnatch,41,BudapestCandygram@mail.io,2000,beta,,"
 }
