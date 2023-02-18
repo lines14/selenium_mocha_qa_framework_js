@@ -15,13 +15,13 @@ class BaseForm {
         const uniqueElement = await this.getUniqueElement();
         const bool = await uniqueElement.isDisplayed();
         if (bool === true) {
-            console.log(`    ▶ ${this.pageName} is displayed`)
+            console.log(`    ▶ check ${this.pageName} is displayed`)
         }
         return bool;
     }
     async boolPageIsEnabled() {
         const element = await this.getUniqueElement();
-        console.log(`    ▶ ${this.pageName} is enabled`)
+        console.log(`    ▶ check ${this.pageName} is enabled`)
         return await element.isEnabled();
     }
     async boolWaitPageIsLocated() {

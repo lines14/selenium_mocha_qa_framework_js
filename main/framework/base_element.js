@@ -23,18 +23,17 @@ class BaseElement {
     async clickButton() {
         const element = await this.getElement();
         await element.click();
-        console.log(`    ▶ ${this.elementName} is clicked`)
-        // await this.driver.sleep(3000)
+        console.log(`    ▶ click ${this.elementName}`)
     }
     async inputText(text) {
         const element = await this.getElement();
         await element.sendKeys(text);
-        console.log(`    ▶ ${this.elementName} entered`)
+        console.log(`    ▶ input ${this.elementName}`)
     }
     async enterText(text) {
         const element = await this.getElement();
         await element.sendKeys(text, Key.ENTER);
-        console.log(`    ▶ ${this.elementName} entered`)
+        console.log(`    ▶ enter ${this.elementName}`)
     }
     async getAttributeValue(attr) {
         const element = await this.getElement();
@@ -45,7 +44,7 @@ class BaseElement {
         const element = await this.getElement();
         const bool = await element.isDisplayed();
         if (bool === true) {
-            console.log(`    ▶ ${this.elementName} is displayed`)
+            console.log(`    ▶ check ${this.elementName} is displayed`)
         }
         return bool;
     }
@@ -96,14 +95,14 @@ class BaseElement {
     }
     async boolWaitIsVisible() {
         await this.driver.wait(until.elementIsVisible(await this.getElement()), dataProvider.getConfigData().waitTime);
-        console.log(`    ▶ ${this.elementName} is visible`)
+        console.log(`    ▶ wait ${this.elementName} is visible`)
     }
     async boolWaitStalenessOf() {
         await this.driver.wait(until.stalenessOf(this.elementLocator), dataProvider.getConfigData().waitTime);
     }
     async boolWaitIsEnabled() {
         await this.driver.wait(until.elementIsEnabled(await this.getElement(), dataProvider.getConfigData().waitTime));
-        console.log(`    ▶ ${this.elementName} is enabled`)
+        console.log(`    ▶ wait ${this.elementName} is enabled`)
     }
 }
     

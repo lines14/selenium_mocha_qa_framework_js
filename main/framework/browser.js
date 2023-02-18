@@ -21,11 +21,11 @@ class Browser {
         await this.driver.wait(async () => (await this.driver.getAllWindowHandles()).length === 2, 9000);
         const windows = await this.driver.getAllWindowHandles();
         await this.driver.switchTo().window(windows[number]);
-        console.log(`    ▶ switched to ${number} tab`);
+        console.log(`    ▶ switch driver to ${number} tab`);
     }
     async switchDriverToTheOriginalTab(originalTab) {
         await this.driver.switchTo().window(originalTab);
-        console.log(`    ▶ switched to previous tab`);
+        console.log(`    ▶ switch driver to previous tab`);
     }
     async getAlert() {
         return await this.driver.switchTo().alert();
@@ -42,7 +42,7 @@ class Browser {
     async acceptAlert() {
         const alert = await this.getAlert();
         await alert.accept();
-        console.log('    ▶ accepted alert');
+        console.log('    ▶ accept alert');
     }
     async goIntoFrame(index) {
         await this.driver.switchTo().frame(index);
@@ -54,7 +54,7 @@ class Browser {
     }
     async closeTab() {
         await this.driver.close();
-        console.log('    ▶ closed tab');
+        console.log('    ▶ close tab');
     }
     async quitDriver() {
         await this.driver.quit();

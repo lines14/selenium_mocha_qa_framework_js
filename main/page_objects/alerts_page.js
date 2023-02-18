@@ -8,10 +8,10 @@ class AlertsPage extends BaseForm {
     constructor() {
         super(By.xpath('//div[@class="main-header" and text()="Alerts"]'), 'alerts page');
         this.alertsForm = new TextBox(By.xpath('//html/body/div[2]/div/div/div[2]/div[1]/div/div/div[3]/div/ul/li[2]/span'), 'alerts form');
-        this.button1 = new Button(By.xpath('//*[@id="alertButton"]'), '"click button to see alert" button');
-        this.button2 = new Button(By.xpath('//*[@id="confirmButton"]'), '"on button click, confirm box will appear" button');
-        this.confirmText = new Label(By.xpath('//*[@id="confirmResult"]'), '"You selected Ok" text');
-        this.button3 = new Button(By.xpath('//*[@id="promtButton"]'), '"on button click, prompt box will appear" button');
+        this.button1 = new Button(By.xpath('//*[@id="alertButton"]'), 'click button to see alert button');
+        this.button2 = new Button(By.xpath('//*[@id="confirmButton"]'), 'on button click, confirm box will appear button');
+        this.confirmText = new Label(By.xpath('//*[@id="confirmResult"]'), 'You selected Ok text');
+        this.button3 = new Button(By.xpath('//*[@id="promtButton"]'), 'on button click, prompt box will appear button');
         this.promptText = new Label(By.xpath('//*[@id="promptResult"]'), 'entered text');
     }
     async alertsPageIsDisplayed() {
