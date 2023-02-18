@@ -24,6 +24,7 @@ class BaseElement {
         const element = await this.getElement();
         await element.click();
         console.log(`    ▶ ${this.elementName} is clicked`)
+        // await this.driver.sleep(3000)
     }
     async inputText(text) {
         const element = await this.getElement();

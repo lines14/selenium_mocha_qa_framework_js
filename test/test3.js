@@ -7,6 +7,8 @@ const browser = require('../main/framework/browser');
 const dataManager = require('../main/framework/data_manager');
 
 describe('Test scenario: #3. Tables:', function(){
+    let rowsCount1;
+    let dataToCompare;
     before(async function() {
         await browser.initTheDriver(dataProvider.getConfigData().browser);
     });
@@ -33,16 +35,24 @@ describe('Test scenario: #3. Tables:', function(){
     });
 
     it('Registration Form has closed. Data of User № has appeared in a table', async function() {
-        await dataManager.sendData();
+        await dataManager.sendTestData();
+        rowsCount1 = await dataManager.filledRowsCounter();
+
         await webTablesPage.waitAddButtonIsVisible();
         const state = await webTablesPage.registrationFormIsPresent();
         chai.assert.equal(state, 0, 'Registration Form has not closed');
-        const dataToCompare = dataProvider.getTestData().User1.split(' ');
-        const tableRowsListAll = await dataManager.tableRowsAll();
-        const strTableRowsListAll = tableRowsListAll.map(element => element.toString());
-        chai.assert.includeDeepMembers(strTableRowsListAll, dataToCompare, 'Data of User № has not appeared in a table');
-        // console.log(strTableRowsListAll);
-        // console.log(dataToCompare);
+        
+        dataToCompare = dataProvider.getTestData().User1.split(' ');
+        const tableRowsListAll1 = await dataManager.getTableRowsAll();
+        chai.assert.includeDeepMembers(tableRowsListAll1, dataToCompare, 'Data of User № has not appeared in a table');
+    });
+
+    it('Number of records in table has changed. Data of User № has been deleted from table', async function() {
+        await webTablesPage.clickDeletebutton();
+        const rowsCount2 = await dataManager.filledRowsCounter();
+        chai.assert.notEqual(rowsCount1, rowsCount2, 'Number of records in table has not changed');
+        const tableRowsListAll2 = await dataManager.getTableRowsAll();
+        chai.assert.notIncludeDeepMembers(tableRowsListAll2, dataToCompare, 'Data of User № has not been deleted from table');
     });
 
     after(async function() {

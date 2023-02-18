@@ -7,7 +7,7 @@ const {By} = require('selenium-webdriver');
 class WebTablesPage extends BaseForm {
     constructor() {
         super(By.xpath('//div[@class="main-header" and text()="Web Tables"]'), 'web tables page');
-        this.button = new Button(By.xpath('//*[@id="addNewRecordButton"]'), 'add button');
+        this.button1 = new Button(By.xpath('//*[@id="addNewRecordButton"]'), 'add button');
         this.registrationFormHeadingText = new Label(By.xpath('//*[@id="registration-form-modal"]'), 'registration form heading');
         this.registrationBox1 = new TextBox(By.xpath('//*[@id="firstName"]'), 'first name');
         this.registrationBox2 = new TextBox(By.xpath('//*[@id="lastName"]'), 'last name');
@@ -16,12 +16,13 @@ class WebTablesPage extends BaseForm {
         this.registrationBox5 = new TextBox(By.xpath('//*[@id="salary"]'), 'salary');
         this.registrationBox6 = new TextBox(By.xpath('//*[@id="department"]'), 'department');
         this.searchBox = new TextBox(By.xpath('//*[@id="searchBox"]'), 'search box');
+        this.button2 = new Button(By.xpath('//*[@id="delete-record-4"]'), 'delete button');
     }
     async webTablesPageIsDisplayed() {
         return await this.boolPageIsDisplayed();
     }
     async clickAddButton() {
-        await this.button.clickButton();
+        await this.button1.clickButton();
     }
     async waitRegistrationFormVisible() {
         await this.registrationFormHeadingText.boolWaitIsVisible();
@@ -48,10 +49,13 @@ class WebTablesPage extends BaseForm {
         await this.registrationBox6.enterText(text);
     }
     async waitAddButtonIsVisible() {
-        await this.button.boolWaitIsVisible();
+        await this.button1.boolWaitIsVisible();
     }
     async registrationFormIsPresent() {
         return await this.registrationFormHeadingText.getElements();
+    }
+    async clickDeletebutton() {
+        await this.button2.clickButton();
     }
 }
 

@@ -1,5 +1,4 @@
 const DriverInit = require('./driver_init');
-const {Key} = require('selenium-webdriver');
 
 class Browser {
     async initTheDriver(browser) {
