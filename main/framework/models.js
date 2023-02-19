@@ -1,9 +1,10 @@
 class Models {
-    name = null;
-    platforms = null;
-    releaseDate = null;
-    feedback = null;
-    price = null;
+    firstName = null;
+    lastName = null;
+    age = null;
+    email = null;
+    salary = null;
+    department = null;
 }
 
 module.exports = Models;

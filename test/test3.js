@@ -8,8 +8,6 @@ const browserUtils = require('../main/framework/browser_utils');
 const dataManager = require('../main/framework/data_manager');
 
 describe('Test scenario: #3. Tables:', function(){
-    let rowsCount1;
-    let dataToCompare;
     before(async function() {
         await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
@@ -33,16 +31,16 @@ describe('Test scenario: #3. Tables:', function(){
         await webTablesPage.waitPageIsEnabled();
         const bool4 = await webTablesPage.pageIsEnabled();
         chai.assert.isTrue(bool4, 'Registration Form has not closed');
-        rowsCount1 = await dataManager.filledRowsCounter();
-        dataToCompare = configManager.getTestData().User1.split(' ');
-        const tableRowsListAll1 = await dataManager.getTableRowsAll();
-        chai.assert.includeDeepMembers(tableRowsListAll1, dataToCompare, 'Data of User № has not appeared in a table');
-
+        const rowsCount1 = await dataManager.filledRowsCounter();
+        const testModel = await dataManager.modelFromTestData();
+        const modelsFromTable1 = await dataManager.modelsFromTable();
+        chai.assert.include(modelsFromTable1, testModel, 'Data of User № has not appeared in a table');
+        
         await webTablesPage.clickDeletebutton();
         const rowsCount2 = await dataManager.filledRowsCounter();
         chai.assert.notEqual(rowsCount1, rowsCount2, 'Number of records in table has not changed');
-        const tableRowsListAll2 = await dataManager.getTableRowsAll();
-        chai.assert.notIncludeDeepMembers(tableRowsListAll2, dataToCompare, 'Data of User № has not been deleted from table');
+        const modelsFromTable2 = await dataManager.modelsFromTable();
+        chai.assert.notInclude(modelsFromTable2, testModel, 'Data of User № has not been deleted from table');
     });
     after(async function() {
         await browserUtils.quitDriver();
