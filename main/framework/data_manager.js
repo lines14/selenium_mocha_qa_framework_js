@@ -4,7 +4,7 @@ const webTablesPage = require('../page_objects/web_tables_page');
 
 class DataManager {
     constructor() {
-        this.allRows = new Label('//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[3]/div[1]/div[2]/div', 'all rows in list');
+        this.allRows = new Label('//*[@role="rowgroup"]', 'all rows in list');
     }
     async getTableRowsAll() {
         const tableRowsListAll = await this.allRows.parseChildrenTextByCounter();

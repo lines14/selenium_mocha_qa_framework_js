@@ -71,7 +71,7 @@ class BaseElement {
         let counter = 1;
         const platformsListAll = [];
         while (counter <= itemsCount){
-            const eachPlatformsList = await this.driver.findElements(By.xpath(`${this.elementLocator}[${counter}]//div[2]/div[1]/div/span`));
+            const eachPlatformsList = await this.driver.findElements(By.xpath(`${this.elementLocator}[${counter}]//subchild-locator`));
             const eachAttributesList = eachPlatformsList.map(element => element.getAttribute(attr));
             platformsListAll.push(eachAttributesList);
             counter += 1;            
@@ -83,7 +83,7 @@ class BaseElement {
         let counter = 1;
         const rowsListAll = [];
         while (counter <= itemsCount){
-            const eachRowList = await this.driver.findElements(By.xpath(`${this.elementLocator}[${counter}]//div//div`));
+            const eachRowList = await this.driver.findElements(By.xpath(`${this.elementLocator}[${counter}]//div[@role="row"]//div[@role="gridcell"]`));
             const eachRowTextList = eachRowList.map(element => element.getText());
             rowsListAll.push(eachRowTextList);
             counter += 1;            

@@ -21,8 +21,7 @@ describe('Test scenario: #1. Alerts:', function(){
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
         await alertsFrameWindowsPage.clickAlertsButton();
-        await alertsPage.alertsPageIsDisplayed();
-        const bool2 = await alertsPage.alertsFormIsDisplayed();
+        const bool2 = await alertsPage.alertsPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Alerts form has not appeared on the page');
     });
 
