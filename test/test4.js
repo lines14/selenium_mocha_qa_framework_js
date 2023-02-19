@@ -3,6 +3,7 @@ const dataProvider = require('../main/data_provider');
 const mainPage = require('../main/page_objects/main_page');
 const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
 const browserWindowsPage = require('../main/page_objects/browser_windows_page');
+const leftMenuForm = require('../main/page_objects/left_menu_form');
 const samplePage = require('../main/page_objects/sample_page');
 const linksPage = require('../main/page_objects/links_page');
 const browserUtils = require('../main/framework/browser_utils');
@@ -23,7 +24,7 @@ describe('Test scenario: #4. Handles:', function(){
     it('Page with Browser Windows form is open', async function() {
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
-        await alertsFrameWindowsPage.clickBrowserWindowsButton();
+        await leftMenuForm.clickBrowserWindowsButton();
         const bool2 = await browserWindowsPage.browserWindowsPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Browser Windows form is not open');
     });
@@ -46,9 +47,9 @@ describe('Test scenario: #4. Handles:', function(){
     });
 
     it('Page with Links form is open', async function() {
-        await browserWindowsPage.clickElementsButton();
-        await browserWindowsPage.waitLinksButtonVisible();
-        await browserWindowsPage.clickLinksButton();
+        await leftMenuForm.clickElementsButton();
+        await leftMenuForm.waitLinksButtonVisible();
+        await leftMenuForm.clickLinksButton();
         const bool4 = await linksPage.linksPageIsDisplayed();
         chai.assert.equal(bool4, true, 'Page with Links form is not open');
     });

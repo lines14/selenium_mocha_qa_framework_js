@@ -4,6 +4,7 @@ const mainPage = require('../main/page_objects/main_page');
 const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
 const nestedFramesPage = require('../main/page_objects/nested_frames_page');
 const framesPage = require('../main/page_objects/frames_page');
+const leftMenuForm = require('../main/page_objects/left_menu_form');
 const browserUtils = require('../main/framework/browser_utils');
 const frame1 = require('../main/page_objects/frame1');
 const frame2 = require('../main/page_objects/frame2');
@@ -24,7 +25,7 @@ describe('Test scenario: #2. Iframe:', function(){
     it('Page with Nested Frames form is open. There are messages "Parent frame" & "Child Iframe" present on page', async function() {
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
-        await alertsFrameWindowsPage.clickNestedFramesButton();
+        await leftMenuForm.clickNestedFramesButton();
         const bool2 = await nestedFramesPage.nestedFramesPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Nested Frames form is not open');
         await browserUtils.goIntoFrame('frame1');
@@ -38,7 +39,7 @@ describe('Test scenario: #2. Iframe:', function(){
     });
 
     it('Page with Frames form is open. Message from upper frame is equal to the message from lower frame', async function() {
-        await nestedFramesPage.clickFramesButton();
+        await leftMenuForm.clickFramesButton();
         const bool3 = await framesPage.framesPageIsDisplayed();
         chai.assert.equal(bool3, true, 'Page with Frames form is not open');
         await browserUtils.goIntoFrame('frame1');

@@ -2,6 +2,7 @@ const chai = require('chai');
 const dataProvider = require('../main/data_provider');
 const mainPage = require('../main/page_objects/main_page');
 const elementsPage = require('../main/page_objects/elements_page');
+const leftMenuForm = require('../main/page_objects/left_menu_form');
 const webTablesPage = require('../main/page_objects/web_tables_page');
 const browserUtils = require('../main/framework/browser_utils');
 const dataManager = require('../main/framework/data_manager');
@@ -22,7 +23,7 @@ describe('Test scenario: #3. Tables:', function(){
     it('Page with Web Tables form is open', async function() {
         await mainPage.clickElementsButton();
         await elementsPage.elementsPageIsDisplayed();
-        await elementsPage.clickWebTablesButton();
+        await leftMenuForm.clickWebTablesButton();
         const bool2 = await webTablesPage.webTablesPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Web Tables form is not open');
     });

@@ -3,6 +3,7 @@ const dataProvider = require('../main/data_provider');
 const mainPage = require('../main/page_objects/main_page');
 const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
 const alertsPage = require('../main/page_objects/alerts_page');
+const leftMenuForm = require('../main/page_objects/left_menu_form');
 const browserUtils = require('../main/framework/browser_utils');
 const alertChecker = require('../main/framework/alert_checker');
 
@@ -20,7 +21,7 @@ describe('Test scenario: #1. Alerts:', function(){
     it('Alerts form has appeared on the page', async function() {
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
-        await alertsFrameWindowsPage.clickAlertsButton();
+        await leftMenuForm.clickAlertsButton();
         const bool2 = await alertsPage.alertsPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Alerts form has not appeared on the page');
     });
