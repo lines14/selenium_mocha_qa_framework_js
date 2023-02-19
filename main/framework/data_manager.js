@@ -33,7 +33,7 @@ class DataManager {
             }
             counter += 1;
         }
-        console.log('    ▶ get data from table')
+        console.log('    ▶ check data in table')
         return quantity;
     }
 }

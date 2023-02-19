@@ -5,8 +5,8 @@ const {By} = require('selenium-webdriver');
 class MainPage extends BaseForm {
     constructor() {
         super(By.xpath('//*[@id="app"]//following-sibling::img[@class="banner-image"]'), 'main page');
-        this.button1 = new Button(By.xpath('//h5[contains(text(), "Alerts, Frame & Windows")]'), 'alerts, frame & windows button');
-        this.button2 = new Button(By.xpath('//h5[contains(text(), "Elements")]'), 'elements button');
+        this.button1 = new Button(By.xpath('//h5[contains(text(), "Alerts, Frame & Windows")]'), '"alerts, frame & windows" button');
+        this.button2 = new Button(By.xpath('//h5[contains(text(), "Elements")]'), '"elements" button');
     }
     async mainPageIsDisplayed() {
         return await this.boolPageIsDisplayed();

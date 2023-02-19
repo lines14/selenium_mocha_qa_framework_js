@@ -18,8 +18,9 @@ class BaseElement {
     }
     async getText() {
         const element = await this.getElement();
-        console.log(`    ▶ get ${this.elementName}`)
-        return await element.getText();
+        const text = await element.getText();
+        console.log(`    ▶ get "${text}" ${this.elementName}`)
+        return text;
     }
     async clickButton() {
         const element = await this.getElement();
@@ -34,7 +35,7 @@ class BaseElement {
     async enterText(text) {
         const element = await this.getElement();
         await element.sendKeys(text, Key.ENTER);
-        console.log(`    ▶ enter ${this.elementName}`)
+        console.log(`    ▶ input ${this.elementName} and submit`)
     }
     async getAttributeValue(attr) {
         const element = await this.getElement();
@@ -45,7 +46,7 @@ class BaseElement {
         const element = await this.getElement();
         const bool = await element.isDisplayed();
         if (bool === true) {
-            console.log(`    ▶ check ${this.elementName} is displayed`)
+            console.log(`    ▶ ${this.elementName} is present`)
         }
         return bool;
     }

@@ -32,7 +32,9 @@ class BrowserUtils {
     }
     async getAlertText() {
         const alert = await this.getAlert();
-        return await alert.getText();
+        const text = await alert.getText();
+        console.log(`    ▶ alert with text "${text}" is open`);
+        return text;
     }
     async enterTextToAlert(text) {
         const alert = await this.getAlert();

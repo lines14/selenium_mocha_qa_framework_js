@@ -4,8 +4,8 @@ const {By} = require('selenium-webdriver');
 
 class BrowserWindowsPage extends BaseForm {
     constructor() {
-        super(By.xpath('//div[@class="main-header" and text()="Browser Windows"]'), 'browser windows page');
-        this.button1 = new Button(By.xpath('//*[@id="tabButton"]'), 'new tab button');
+        super(By.xpath('//div[@class="main-header" and text()="Browser Windows"]'), 'page with "browser windows" form');
+        this.button1 = new Button(By.xpath('//*[@id="tabButton"]'), '"new tab" button');
     }
     async browserWindowsPageIsDisplayed() {
         return await this.boolPageIsDisplayed();

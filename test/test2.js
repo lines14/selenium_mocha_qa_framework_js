@@ -15,14 +15,11 @@ describe('Test scenario: #2. Iframe:', function(){
     before(async function() {
         await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
-
-    it('Main page is open', async function() {
+    it('#2. Iframe', async function() {
         await browserUtils.go_to_url(configManager.getConfigData().url);
         const bool1 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
-    });
 
-    it('Page with Nested Frames form is open. There are messages "Parent frame" & "Child Iframe" present on page', async function() {
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
         await leftMenuForm.clickNestedFramesButton();
@@ -36,9 +33,7 @@ describe('Test scenario: #2. Iframe:', function(){
         chai.assert.equal(text2, 'Child Iframe', 'Message "Child Iframe" not present on page');
         await browserUtils.goOutOfFrame();
         await browserUtils.goOutOfFrame();
-    });
 
-    it('Page with Frames form is open. Message from upper frame is equal to the message from lower frame', async function() {
         await leftMenuForm.clickFramesButton();
         const bool3 = await framesPage.framesPageIsDisplayed();
         chai.assert.equal(bool3, true, 'Page with Frames form is not open');
@@ -50,7 +45,6 @@ describe('Test scenario: #2. Iframe:', function(){
         await browserUtils.goOutOfFrame();
         chai.assert.equal(text3, text4, 'Message from upper frame is not equal to the message from lower frame');
     });
-
     after(async function() {
         await browserUtils.quitDriver();
     });

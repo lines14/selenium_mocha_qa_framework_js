@@ -6,9 +6,9 @@ const {By} = require('selenium-webdriver');
 
 class WebTablesPage extends BaseForm {
     constructor() {
-        super(By.xpath('//div[@class="main-header" and text()="Web Tables"]'), 'web tables page');
-        this.button1 = new Button(By.xpath('//*[@id="addNewRecordButton"]'), 'add button');
-        this.registrationFormHeadingText = new Label(By.xpath('//*[@id="registration-form-modal"]'), 'registration form heading');
+        super(By.xpath('//div[@class="main-header" and text()="Web Tables"]'), 'page with "web tables" form');
+        this.button1 = new Button(By.xpath('//*[@id="addNewRecordButton"]'), '"add" button');
+        this.registrationFormHeadingText = new Label(By.xpath('//*[@id="registration-form-modal"]'), '"registration" form');
         this.registrationBox1 = new TextBox(By.xpath('//*[@id="firstName"]'), 'first name');
         this.registrationBox2 = new TextBox(By.xpath('//*[@id="lastName"]'), 'last name');
         this.registrationBox3 = new TextBox(By.xpath('//*[@id="userEmail"]'), 'email');
@@ -16,7 +16,7 @@ class WebTablesPage extends BaseForm {
         this.registrationBox5 = new TextBox(By.xpath('//*[@id="salary"]'), 'salary');
         this.registrationBox6 = new TextBox(By.xpath('//*[@id="department"]'), 'department');
         this.searchBox = new TextBox(By.xpath('//*[@id="searchBox"]'), 'search box');
-        this.button2 = new Button(By.xpath('//*[@id="delete-record-4"]'), 'delete button');
+        this.button2 = new Button(By.xpath('//*[@id="delete-record-4"]'), '"delete" button');
     }
     async webTablesPageIsDisplayed() {
         return await this.boolPageIsDisplayed();
