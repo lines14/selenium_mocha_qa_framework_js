@@ -1,5 +1,5 @@
 const chai = require('chai');
-const dataProvider = require('../main/data_provider');
+const configManager = require('../main/config_manager');
 const mainPage = require('../main/page_objects/main_page');
 const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
 const nestedFramesPage = require('../main/page_objects/nested_frames_page');
@@ -13,11 +13,11 @@ const frame4 = require('../main/page_objects/frame4');
 
 describe('Test scenario: #2. Iframe:', function(){
     before(async function() {
-        await browserUtils.initTheDriver(dataProvider.getConfigData().browser);
+        await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
 
     it('Main page is open', async function() {
-        await browserUtils.go_to_url(dataProvider.getConfigData().url);
+        await browserUtils.go_to_url(configManager.getConfigData().url);
         const bool1 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
     });

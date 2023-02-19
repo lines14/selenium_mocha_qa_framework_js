@@ -1,5 +1,5 @@
 const chai = require('chai');
-const dataProvider = require('../main/data_provider');
+const configManager = require('../main/config_manager');
 const mainPage = require('../main/page_objects/main_page');
 const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
 const browserWindowsPage = require('../main/page_objects/browser_windows_page');
@@ -12,11 +12,11 @@ describe('Test scenario: #4. Handles:', function(){
     let originalTab1;
     let originalTab2;
     before(async function() {
-        await browserUtils.initTheDriver(dataProvider.getConfigData().browser);
+        await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
 
     it('Main page is open', async function() {
-        await browserUtils.go_to_url(dataProvider.getConfigData().url);
+        await browserUtils.go_to_url(configManager.getConfigData().url);
         const bool1 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
     });

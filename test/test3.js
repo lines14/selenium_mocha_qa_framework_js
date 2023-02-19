@@ -1,5 +1,5 @@
 const chai = require('chai');
-const dataProvider = require('../main/data_provider');
+const configManager = require('../main/config_manager');
 const mainPage = require('../main/page_objects/main_page');
 const elementsPage = require('../main/page_objects/elements_page');
 const leftMenuForm = require('../main/page_objects/left_menu_form');
@@ -11,11 +11,11 @@ describe('Test scenario: #3. Tables:', function(){
     let rowsCount1;
     let dataToCompare;
     before(async function() {
-        await browserUtils.initTheDriver(dataProvider.getConfigData().browser);
+        await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
 
     it('Main page is open', async function() {
-        await browserUtils.go_to_url(dataProvider.getConfigData().url);
+        await browserUtils.go_to_url(configManager.getConfigData().url);
         const bool1 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
     });
@@ -41,7 +41,7 @@ describe('Test scenario: #3. Tables:', function(){
         const bool4 = await webTablesPage.pageIsEnabled();
         chai.assert.isTrue(bool4, 'Registration Form has not closed');
         rowsCount1 = await dataManager.filledRowsCounter();
-        dataToCompare = dataProvider.getTestData().User1.split(' ');
+        dataToCompare = configManager.getTestData().User1.split(' ');
         const tableRowsListAll1 = await dataManager.getTableRowsAll();
         chai.assert.includeDeepMembers(tableRowsListAll1, dataToCompare, 'Data of User № has not appeared in a table');
     });

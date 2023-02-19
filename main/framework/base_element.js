@@ -1,5 +1,5 @@
 const Singleton = require('./singleton');
-const dataProvider = require('../data_provider');
+const configManager = require('../config_manager');
 const {By, until, Key} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
 
@@ -7,10 +7,10 @@ class BaseElement {
     constructor(elementLocator, elementName) {
         this.elementLocator = elementLocator;
         this.elementName = elementName;
-        this.driver = Singleton.getInstance(dataProvider.getConfigData().browser);
+        this.driver = Singleton.getInstance(configManager.getConfigData().browser);
     }
     async getElement() {
-        await this.driver.wait(until.elementLocated(this.elementLocator), dataProvider.getConfigData().waitTime);
+        await this.driver.wait(until.elementLocated(this.elementLocator), configManager.getConfigData().waitTime);
         return await this.driver.findElement(this.elementLocator);
     }
     async getElements() {
@@ -88,14 +88,14 @@ class BaseElement {
         return resolveNestedPromises(rowsListAll);
     }
     async boolWaitIsVisible() {
-        await this.driver.wait(until.elementIsVisible(await this.getElement()), dataProvider.getConfigData().waitTime);
+        await this.driver.wait(until.elementIsVisible(await this.getElement()), configManager.getConfigData().waitTime);
         console.log(`    ▶ wait ${this.elementName} is visible`)
     }
     async boolWaitStalenessOf() {
-        await this.driver.wait(until.stalenessOf(this.elementLocator), dataProvider.getConfigData().waitTime);
+        await this.driver.wait(until.stalenessOf(this.elementLocator), configManager.getConfigData().waitTime);
     }
     async boolWaitIsEnabled() {
-        await this.driver.wait(until.elementIsEnabled(await this.getElement(), dataProvider.getConfigData().waitTime));
+        await this.driver.wait(until.elementIsEnabled(await this.getElement(), configManager.getConfigData().waitTime));
         console.log(`    ▶ wait ${this.elementName} is enabled`)
     }
 }

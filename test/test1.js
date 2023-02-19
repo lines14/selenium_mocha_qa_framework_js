@@ -1,5 +1,5 @@
 const chai = require('chai');
-const dataProvider = require('../main/data_provider');
+const configManager = require('../main/config_manager');
 const mainPage = require('../main/page_objects/main_page');
 const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
 const alertsPage = require('../main/page_objects/alerts_page');
@@ -9,11 +9,11 @@ const alertChecker = require('../main/framework/alert_checker');
 
 describe('Test scenario: #1. Alerts:', function(){
     before(async function() {
-        await browserUtils.initTheDriver(dataProvider.getConfigData().browser);
+        await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
 
     it('Main page is open', async function() {
-        await browserUtils.go_to_url(dataProvider.getConfigData().url);
+        await browserUtils.go_to_url(configManager.getConfigData().url);
         const bool1 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
     });
@@ -59,12 +59,12 @@ describe('Test scenario: #1. Alerts:', function(){
     });
 
     it("Alert has closed. Appeared text equals to the one you've entered before", async function() {
-        await browserUtils.enterTextToAlert(dataProvider.getTestData().randomText);
+        await browserUtils.enterTextToAlert(configManager.getTestData().randomText);
         await browserUtils.acceptAlert();
         const bool6 = await alertChecker.boolAlertIsDisplayed();
         chai.assert.equal(bool6, false, 'Alert has not closed');
         const enteredText = await alertsPage.getEnteredText();
-        chai.assert.equal(enteredText, `You entered ${dataProvider.getTestData().randomText}`, "Appeared text not equals to the one you've entered before");
+        chai.assert.equal(enteredText, `You entered ${configManager.getTestData().randomText}`, "Appeared text not equals to the one you've entered before");
     });
 
     after(async function() {

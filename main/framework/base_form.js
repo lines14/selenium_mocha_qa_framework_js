@@ -1,12 +1,12 @@
 const Singleton = require('./singleton');
 const {until} = require('selenium-webdriver');
-const dataProvider = require('../data_provider');
+const configManager = require('../config_manager');
 
 class BaseForm {
     constructor(pageLocator, pageName) {
         this.pageLocator = pageLocator;
         this.pageName = pageName;
-        this.driver = Singleton.getInstance(dataProvider.getConfigData().browser);
+        this.driver = Singleton.getInstance(configManager.getConfigData().browser);
     }
     async getUniqueElement() {
         return await this.driver.findElement(this.pageLocator);
@@ -25,10 +25,10 @@ class BaseForm {
         return await element.isEnabled();
     }
     async boolWaitPageIsLocated() {
-        await this.driver.wait(until.elementLocated(this.pageLocator), dataProvider.getConfigData().waitTime);
+        await this.driver.wait(until.elementLocated(this.pageLocator), configManager.getConfigData().waitTime);
     }
     async boolWaitPageIsEnabled() {
-        await this.driver.wait(until.elementIsEnabled(await this.getUniqueElement(), dataProvider.getConfigData().waitTime));
+        await this.driver.wait(until.elementIsEnabled(await this.getUniqueElement(), configManager.getConfigData().waitTime));
     }
 }
 

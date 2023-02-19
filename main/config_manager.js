@@ -1,7 +1,7 @@
 const configureData = require('../main/config_data.json');
 const testData = require('../test/test_data.json');
 
-class DataProvider {
+class ConfigManager {
     getConfigData() {
         const path = JSON.parse(JSON.stringify(configureData));
         return path;
@@ -12,4 +12,4 @@ class DataProvider {
     }
 }
 
-module.exports = new DataProvider();
+module.exports = new ConfigManager();

@@ -1,5 +1,5 @@
 const Label = require('./base_element_children/label');
-const dataProvider = require('../data_provider');
+const configManager = require('../config_manager');
 const webTablesPage = require('../page_objects/web_tables_page');
 
 class DataManager {
@@ -12,7 +12,7 @@ class DataManager {
         return strTableRowsListAll;
     }
     async sendTestData() {
-        const dataToSend = dataProvider.getTestData().User1.split(',');
+        const dataToSend = configManager.getTestData().User1.split(',');
         await webTablesPage.inputFirstName(dataToSend[0])
         await webTablesPage.inputLastName(dataToSend[1])
         await webTablesPage.inputAge(dataToSend[2])
