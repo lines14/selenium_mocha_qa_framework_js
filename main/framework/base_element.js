@@ -56,16 +56,12 @@ class BaseElement {
     async parseChildrenForAttr(attr) {
         const children = await this.getElements();
         const childrenAttr = children.map(element => element.getAttribute(attr));
-        return Promise.all(childrenAttr).then(function(resolvedAttr) {
-            return resolvedAttr;
-        })
+        return resolveNestedPromises(childrenAttr);
     }
     async parseChildrenForText() {
         const children = await this.getElements();
         const childrenText = children.map(element => element.getText());
-        return Promise.all(childrenText).then(function(resolvedText) {
-            return resolvedText;
-        }) 
+        return resolveNestedPromises(childrenText);
     }
     async parseChildrenAttrByCounter(attr) {
         const itemsCount = 2;
