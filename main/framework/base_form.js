@@ -1,4 +1,4 @@
-const DriverInit = require('./driver_init');
+const Singleton = require('./singleton');
 const {until} = require('selenium-webdriver');
 const dataProvider = require('../data_provider');
 
@@ -6,7 +6,7 @@ class BaseForm {
     constructor(pageLocator, pageName) {
         this.pageLocator = pageLocator;
         this.pageName = pageName;
-        this.driver = DriverInit.getInstance(dataProvider.getConfigData().browser);
+        this.driver = Singleton.getInstance(dataProvider.getConfigData().browser);
     }
     async getUniqueElement() {
         return await this.driver.findElement(this.pageLocator);

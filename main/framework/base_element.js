@@ -1,4 +1,4 @@
-const DriverInit = require('./driver_init');
+const Singleton = require('./singleton');
 const dataProvider = require('../data_provider');
 const {By, until, Key} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
@@ -7,9 +7,10 @@ class BaseElement {
     constructor(elementLocator, elementName) {
         this.elementLocator = elementLocator;
         this.elementName = elementName;
-        this.driver = DriverInit.getInstance(dataProvider.getConfigData().browser);
+        this.driver = Singleton.getInstance(dataProvider.getConfigData().browser);
     }
     async getElement() {
+        await this.driver.wait(until.elementLocated(this.elementLocator), dataProvider.getConfigData().waitTime);
         return await this.driver.findElement(this.elementLocator);
     }
     async getElements() {
@@ -89,9 +90,6 @@ class BaseElement {
             counter += 1;            
         }
         return resolveNestedPromises(rowsListAll);
-    }
-    async boolWaitIsLocated() {
-        await this.driver.wait(until.elementLocated(this.elementLocator), dataProvider.getConfigData().waitTime);
     }
     async boolWaitIsVisible() {
         await this.driver.wait(until.elementIsVisible(await this.getElement()), dataProvider.getConfigData().waitTime);

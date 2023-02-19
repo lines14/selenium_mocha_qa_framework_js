@@ -1,8 +1,8 @@
-const DriverInit = require('./driver_init');
+const Singleton = require('./singleton');
 
-class Browser {
+class BrowserUtils {
     async initTheDriver(browser) {
-        this.driver = await DriverInit.getInstance(browser);
+        this.driver = await Singleton.getInstance(browser);
     }
     async go_to_url(theURL) {
         await this.driver.get(theURL);
@@ -58,8 +58,8 @@ class Browser {
     }
     async quitDriver() {
         await this.driver.quit();
-        await DriverInit.deleteInstance();
+        await Singleton.deleteInstance();
     }
 }
 
-module.exports = new Browser();
+module.exports = new BrowserUtils();

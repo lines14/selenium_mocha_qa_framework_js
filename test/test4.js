@@ -5,17 +5,17 @@ const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_window
 const browserWindowsPage = require('../main/page_objects/browser_windows_page');
 const samplePage = require('../main/page_objects/sample_page');
 const linksPage = require('../main/page_objects/links_page');
-const browser = require('../main/framework/browser');
+const browserUtils = require('../main/framework/browser_utils');
 
 describe('Test scenario: #4. Handles:', function(){
     let originalTab1;
     let originalTab2;
     before(async function() {
-        await browser.initTheDriver(dataProvider.getConfigData().browser);
+        await browserUtils.initTheDriver(dataProvider.getConfigData().browser);
     });
 
     it('Main page is open', async function() {
-        await browser.go_to_url(dataProvider.getConfigData().url);
+        await browserUtils.go_to_url(dataProvider.getConfigData().url);
         const bool1 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
     });
@@ -29,18 +29,18 @@ describe('Test scenario: #4. Handles:', function(){
     });
 
     it('New tab with sample page is open', async function() {
-        originalTab1 = await browser.handleOriginalTab();
+        originalTab1 = await browserUtils.handleOriginalTab();
         await browserWindowsPage.clickNewTabButton()
-        const tabsCount1 = await browser.checkTheTabsCount();
+        const tabsCount1 = await browserUtils.checkTheTabsCount();
         chai.assert.equal(tabsCount1, 2, 'New tab is not open');
-        await browser.switchDriverToTheAnotherTab(1);
+        await browserUtils.switchDriverToTheAnotherTab(1);
         const bool3 = await samplePage.samplePageIsDisplayed();
         chai.assert.equal(bool3, true, 'Sample page is not open');
     });
 
     it('Page with Browser Windows form is open', async function() {
-        await browser.closeTab();
-        await browser.switchDriverToTheOriginalTab(originalTab1);
+        await browserUtils.closeTab();
+        await browserUtils.switchDriverToTheOriginalTab(originalTab1);
         const bool3 = await browserWindowsPage.browserWindowsPageIsDisplayed();
         chai.assert.equal(bool3, true, 'Page with Browser Windows form is not open');
     });
@@ -54,22 +54,22 @@ describe('Test scenario: #4. Handles:', function(){
     });
 
     it('New tab with main page is open', async function() {
-        originalTab2 = await browser.handleOriginalTab();
+        originalTab2 = await browserUtils.handleOriginalTab();
         await linksPage.clickHomeLink();
-        const tabsCount2 = await browser.checkTheTabsCount();
+        const tabsCount2 = await browserUtils.checkTheTabsCount();
         chai.assert.equal(tabsCount2, 2, 'New tab is not open');
-        await browser.switchDriverToTheAnotherTab(1);
+        await browserUtils.switchDriverToTheAnotherTab(1);
         const bool5 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool5, true, 'Main page is not open');
     });
 
     it('Page with Links form is open', async function() {
-        await browser.switchDriverToTheOriginalTab(originalTab2);
+        await browserUtils.switchDriverToTheOriginalTab(originalTab2);
         const bool6 = await linksPage.linksPageIsDisplayed();
         chai.assert.equal(bool6, true, 'Page with Links form is not open');
     });
 
     after(async function() {
-        await browser.quitDriver();
+        await browserUtils.quitDriver();
     });
 });

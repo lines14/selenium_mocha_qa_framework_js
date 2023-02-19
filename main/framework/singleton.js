@@ -1,29 +1,29 @@
 const webdriver = require('selenium-webdriver');
 
-class DriverInit {
+class Singleton {
     constructor(browser) {
-        if (!DriverInit._instance) {
+        if (!Singleton._instance) {
             if (browser === 'chrome') {
                 const chromeCapabilities = webdriver.Capabilities.chrome();
                 const chromeOptions = {'args': ['--incognito']};
                 chromeCapabilities.set("goog:chromeOptions", chromeOptions);
-                DriverInit._instance = new webdriver.Builder().forBrowser(browser).withCapabilities(chromeCapabilities).build();
-                DriverInit._instance.manage().window().maximize();
-                Object.freeze(DriverInit._instance);
+                Singleton._instance = new webdriver.Builder().forBrowser(browser).withCapabilities(chromeCapabilities).build();
+                Singleton._instance.manage().window().maximize();
+                Object.freeze(Singleton._instance);
             } else {
                 const firefoxCapabilities = webdriver.Capabilities.firefox();
                 const firefoxOptions = {'args': ['--private']};
                 firefoxCapabilities.set("moz:firefoxOptions", firefoxOptions);
-                DriverInit._instance = new webdriver.Builder().forBrowser(browser).withCapabilities(firefoxCapabilities).build();
-                DriverInit._instance.manage().window().maximize();
-                Object.freeze(DriverInit._instance);
+                Singleton._instance = new webdriver.Builder().forBrowser(browser).withCapabilities(firefoxCapabilities).build();
+                Singleton._instance.manage().window().maximize();
+                Object.freeze(Singleton._instance);
             }
         }
-        return DriverInit._instance;
+        return Singleton._instance;
     }
 
     static getInstance(browser) {
-        new DriverInit(browser);
+        new Singleton(browser);
         return this._instance;
     }
     static async deleteInstance() {
@@ -31,4 +31,4 @@ class DriverInit {
     }
 }
 
-module.exports = DriverInit;
+module.exports = Singleton;

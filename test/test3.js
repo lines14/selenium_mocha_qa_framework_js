@@ -3,18 +3,18 @@ const dataProvider = require('../main/data_provider');
 const mainPage = require('../main/page_objects/main_page');
 const elementsPage = require('../main/page_objects/elements_page');
 const webTablesPage = require('../main/page_objects/web_tables_page');
-const browser = require('../main/framework/browser');
+const browserUtils = require('../main/framework/browser_utils');
 const dataManager = require('../main/framework/data_manager');
 
 describe('Test scenario: #3. Tables:', function(){
     let rowsCount1;
     let dataToCompare;
     before(async function() {
-        await browser.initTheDriver(dataProvider.getConfigData().browser);
+        await browserUtils.initTheDriver(dataProvider.getConfigData().browser);
     });
 
     it('Main page is open', async function() {
-        await browser.go_to_url(dataProvider.getConfigData().url);
+        await browserUtils.go_to_url(dataProvider.getConfigData().url);
         const bool1 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
     });
@@ -54,6 +54,6 @@ describe('Test scenario: #3. Tables:', function(){
     });
 
     after(async function() {
-        await browser.quitDriver();
+        await browserUtils.quitDriver();
     });
 });
