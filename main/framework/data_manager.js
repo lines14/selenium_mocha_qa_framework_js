@@ -42,14 +42,14 @@ class DataManager {
         const tableRowsAll = await this.getTableRowsAll();
         const modelsList = [];
         while (counter < totalCount) {
-            this['model'+counter] = new Models();
-            this['model'+counter].firstName = tableRowsAll[counter][0];
-            this['model'+counter].lastName = tableRowsAll[counter][1];
-            this['model'+counter].age = tableRowsAll[counter][2];
-            this['model'+counter].email = tableRowsAll[counter][3];
-            this['model'+counter].salary = tableRowsAll[counter][4];
-            this['model'+counter].department = tableRowsAll[counter][5];
-            modelsList.push(this['model'+counter]);
+            const model = new Models();
+            model.firstName = tableRowsAll[counter][0];
+            model.lastName = tableRowsAll[counter][1];
+            model.age = tableRowsAll[counter][2];
+            model.email = tableRowsAll[counter][3];
+            model.salary = tableRowsAll[counter][4];
+            model.department = tableRowsAll[counter][5];
+            modelsList.push(model);
             counter += 1;
         }
         const strModelsList = modelsList.map(element => JSON.stringify(element));
