@@ -6,9 +6,8 @@ const configManager = require('../config_manager');
 const webTablesPage = require('../page_objects/web_tables_page');
 
 class DataManager {
-    constructor(index=1) {
-        this.index = index;
-        this.row = new Label(By.xpath(`//*[@role="rowgroup"][${this.index}]//div[@role="row"]//div[@role="gridcell"]`, 'row from list'));
+    constructor(index) {
+        this.row = new Label(By.xpath(`//*[@role="rowgroup"][${index}]//div[@role="row"]//div[@role="gridcell"]`, 'row from list'));
     }
     async getTableRowsAll() {
         const itemsCount = 10;
