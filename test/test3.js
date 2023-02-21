@@ -38,7 +38,7 @@ describe('Test scenario: #3. Tables:', function(){
             const modelsFromTable1 = await dataManager.modelsFromTable();
             chai.assert.include(modelsFromTable1, testModel, 'Data of User № has not appeared in a table');
             
-            await webTablesPage.clickDeletebutton();
+            await webTablesPage.clickDeletebutton(rowsCount1);
             const rowsCount2 = await dataManager.filledRowsCounter();
             chai.assert.notEqual(rowsCount1, rowsCount2, 'Number of records in table has not changed');
             const modelsFromTable2 = await dataManager.modelsFromTable();

@@ -5,7 +5,7 @@ const TextBox = require('../framework/base_element_children/text_box');
 const {By} = require('selenium-webdriver');
 
 class WebTablesPage extends BaseForm {
-    constructor() {
+    constructor(index) {
         super(By.xpath('//div[@class="main-header" and text()="Web Tables"]'), 'page with "web tables" form');
         this.button1 = new Button(By.xpath('//*[@id="addNewRecordButton"]'), '"add" button');
         this.registrationFormHeadingText = new Label(By.xpath('//*[@id="registration-form-modal"]'), '"registration" form');
@@ -16,7 +16,7 @@ class WebTablesPage extends BaseForm {
         this.registrationBox5 = new TextBox(By.xpath('//*[@id="salary"]'), 'salary');
         this.registrationBox6 = new TextBox(By.xpath('//*[@id="department"]'), 'department');
         this.searchBox = new TextBox(By.xpath('//*[@id="searchBox"]'), 'search box');
-        this.button2 = new Button(By.xpath('//*[@id="delete-record-4"]'), '"delete" button');
+        this.button2 = new Button(By.xpath(`//*[@id="delete-record-${index}"]`), '"delete" button');
     }
     async webTablesPageIsDisplayed() {
         return await this.boolPageIsDisplayed();
@@ -54,8 +54,9 @@ class WebTablesPage extends BaseForm {
     async pageIsEnabled() {
         return await this.boolPageIsEnabled();
     }
-    async clickDeletebutton() {
-        await this.button2.clickButton();
+    async clickDeletebutton(index) {
+        const instance = new WebTablesPage(index);
+        await instance.button2.clickButton();
     }
 }
 
