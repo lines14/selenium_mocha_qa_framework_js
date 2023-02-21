@@ -1,15 +1,27 @@
 const Label = require('./base_element_children/label');
 const Models = require ('./models');
+const {By} = require('selenium-webdriver');
+const {resolveNestedPromises} = require('resolve-nested-promises')
 const configManager = require('../config_manager');
 const webTablesPage = require('../page_objects/web_tables_page');
 
 class DataManager {
-    constructor() {
-        this.allRows = new Label('//*[@role="rowgroup"]', 'all rows in list');
+    constructor(index=1) {
+        this.index = index;
+        this.row = new Label(By.xpath(`//*[@role="rowgroup"][${this.index}]//div[@role="row"]//div[@role="gridcell"]`, 'row from list'));
     }
     async getTableRowsAll() {
-        const tableRowsListAll = await this.allRows.parseChildrenTextByCounter();
-        return tableRowsListAll;
+        const itemsCount = 10;
+        let counter = 1;
+        const rowsListAll = [];
+        while (counter <= itemsCount){
+            const instance = new DataManager(counter);
+            const eachRowList = await instance.row.getElements();
+            const eachRowTextList = eachRowList.map(element => element.getText());
+            rowsListAll.push(eachRowTextList);
+            counter += 1;   
+        }
+        return resolveNestedPromises(rowsListAll);
     }
     async sendTestData(data_index) {
         const dataList = configManager.getTestData();

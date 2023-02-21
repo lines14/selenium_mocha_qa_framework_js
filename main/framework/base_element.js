@@ -1,6 +1,6 @@
 const Singleton = require('./singleton');
 const configManager = require('../config_manager');
-const {By, until, Key} = require('selenium-webdriver');
+const {until, Key} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
 
 class BaseElement {
@@ -63,30 +63,6 @@ class BaseElement {
         const children = await this.getElements();
         const childrenText = children.map(element => element.getText());
         return resolveNestedPromises(childrenText);
-    }
-    async parseChildrenAttrByCounter(attr) {
-        const itemsCount = 2;
-        let counter = 1;
-        const platformsListAll = [];
-        while (counter <= itemsCount){
-            const eachPlatformsList = await this.driver.findElements(By.xpath(`${this.elementLocator}[${counter}]//subchild-locator`));
-            const eachAttributesList = eachPlatformsList.map(element => element.getAttribute(attr));
-            platformsListAll.push(eachAttributesList);
-            counter += 1;            
-        }
-        return resolveNestedPromises(platformsListAll);
-    }
-    async parseChildrenTextByCounter() {
-        const itemsCount = 10;
-        let counter = 1;
-        const rowsListAll = [];
-        while (counter <= itemsCount){
-            const eachRowList = await this.driver.findElements(By.xpath(`${this.elementLocator}[${counter}]//div[@role="row"]//div[@role="gridcell"]`));
-            const eachRowTextList = eachRowList.map(element => element.getText());
-            rowsListAll.push(eachRowTextList);
-            counter += 1;            
-        }
-        return resolveNestedPromises(rowsListAll);
     }
     async boolWaitIsVisible() {
         await this.driver.wait(until.elementIsVisible(await this.getElement()), configManager.getConfigData().waitTime);
