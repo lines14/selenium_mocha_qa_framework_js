@@ -11,8 +11,9 @@ class DataManager {
         const tableRowsListAll = await this.allRows.parseChildrenTextByCounter();
         return tableRowsListAll;
     }
-    async sendTestData() {
-        const dataToSend = configManager.getTestData().User1.split(',');
+    async sendTestData(data_index) {
+        const dataList = configManager.getTestData();
+        const dataToSend = dataList[data_index].user.split(',');
         await webTablesPage.inputFirstName(dataToSend[0])
         await webTablesPage.inputLastName(dataToSend[1])
         await webTablesPage.inputAge(dataToSend[2])
@@ -56,8 +57,9 @@ class DataManager {
         console.log('    ▶ check data in table')
         return strModelsList;
     }
-    async modelFromTestData() {
-        const testData = configManager.getTestData().User1.split(',');
+    async modelFromTestData(data_index) {
+        const dataList = configManager.getTestData();
+        const testData = dataList[data_index].user.split(',');
         const testModel = new Models();
         testModel.firstName = testData[0];
         testModel.lastName = testData[1];

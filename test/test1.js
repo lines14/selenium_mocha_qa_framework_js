@@ -44,12 +44,12 @@ describe('Test scenario: #1. Alerts', function(){
         const alertText3 = await browserUtils.getAlertText();
         chai.assert.equal(alertText3, 'Please enter your name', 'Alert with text "Please enter your name" is not open');
 
-        await browserUtils.enterTextToAlert(configManager.getTestData().randomText);
+        await browserUtils.enterTextToAlert((configManager.getTestData())[0].randomText);
         await browserUtils.acceptAlert();
         const bool6 = await alertChecker.boolAlertIsDisplayed();
         chai.assert.equal(bool6, false, 'Alert has not closed');
         const enteredText = await alertsPage.getEnteredText();
-        chai.assert.equal(enteredText, `You entered ${configManager.getTestData().randomText}`, "Appeared text not equals to the one you've entered before");
+        chai.assert.equal(enteredText, `You entered ${(configManager.getTestData())[0].randomText}`, "Appeared text not equals to the one you've entered before");
     });
     after(async function() {
         await browserUtils.quitDriver();

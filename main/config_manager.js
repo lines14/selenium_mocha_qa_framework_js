@@ -7,8 +7,8 @@ class ConfigManager {
         return path;
     }
     getTestData() {
-        const data = JSON.parse(JSON.stringify(testData));
-        return data;
+        const dataList = JSON.parse(JSON.stringify(testData));
+        return dataList;
     }
 }
 
