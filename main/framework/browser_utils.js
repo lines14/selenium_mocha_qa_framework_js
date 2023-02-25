@@ -1,4 +1,5 @@
 const Singleton = require('./singleton');
+const configManager = require('../config_manager');
 
 class BrowserUtils {
     async initTheDriver(browser) {
@@ -17,9 +18,9 @@ class BrowserUtils {
         const tabsCount = (await this.driver.getAllWindowHandles()).length;
         return tabsCount;
     }
-    async switchDriverToTheAnotherTab(number) {
+    async switchDriverToTheAnotherTab(prevTabsCount, number) {
         console.log(`    ▶ switch driver to ${number} tab`);
-        await this.driver.wait(async () => (await this.driver.getAllWindowHandles()).length === 2, 9000);
+        await this.driver.wait(async () => (await this.driver.getAllWindowHandles()).length > prevTabsCount, configManager.getConfigData().waitTime);
         const windows = await this.driver.getAllWindowHandles();
         await this.driver.switchTo().window(windows[number]);
     }

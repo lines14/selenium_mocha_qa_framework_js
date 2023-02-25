@@ -26,11 +26,11 @@ describe('Test scenario: #2. Iframe:', function(){
         const bool2 = await nestedFramesPage.nestedFramesPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Nested Frames form is not open');
         await browserUtils.goIntoFrame('frame1');
-        const text1 = await frame1.getFrameText();
-        chai.assert.equal(text1, 'Parent frame', 'Message "Parent frame" not present on page');
+        const parentFrameText = await frame1.getFrameText();
+        chai.assert.equal(parentFrameText, configManager.getTestData().parentFrameText, 'Message "Parent frame" not present on page');
         await browserUtils.goIntoFrame(0);
-        const text2 = await frame2.getFrameText();
-        chai.assert.equal(text2, 'Child Iframe', 'Message "Child Iframe" not present on page');
+        const childIframeText = await frame2.getFrameText();
+        chai.assert.equal(childIframeText, configManager.getTestData().childIframeText, 'Message "Child Iframe" not present on page');
         await browserUtils.goOutOfFrame();
         await browserUtils.goOutOfFrame();
 
@@ -38,12 +38,12 @@ describe('Test scenario: #2. Iframe:', function(){
         const bool3 = await framesPage.framesPageIsDisplayed();
         chai.assert.equal(bool3, true, 'Page with Frames form is not open');
         await browserUtils.goIntoFrame('frame1');
-        const text3 = await frame3.getFrameText();
+        const firstFrameText = await frame3.getFrameText();
         await browserUtils.goOutOfFrame();
         await browserUtils.goIntoFrame('frame2');
-        const text4 = await frame4.getFrameText();
+        const secondFrameText = await frame4.getFrameText();
         await browserUtils.goOutOfFrame();
-        chai.assert.equal(text3, text4, 'Message from upper frame is not equal to the message from lower frame');
+        chai.assert.equal(firstFrameText, secondFrameText, 'Message from upper frame is not equal to the message from lower frame');
     });
     after(async function() {
         await browserUtils.quitDriver();

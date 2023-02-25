@@ -9,8 +9,6 @@ const linksPage = require('../main/page_objects/links_page');
 const browserUtils = require('../main/framework/browser_utils');
 
 describe('Test scenario: #4. Handles:', function(){
-    let originalTab1;
-    let originalTab2;
     before(async function() {
         await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
@@ -25,11 +23,12 @@ describe('Test scenario: #4. Handles:', function(){
         const bool2 = await browserWindowsPage.browserWindowsPageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Browser Windows form is not open');
 
-        originalTab1 = await browserUtils.handleOriginalTab();
+        const originalTab1 = await browserUtils.handleOriginalTab();
+        let prevTabsCount = await browserUtils.getTabsCount();
         await browserWindowsPage.clickNewTabButton()
         const tabsCount1 = await browserUtils.getTabsCount();
-        chai.assert.equal(tabsCount1, 2, 'New tab is not open');
-        await browserUtils.switchDriverToTheAnotherTab(1);
+        chai.assert.isTrue(tabsCount1 > prevTabsCount, 'New tab is not open');
+        await browserUtils.switchDriverToTheAnotherTab(prevTabsCount, 1);
         const bool3 = await samplePage.samplePageIsDisplayed();
         chai.assert.equal(bool3, true, 'Sample page is not open');
 
@@ -44,11 +43,12 @@ describe('Test scenario: #4. Handles:', function(){
         const bool5 = await linksPage.linksPageIsDisplayed();
         chai.assert.equal(bool5, true, 'Page with Links form is not open');
 
-        originalTab2 = await browserUtils.handleOriginalTab();
+        const originalTab2 = await browserUtils.handleOriginalTab();
+        prevTabsCount = await browserUtils.getTabsCount();
         await linksPage.clickHomeLink();
         const tabsCount2 = await browserUtils.getTabsCount();
-        chai.assert.equal(tabsCount2, 2, 'New tab is not open');
-        await browserUtils.switchDriverToTheAnotherTab(1);
+        chai.assert.isTrue(tabsCount2 > prevTabsCount, 'New tab is not open');
+        await browserUtils.switchDriverToTheAnotherTab(prevTabsCount, 1);
         const bool6 = await mainPage.mainPageIsDisplayed()
         chai.assert.equal(bool6, true, 'Main page is not open');
 
