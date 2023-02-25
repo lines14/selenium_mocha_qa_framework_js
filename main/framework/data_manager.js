@@ -22,9 +22,8 @@ class DataManager {
         }
         return resolveNestedPromises(rowsListAll);
     }
-    async sendTestData(data_index) {
-        const dataList = configManager.getTestData();
-        const dataToSend = dataList[data_index].user.split(',');
+    async sendTestData() {
+        const dataToSend = configManager.getTestData().User1.split(',');
         await webTablesPage.inputFirstName(dataToSend[0])
         await webTablesPage.inputLastName(dataToSend[1])
         await webTablesPage.inputAge(dataToSend[2])
@@ -68,9 +67,8 @@ class DataManager {
         const strEmployeesList = employeesList.map(element => JSON.stringify(element));
         return strEmployeesList;
     }
-    async modelFromTestData(data_index) {
-        const dataList = configManager.getTestData();
-        const testData = dataList[data_index].user.split(',');
+    async modelFromTestData() {
+        const testData = configManager.getTestData().User1.split(',');
         const testModel = new Employee();
         testModel.firstName = testData[0];
         testModel.lastName = testData[1];
