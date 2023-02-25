@@ -17,37 +17,36 @@ class BaseElement {
         return await this.driver.findElements(this.elementLocator);
     }
     async getText() {
+        console.log(`    ▶ get displayed ${this.elementName}`)
         const element = await this.getElement();
         const text = await element.getText();
-        console.log(`    ▶ get "${text}" ${this.elementName}`)
+        console.log(`    ▶ text contains: "${text}"`)
         return text;
     }
     async clickButton() {
+        console.log(`    ▶ click ${this.elementName}`)
         const element = await this.getElement();
         await element.click();
-        console.log(`    ▶ click ${this.elementName}`)
     }
     async inputText(text) {
+        console.log(`    ▶ input ${this.elementName}`)
         const element = await this.getElement();
         await element.sendKeys(text);
-        console.log(`    ▶ input ${this.elementName}`)
     }
     async enterText(text) {
+        console.log(`    ▶ input ${this.elementName} and submit`)
         const element = await this.getElement();
         await element.sendKeys(text, Key.ENTER);
-        console.log(`    ▶ input ${this.elementName} and submit`)
     }
     async getAttributeValue(attr) {
         const element = await this.getElement();
         const atr = element.getAttribute(attr);
         return atr;
     }
-    async boolElementIsDisplayed() {
+    async elementIsDisplayed() {
+        console.log(`    ▶ ${this.elementName} is present`)
         const element = await this.getElement();
         const bool = await element.isDisplayed();
-        if (bool === true) {
-            console.log(`    ▶ ${this.elementName} is present`)
-        }
         return bool;
     }
     async checkElementIsEnabled() {
@@ -64,16 +63,16 @@ class BaseElement {
         const childrenText = children.map(element => element.getText());
         return resolveNestedPromises(childrenText);
     }
-    async boolWaitIsVisible() {
-        await this.driver.wait(until.elementIsVisible(await this.getElement()), configManager.getConfigData().waitTime);
+    async waitIsVisible() {
         console.log(`    ▶ wait ${this.elementName} is visible`)
+        await this.driver.wait(until.elementIsVisible(await this.getElement()), configManager.getConfigData().waitTime);
     }
-    async boolWaitStalenessOf() {
+    async waitStalenessOf() {
         await this.driver.wait(until.stalenessOf(this.elementLocator), configManager.getConfigData().waitTime);
     }
-    async boolWaitIsEnabled() {
-        await this.driver.wait(until.elementIsEnabled(await this.getElement(), configManager.getConfigData().waitTime));
+    async waitIsEnabled() {
         console.log(`    ▶ wait ${this.elementName} is enabled`)
+        await this.driver.wait(until.elementIsEnabled(await this.getElement(), configManager.getConfigData().waitTime));
     }
 }
     

@@ -1,5 +1,5 @@
 const Label = require('./base_element_children/label');
-const Models = require ('./models');
+const Employee = require ('./employee');
 const {By} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
 const configManager = require('../config_manager');
@@ -49,29 +49,29 @@ class DataManager {
         return quantity;
     }
     async modelsFromTable() {
+        console.log('    ▶ check data in table')
         let counter = 0;
         const totalCount = await this.filledRowsCounter();
         const tableRowsAll = await this.getTableRowsAll();
-        const modelsList = [];
+        const employeesList = [];
         while (counter < totalCount) {
-            const model = new Models();
-            model.firstName = tableRowsAll[counter][0];
-            model.lastName = tableRowsAll[counter][1];
-            model.age = tableRowsAll[counter][2];
-            model.email = tableRowsAll[counter][3];
-            model.salary = tableRowsAll[counter][4];
-            model.department = tableRowsAll[counter][5];
-            modelsList.push(model);
+            const employee = new Employee();
+            employee.firstName = tableRowsAll[counter][0];
+            employee.lastName = tableRowsAll[counter][1];
+            employee.age = tableRowsAll[counter][2];
+            employee.email = tableRowsAll[counter][3];
+            employee.salary = tableRowsAll[counter][4];
+            employee.department = tableRowsAll[counter][5];
+            employeesList.push(employee);
             counter += 1;
         }
-        const strModelsList = modelsList.map(element => JSON.stringify(element));
-        console.log('    ▶ check data in table')
-        return strModelsList;
+        const strEmployeesList = employeesList.map(element => JSON.stringify(element));
+        return strEmployeesList;
     }
     async modelFromTestData(data_index) {
         const dataList = configManager.getTestData();
         const testData = dataList[data_index].user.split(',');
-        const testModel = new Models();
+        const testModel = new Employee();
         testModel.firstName = testData[0];
         testModel.lastName = testData[1];
         testModel.age = testData[2];

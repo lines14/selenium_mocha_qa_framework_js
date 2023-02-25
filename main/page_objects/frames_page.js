@@ -6,7 +6,7 @@ class FramesPage extends BaseForm {
         super(By.xpath('//div[@class="main-header" and text()="Frames"]'), 'page with "frames" form');
     }
     async framesPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
 }
 

@@ -9,7 +9,7 @@ class MainPage extends BaseForm {
         this.button2 = new Button(By.xpath('//h5[contains(text(), "Elements")]'), '"elements" button');
     }
     async mainPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
     async clickAlertsFrameWindowsButton() {
         await this.button1.clickButton();

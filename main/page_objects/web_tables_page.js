@@ -9,50 +9,50 @@ class WebTablesPage extends BaseForm {
         super(By.xpath('//div[@class="main-header" and text()="Web Tables"]'), 'page with "web tables" form');
         this.button1 = new Button(By.xpath('//*[@id="addNewRecordButton"]'), '"add" button');
         this.registrationFormHeadingText = new Label(By.xpath('//*[@id="registration-form-modal"]'), '"registration" form');
-        this.registrationBox1 = new TextBox(By.xpath('//*[@id="firstName"]'), 'first name');
-        this.registrationBox2 = new TextBox(By.xpath('//*[@id="lastName"]'), 'last name');
-        this.registrationBox3 = new TextBox(By.xpath('//*[@id="userEmail"]'), 'email');
-        this.registrationBox4 = new TextBox(By.xpath('//*[@id="age"]'), 'age');
-        this.registrationBox5 = new TextBox(By.xpath('//*[@id="salary"]'), 'salary');
-        this.registrationBox6 = new TextBox(By.xpath('//*[@id="department"]'), 'department');
+        this.firstNameBox = new TextBox(By.xpath('//*[@id="firstName"]'), 'first name');
+        this.lastNameBox = new TextBox(By.xpath('//*[@id="lastName"]'), 'last name');
+        this.emailBox = new TextBox(By.xpath('//*[@id="userEmail"]'), 'email');
+        this.ageBox = new TextBox(By.xpath('//*[@id="age"]'), 'age');
+        this.salaryBox = new TextBox(By.xpath('//*[@id="salary"]'), 'salary');
+        this.departmentBox = new TextBox(By.xpath('//*[@id="department"]'), 'department');
         this.searchBox = new TextBox(By.xpath('//*[@id="searchBox"]'), 'search box');
         this.button2 = new Button(By.xpath(`//*[@id="delete-record-${index}"]`), '"delete" button');
     }
     async webTablesPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
     async clickAddButton() {
         await this.button1.clickButton();
     }
     async waitRegistrationFormVisible() {
-        await this.registrationFormHeadingText.boolWaitIsVisible();
+        await this.registrationFormHeadingText.waitIsVisible();
     }
     async registrationFormIsDisplayed() {
-        return await this.registrationFormHeadingText.boolElementIsDisplayed();
+        return await this.registrationFormHeadingText.elementIsDisplayed();
     }
     async inputFirstName(text) {
-        await this.registrationBox1.inputText(text);
+        await this.firstNameBox.inputText(text);
     }
     async inputLastName(text) {
-        await this.registrationBox2.inputText(text);
+        await this.lastNameBox.inputText(text);
     }
     async inputEmail(text) {
-        await this.registrationBox3.inputText(text);
+        await this.emailBox.inputText(text);
     }
     async inputAge(text) {
-        await this.registrationBox4.inputText(text);
+        await this.ageBox.inputText(text);
     }
     async inputSalary(text) {
-        await this.registrationBox5.inputText(text);
+        await this.salaryBox.inputText(text);
     }
     async enterDepartment(text) {
-        await this.registrationBox6.enterText(text);
+        await this.departmentBox.enterText(text);
     }
-    async waitPageIsEnabled() {
-        await this.boolWaitPageIsEnabled();
+    async waitWebTablesPageIsEnabled() {
+        await this.waitPageIsEnabled();
     }
-    async pageIsEnabled() {
-        return await this.boolPageIsEnabled();
+    async webTablesPageIsEnabled() {
+        return await this.pageIsEnabled();
     }
     async clickDeletebutton(index) {
         const instance = new WebTablesPage(index);

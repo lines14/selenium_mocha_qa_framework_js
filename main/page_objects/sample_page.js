@@ -6,7 +6,7 @@ class SamplePage extends BaseForm {
         super(By.xpath('//*[text()="This is a sample page"]'), 'new tab with sample page');
     }
     async samplePageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
 }
 

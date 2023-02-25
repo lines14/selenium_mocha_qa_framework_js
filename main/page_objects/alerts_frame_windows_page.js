@@ -6,7 +6,7 @@ class AlertsFrameWindowsPage extends BaseForm {
         super(By.xpath('//div[@class="main-header" and text()="Alerts, Frame & Windows"]'), '"alerts, frame & windows" page');
     }
     async alertsFrameWindowsPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
 }
 

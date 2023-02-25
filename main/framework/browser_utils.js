@@ -13,50 +13,59 @@ class BrowserUtils {
     async handleOriginalTab() {
         return await this.driver.getWindowHandle();
     }
-    async checkTheTabsCount() {
+    async getTabsCount() {
         const tabsCount = (await this.driver.getAllWindowHandles()).length;
         return tabsCount;
     }
     async switchDriverToTheAnotherTab(number) {
+        console.log(`    ▶ switch driver to ${number} tab`);
         await this.driver.wait(async () => (await this.driver.getAllWindowHandles()).length === 2, 9000);
         const windows = await this.driver.getAllWindowHandles();
         await this.driver.switchTo().window(windows[number]);
-        console.log(`    ▶ switch driver to ${number} tab`);
     }
     async switchDriverToTheOriginalTab(originalTab) {
-        await this.driver.switchTo().window(originalTab);
         console.log(`    ▶ switch driver to previous tab`);
+        await this.driver.switchTo().window(originalTab);
     }
     async getAlert() {
         return await this.driver.switchTo().alert();
     }
     async getAlertText() {
+        console.log(`    ▶ alert with text is open`);
         const alert = await this.getAlert();
         const text = await alert.getText();
-        console.log(`    ▶ alert with text "${text}" is open`);
+        console.log(`    ▶ text contains: "${text}"`);
         return text;
     }
     async enterTextToAlert(text) {
+        console.log('    ▶ input text to alert form');
         const alert = await this.getAlert();
         await alert.sendKeys(text);
-        console.log('    ▶ input text to alert form');
     }
     async acceptAlert() {
+        console.log('    ▶ accept alert');
         const alert = await this.getAlert();
         await alert.accept();
-        console.log('    ▶ accept alert');
+    }
+    async alertIsDisplayed() {
+        try {
+            await this.getAlert();
+            return true;
+        } catch(err) {
+            return false;
+        }
     }
     async goIntoFrame(index) {
-        await this.driver.switchTo().frame(index);
         console.log('    ▶ go into frame');
+        await this.driver.switchTo().frame(index);
     }
     async goOutOfFrame() {
-        await this.driver.switchTo().defaultContent();
         console.log('    ▶ go out of frame');
+        await this.driver.switchTo().defaultContent();
     }
     async closeTab() {
-        await this.driver.close();
         console.log('    ▶ close tab');
+        await this.driver.close();
     }
     async quitDriver() {
         await this.driver.quit();

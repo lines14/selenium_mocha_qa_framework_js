@@ -30,8 +30,8 @@ describe('Test scenario: #3. Tables:', function(){
             chai.assert.equal(bool3, true, 'Registration Form has not appeared on page');
 
             await dataManager.sendTestData(data_index);
-            await webTablesPage.waitPageIsEnabled();
-            const bool4 = await webTablesPage.pageIsEnabled();
+            await webTablesPage.waitWebTablesPageIsEnabled();
+            const bool4 = await webTablesPage.webTablesPageIsEnabled();
             chai.assert.isTrue(bool4, 'Registration Form has not closed');
             const rowsCount1 = await dataManager.filledRowsCounter();
             const testModel = await dataManager.modelFromTestData(data_index);

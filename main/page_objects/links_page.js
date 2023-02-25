@@ -8,7 +8,7 @@ class LinksPage extends BaseForm {
         this.link = new Label(By.xpath('//*[@id="simpleLink"]'), '"home" link');
     }
     async linksPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
     async clickHomeLink() {
         await this.link.clickButton();

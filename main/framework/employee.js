@@ -1,4 +1,4 @@
-class Models {
+class Employee {
     firstName = null;
     lastName = null;
     age = null;
@@ -7,4 +7,4 @@ class Models {
     department = null;
 }
 
-module.exports = Models;
+module.exports = Employee;

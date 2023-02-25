@@ -13,7 +13,7 @@ class AlertsPage extends BaseForm {
         this.promptText = new Label(By.xpath('//*[@id="promptResult"]'), 'text');
     }
     async alertsPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
     async clickButtonToSeeAlertButton() {
         await this.button1.clickButton();
@@ -22,7 +22,7 @@ class AlertsPage extends BaseForm {
         await this.button2.clickButton();
     }
     async confirmTextIsDisplayed() {
-        return await this.confirmText.boolElementIsDisplayed();
+        return await this.confirmText.elementIsDisplayed();
     }
     async onButtonClickPromptBoxWillAppearButton() {
         await this.button3.clickButton();

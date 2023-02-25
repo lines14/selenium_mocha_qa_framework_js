@@ -32,7 +32,7 @@ class LeftMenuForm extends BaseForm {
         await this.button6.clickButton();
     }
     async waitLinksButtonVisible() {
-        await this.button7.boolWaitIsVisible();
+        await this.button7.waitIsVisible();
     }
     async clickLinksButton() {
         await this.button7.clickButton();

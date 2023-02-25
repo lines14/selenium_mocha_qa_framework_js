@@ -6,7 +6,7 @@ class ElementsPage extends BaseForm {
         super(By.xpath('//div[@class="main-header" and text()="Elements"]'), '"elements" page');
     }
     async elementsPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
 }
 

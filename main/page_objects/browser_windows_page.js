@@ -8,7 +8,7 @@ class BrowserWindowsPage extends BaseForm {
         this.button1 = new Button(By.xpath('//*[@id="tabButton"]'), '"new tab" button');
     }
     async browserWindowsPageIsDisplayed() {
-        return await this.boolPageIsDisplayed();
+        return await this.pageIsDisplayed();
     }
     async clickNewTabButton() {
         await this.button1.clickButton();

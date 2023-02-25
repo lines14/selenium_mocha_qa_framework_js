@@ -11,23 +11,21 @@ class BaseForm {
     async getUniqueElement() {
         return await this.driver.findElement(this.pageLocator);
     }
-    async boolPageIsDisplayed() {
+    async pageIsDisplayed() {
+        console.log(`    ▶ ${this.pageName} is open`)
         const uniqueElement = await this.getUniqueElement();
         const bool = await uniqueElement.isDisplayed();
-        if (bool === true) {
-            console.log(`    ▶ ${this.pageName} is open`)
-        }
         return bool;
     }
-    async boolPageIsEnabled() {
-        const element = await this.getUniqueElement();
+    async pageIsEnabled() {
         console.log(`    ▶ ${this.pageName} is enabled`)
+        const element = await this.getUniqueElement();
         return await element.isEnabled();
     }
-    async boolWaitPageIsLocated() {
+    async waitPageIsLocated() {
         await this.driver.wait(until.elementLocated(this.pageLocator), configManager.getConfigData().waitTime);
     }
-    async boolWaitPageIsEnabled() {
+    async waitPageIsEnabled() {
         await this.driver.wait(until.elementIsEnabled(await this.getUniqueElement(), configManager.getConfigData().waitTime));
     }
 }

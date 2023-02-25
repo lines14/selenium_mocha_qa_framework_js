@@ -27,7 +27,7 @@ describe('Test scenario: #4. Handles:', function(){
 
         originalTab1 = await browserUtils.handleOriginalTab();
         await browserWindowsPage.clickNewTabButton()
-        const tabsCount1 = await browserUtils.checkTheTabsCount();
+        const tabsCount1 = await browserUtils.getTabsCount();
         chai.assert.equal(tabsCount1, 2, 'New tab is not open');
         await browserUtils.switchDriverToTheAnotherTab(1);
         const bool3 = await samplePage.samplePageIsDisplayed();
@@ -46,7 +46,7 @@ describe('Test scenario: #4. Handles:', function(){
 
         originalTab2 = await browserUtils.handleOriginalTab();
         await linksPage.clickHomeLink();
-        const tabsCount2 = await browserUtils.checkTheTabsCount();
+        const tabsCount2 = await browserUtils.getTabsCount();
         chai.assert.equal(tabsCount2, 2, 'New tab is not open');
         await browserUtils.switchDriverToTheAnotherTab(1);
         const bool6 = await mainPage.mainPageIsDisplayed()

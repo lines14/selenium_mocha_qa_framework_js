@@ -5,7 +5,6 @@ const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_window
 const alertsPage = require('../main/page_objects/alerts_page');
 const leftMenuForm = require('../main/page_objects/left_menu_form');
 const browserUtils = require('../main/framework/browser_utils');
-const alertChecker = require('../main/framework/alert_checker');
 
 describe('Test scenario: #1. Alerts', function(){
     before(async function() {
@@ -27,7 +26,7 @@ describe('Test scenario: #1. Alerts', function(){
         chai.assert.equal(alertText1, 'You clicked a button', 'Alert with text "You clicked a button" is not open');
 
         await browserUtils.acceptAlert();
-        const bool3 = await alertChecker.boolAlertIsDisplayed();
+        const bool3 = await browserUtils.alertIsDisplayed();
         chai.assert.equal(bool3, false, 'Alert has not closed');
 
         await alertsPage.onButtonClickConfirmBoxWillAppearButton();
@@ -35,7 +34,7 @@ describe('Test scenario: #1. Alerts', function(){
         chai.assert.equal(alertText2, 'Do you confirm action?', 'Alert with text "Do you confirm action?" is not open');
 
         await browserUtils.acceptAlert();
-        const bool4 = await alertChecker.boolAlertIsDisplayed();
+        const bool4 = await browserUtils.alertIsDisplayed();
         chai.assert.equal(bool4, false, 'Alert has not closed');
         const bool5 = await alertsPage.confirmTextIsDisplayed();
         chai.assert.equal(bool5, true, 'Text "You selected Ok" has not appeared on page');
@@ -46,7 +45,7 @@ describe('Test scenario: #1. Alerts', function(){
 
         await browserUtils.enterTextToAlert((configManager.getTestData())[0].randomText);
         await browserUtils.acceptAlert();
-        const bool6 = await alertChecker.boolAlertIsDisplayed();
+        const bool6 = await browserUtils.alertIsDisplayed();
         chai.assert.equal(bool6, false, 'Alert has not closed');
         const enteredText = await alertsPage.getEnteredText();
         chai.assert.equal(enteredText, `You entered ${(configManager.getTestData())[0].randomText}`, "Appeared text not equals to the one you've entered before");
