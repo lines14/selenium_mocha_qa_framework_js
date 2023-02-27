@@ -8,8 +8,8 @@ const {resolveNestedPromises} = require('resolve-nested-promises')
 class WebTablesPage extends BaseForm {
     constructor(index) {
         super(By.xpath('//div[@class="main-header" and text()="Web Tables"]'), 'page with "web tables" form');
-        this.row = new Label(By.xpath(`//*[@role="rowgroup"][${index}]//div[@role="row"]//div[@role="gridcell"]`, 'row from list'));
-        this.button1 = new Button(By.xpath('//*[@id="addNewRecordButton"]'), '"add" button');
+        this.tableCell = new Label(By.xpath(`//*[@role="rowgroup"][${index}]//div[@role="row"]//div[@role="gridcell"]`, 'cell from table'));
+        this.addButton = new Button(By.xpath('//*[@id="addNewRecordButton"]'), '"add" button');
         this.registrationFormHeadingText = new Label(By.xpath('//*[@id="registration-form-modal"]'), '"registration" form');
         this.firstNameBox = new TextBox(By.xpath('//*[@id="firstName"]'), 'first name');
         this.lastNameBox = new TextBox(By.xpath('//*[@id="lastName"]'), 'last name');
@@ -18,13 +18,13 @@ class WebTablesPage extends BaseForm {
         this.salaryBox = new TextBox(By.xpath('//*[@id="salary"]'), 'salary');
         this.departmentBox = new TextBox(By.xpath('//*[@id="department"]'), 'department');
         this.searchBox = new TextBox(By.xpath('//*[@id="searchBox"]'), 'search box');
-        this.button2 = new Button(By.xpath(`//*[@id="delete-record-${index}"]`), '"delete" button');
+        this.deleteButton = new Button(By.xpath(`//*[@id="delete-record-${index}"]`), '"delete" button');
     }
     async webTablesPageIsDisplayed() {
         return await this.pageIsDisplayed();
     }
     async clickAddButton() {
-        await this.button1.clickButton();
+        await this.addButton.clickButton();
     }
     async waitRegistrationFormVisible() {
         await this.registrationFormHeadingText.waitIsVisible();
@@ -40,7 +40,7 @@ class WebTablesPage extends BaseForm {
     }
     async clickDeletebutton(index) {
         const instance = new WebTablesPage(index);
-        await instance.button2.clickButton();
+        await instance.deleteButton.clickButton();
     }
     async sendTestData(dataSet) {
         const dataToSend = dataSet.split(',');
@@ -57,7 +57,7 @@ class WebTablesPage extends BaseForm {
         const allRowsTextList = [];
         while (counter <= itemsCount){
             const instance = new WebTablesPage(counter);
-            const eachRowCellsList = await instance.row.getElements();
+            const eachRowCellsList = await instance.tableCell.getElements();
             const eachRowTextList = eachRowCellsList.map(element => element.getText());
             allRowsTextList.push(eachRowTextList);
             counter += 1;   

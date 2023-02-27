@@ -5,37 +5,37 @@ const {By} = require('selenium-webdriver');
 class LeftMenuForm extends BaseForm {
     constructor() {
         super();
-        this.button1 = new Button(By.xpath('//span[contains(text(), "Alerts")]'), '"alerts" button');
-        this.button2 = new Button(By.xpath('//span[contains(text(), "Nested Frames")]'), '"nested frames" button');
-        this.button3 = new Button(By.xpath('//span[contains(text(), "Browser Windows")]'), '"browser windows" button');
-        this.button4 = new Button(By.xpath('//span[contains(text(), "Frames")]'), '"frames" button');
-        this.button5 = new Button(By.xpath('//*[@id="item-3"]/span'), '"web tables" button');
-        this.button6 = new Button(By.xpath('//div[@class="header-text" and text()="Elements"]'), '"elements" button');
-        this.button7 = new Button(By.xpath('//*[@id="item-5"]'), '"links" button');
+        this.alertsButton = new Button(By.xpath('//span[contains(text(), "Alerts")]'), '"alerts" button');
+        this.nestedFramesButton = new Button(By.xpath('//span[contains(text(), "Nested Frames")]'), '"nested frames" button');
+        this.browserWindowsButton = new Button(By.xpath('//span[contains(text(), "Browser Windows")]'), '"browser windows" button');
+        this.framesButton = new Button(By.xpath('//span[contains(text(), "Frames")]'), '"frames" button');
+        this.webTablesButton = new Button(By.xpath('//*[@id="item-3"]/span'), '"web tables" button');
+        this.elementsButton = new Button(By.xpath('//div[@class="header-text" and text()="Elements"]'), '"elements" button');
+        this.linksButton = new Button(By.xpath('//*[@id="item-5"]'), '"links" button');
     }
     async clickAlertsButton() {
-        await this.button1.clickButton();
+        await this.alertsButton.clickButton();
     }
     async clickNestedFramesButton() {
-        await this.button2.clickButton();
+        await this.nestedFramesButton.clickButton();
     }
     async clickBrowserWindowsButton() {
-        await this.button3.clickButton();
+        await this.browserWindowsButton.clickButton();
     }
     async clickFramesButton() {
-        await this.button4.clickButton();
+        await this.framesButton.clickButton();
     }
     async clickWebTablesButton() {
-        await this.button5.clickButton();
+        await this.webTablesButton.clickButton();
     }
     async clickElementsButton() {
-        await this.button6.clickButton();
+        await this.elementsButton.clickButton();
     }
     async waitLinksButtonVisible() {
-        await this.button7.waitIsVisible();
+        await this.linksButton.waitIsVisible();
     }
     async clickLinksButton() {
-        await this.button7.clickButton();
+        await this.linksButton.clickButton();
     }
 }
 
