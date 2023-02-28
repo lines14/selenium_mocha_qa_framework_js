@@ -17,13 +17,13 @@ describe('Test scenario: #2. Iframe:', function(){
     });
     it('#2. Iframe', async function() {
         await browserUtils.go_to_url(configManager.getConfigData().url);
-        const bool1 = await mainPage.mainPageIsDisplayed()
+        const bool1 = await mainPage.pageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
-        await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
+        await alertsFrameWindowsPage.pageIsDisplayed();
         await leftMenuForm.clickNestedFramesButton();
-        const bool2 = await nestedFramesPage.nestedFramesPageIsDisplayed();
+        const bool2 = await nestedFramesPage.pageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Nested Frames form is not open');
         await browserUtils.goIntoFrame('frame1');
         const parentFrameText = await frame1.getFrameText();
@@ -35,7 +35,7 @@ describe('Test scenario: #2. Iframe:', function(){
         await browserUtils.goOutOfFrame();
 
         await leftMenuForm.clickFramesButton();
-        const bool3 = await framesPage.framesPageIsDisplayed();
+        const bool3 = await framesPage.pageIsDisplayed();
         chai.assert.equal(bool3, true, 'Page with Frames form is not open');
         await browserUtils.goIntoFrame('frame1');
         const firstFrameText = await frame3.getFrameText();

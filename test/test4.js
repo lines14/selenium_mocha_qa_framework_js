@@ -14,13 +14,13 @@ describe('Test scenario: #4. Handles:', function(){
     });
     it('#4. Handles', async function() {
         await browserUtils.go_to_url(configManager.getConfigData().url);
-        const bool1 = await mainPage.mainPageIsDisplayed()
+        const bool1 = await mainPage.pageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
-        await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
+        await alertsFrameWindowsPage.pageIsDisplayed();
         await leftMenuForm.clickBrowserWindowsButton();
-        const bool2 = await browserWindowsPage.browserWindowsPageIsDisplayed();
+        const bool2 = await browserWindowsPage.pageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Browser Windows form is not open');
 
         const originalTab1 = await browserUtils.handleOriginalTab();
@@ -29,18 +29,18 @@ describe('Test scenario: #4. Handles:', function(){
         const tabsCount1 = await browserUtils.getTabsCount();
         chai.assert.isTrue(tabsCount1 > prevTabsCount, 'New tab is not open');
         await browserUtils.switchDriverToTheAnotherTab(prevTabsCount, 1);
-        const bool3 = await samplePage.samplePageIsDisplayed();
+        const bool3 = await samplePage.pageIsDisplayed();
         chai.assert.equal(bool3, true, 'Sample page is not open');
 
         await browserUtils.closeTab();
         await browserUtils.switchDriverToTheOriginalTab(originalTab1);
-        const bool4 = await browserWindowsPage.browserWindowsPageIsDisplayed();
+        const bool4 = await browserWindowsPage.pageIsDisplayed();
         chai.assert.equal(bool4, true, 'Page with Browser Windows form is not open');
 
         await leftMenuForm.clickElementsButton();
         await leftMenuForm.waitLinksButtonVisible();
         await leftMenuForm.clickLinksButton();
-        const bool5 = await linksPage.linksPageIsDisplayed();
+        const bool5 = await linksPage.pageIsDisplayed();
         chai.assert.equal(bool5, true, 'Page with Links form is not open');
 
         const originalTab2 = await browserUtils.handleOriginalTab();
@@ -49,11 +49,11 @@ describe('Test scenario: #4. Handles:', function(){
         const tabsCount2 = await browserUtils.getTabsCount();
         chai.assert.isTrue(tabsCount2 > prevTabsCount, 'New tab is not open');
         await browserUtils.switchDriverToTheAnotherTab(prevTabsCount, 1);
-        const bool6 = await mainPage.mainPageIsDisplayed()
+        const bool6 = await mainPage.pageIsDisplayed()
         chai.assert.equal(bool6, true, 'Main page is not open');
 
         await browserUtils.switchDriverToTheOriginalTab(originalTab2);
-        const bool7 = await linksPage.linksPageIsDisplayed();
+        const bool7 = await linksPage.pageIsDisplayed();
         chai.assert.equal(bool7, true, 'Page with Links form is not open');
     });
     after(async function() {

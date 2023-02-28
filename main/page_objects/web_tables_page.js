@@ -20,9 +20,6 @@ class WebTablesPage extends BaseForm {
         this.searchBox = new TextBox(By.xpath('//*[@id="searchBox"]'), 'search box');
         this.deleteButton = new Button(By.xpath(`//*[@id="delete-record-${index}"]`), '"delete" button');
     }
-    async webTablesPageIsDisplayed() {
-        return await this.pageIsDisplayed();
-    }
     async clickAddButton() {
         await this.addButton.clickButton();
     }
@@ -31,12 +28,6 @@ class WebTablesPage extends BaseForm {
     }
     async registrationFormIsDisplayed() {
         return await this.registrationFormHeadingText.elementIsDisplayed();
-    }
-    async waitWebTablesPageIsEnabled() {
-        await this.waitPageIsEnabled();
-    }
-    async webTablesPageIsEnabled() {
-        return await this.pageIsEnabled();
     }
     async clickDeletebutton(index) {
         const instance = new WebTablesPage(index);

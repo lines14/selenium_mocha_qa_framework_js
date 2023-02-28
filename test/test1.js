@@ -12,13 +12,13 @@ describe('Test scenario: #1. Alerts', function(){
     });
     it('#1. Alerts', async function() {
         await browserUtils.go_to_url(configManager.getConfigData().url);
-        const bool1 = await mainPage.mainPageIsDisplayed()
+        const bool1 = await mainPage.pageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
-        await alertsFrameWindowsPage.alertsFrameWindowsPageIsDisplayed();
+        await alertsFrameWindowsPage.pageIsDisplayed();
         await leftMenuForm.clickAlertsButton();
-        const bool2 = await alertsPage.alertsPageIsDisplayed();
+        const bool2 = await alertsPage.pageIsDisplayed();
         chai.assert.equal(bool2, true, 'Alerts form has not appeared on the page');
 
         await alertsPage.clickButtonToSeeAlertButton();

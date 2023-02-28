@@ -13,13 +13,13 @@ describe('Test scenario: #3. Tables:', function(){
     });
     it('#3. Tables', async function() {
         await browserUtils.go_to_url(configManager.getConfigData().url);
-        const bool1 = await mainPage.mainPageIsDisplayed()
+        const bool1 = await mainPage.pageIsDisplayed()
         chai.assert.equal(bool1, true, 'Main page is not open');
 
         await mainPage.clickElementsButton();
-        await elementsPage.elementsPageIsDisplayed();
+        await elementsPage.pageIsDisplayed();
         await leftMenuForm.clickWebTablesButton();
-        const bool2 = await webTablesPage.webTablesPageIsDisplayed();
+        const bool2 = await webTablesPage.pageIsDisplayed();
         chai.assert.equal(bool2, true, 'Page with Web Tables form is not open');
 
         await webTablesPage.clickAddButton();
@@ -28,8 +28,8 @@ describe('Test scenario: #3. Tables:', function(){
         chai.assert.equal(bool3, true, 'Registration Form has not appeared on page');
 
         await webTablesPage.sendTestData(configManager.getTestData().User1);
-        await webTablesPage.waitWebTablesPageIsEnabled();
-        const bool4 = await webTablesPage.webTablesPageIsEnabled();
+        await webTablesPage.waitPageIsEnabled();
+        const bool4 = await webTablesPage.pageIsEnabled();
         chai.assert.isTrue(bool4, 'Registration Form has not closed');
         const rowsCount1 = await webTablesPage.filledRowsCounter();
         const testModel = await modelsGenerator.modelsGenerator([configManager.getTestData().User1.split(',')], 1);

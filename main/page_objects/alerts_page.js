@@ -12,9 +12,6 @@ class AlertsPage extends BaseForm {
         this.clickButtonToAppearPromptBox = new Button(By.xpath('//*[@id="promtButton"]'), '"on button click, prompt box will appear" button');
         this.promptText = new Label(By.xpath('//*[@id="promptResult"]'), 'text');
     }
-    async alertsPageIsDisplayed() {
-        return await this.pageIsDisplayed();
-    }
     async clickButtonToSeeAlertButton() {
         await this.clickButtonToSeeAlert.clickButton();
     }
