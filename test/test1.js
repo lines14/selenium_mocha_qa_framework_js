@@ -21,7 +21,7 @@ describe('Test scenario: #1. Alerts', function(){
         const bool2 = await alertsPage.pageIsDisplayed();
         chai.assert.equal(bool2, true, 'Alerts form has not appeared on the page');
 
-        await alertsPage.clickButtonToSeeAlertButton();
+        await alertsPage.clickAlertButton();
         const alertText1 = await browserUtils.getAlertText();
         chai.assert.equal(alertText1, configManager.getTestData().alertText1, 'Alert with text "You clicked a button" is not open');
 
@@ -29,7 +29,7 @@ describe('Test scenario: #1. Alerts', function(){
         const bool3 = await browserUtils.alertIsDisplayed();
         chai.assert.equal(bool3, false, 'Alert has not closed');
 
-        await alertsPage.onButtonClickConfirmBoxWillAppearButton();
+        await alertsPage.clickConfirmButton();
         const alertText2 = await browserUtils.getAlertText();
         chai.assert.equal(alertText2, configManager.getTestData().alertText2, 'Alert with text "Do you confirm action?" is not open');
 
@@ -39,7 +39,7 @@ describe('Test scenario: #1. Alerts', function(){
         const bool5 = await alertsPage.confirmTextIsDisplayed();
         chai.assert.equal(bool5, true, 'Text "You selected Ok" has not appeared on page');
 
-        await alertsPage.onButtonClickPromptBoxWillAppearButton();
+        await alertsPage.clickPromptButton();
         const alertText3 = await browserUtils.getAlertText();
         chai.assert.equal(alertText3, configManager.getTestData().alertText3, 'Alert with text "Please enter your name" is not open');
 
