@@ -11,33 +11,33 @@ describe('Test scenario: #1. Alerts', function(){
         await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
     it('#1. Alerts', async function() {
-        await browserUtils.go_to_url(configManager.getConfigData().url);
-        const bool1 = await mainPage.pageIsDisplayed()
-        chai.assert.equal(bool1, true, 'Main page is not open');
+        await browserUtils.getUrl(configManager.getConfigData().url);
+        const isMainPageDisplayed = await mainPage.pageIsDisplayed()
+        chai.assert.equal(isMainPageDisplayed, true, 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.pageIsDisplayed();
         await leftMenuForm.clickAlertsButton();
-        const bool2 = await alertsPage.pageIsDisplayed();
-        chai.assert.equal(bool2, true, 'Alerts form has not appeared on the page');
+        const isAlertsPageDisplayed = await alertsPage.pageIsDisplayed();
+        chai.assert.equal(isAlertsPageDisplayed, true, 'Alerts form has not appeared on the page');
 
         await alertsPage.clickAlertButton();
         const alertText1 = await browserUtils.getAlertText();
         chai.assert.equal(alertText1, configManager.getTestData().alertText1, 'Alert with text "You clicked a button" is not open');
 
         await browserUtils.acceptAlert();
-        const bool3 = await browserUtils.alertIsDisplayed();
-        chai.assert.equal(bool3, false, 'Alert has not closed');
+        const isFirstAlertDisplayed = await browserUtils.alertIsDisplayed();
+        chai.assert.equal(isFirstAlertDisplayed, false, 'Alert has not closed');
 
         await alertsPage.clickConfirmButton();
         const alertText2 = await browserUtils.getAlertText();
         chai.assert.equal(alertText2, configManager.getTestData().alertText2, 'Alert with text "Do you confirm action?" is not open');
 
         await browserUtils.acceptAlert();
-        const bool4 = await browserUtils.alertIsDisplayed();
-        chai.assert.equal(bool4, false, 'Alert has not closed');
-        const bool5 = await alertsPage.confirmTextIsDisplayed();
-        chai.assert.equal(bool5, true, 'Text "You selected Ok" has not appeared on page');
+        const isSecondAlertDisplayed = await browserUtils.alertIsDisplayed();
+        chai.assert.equal(isSecondAlertDisplayed, false, 'Alert has not closed');
+        const isConfirmTextDisplayed = await alertsPage.confirmTextIsDisplayed();
+        chai.assert.equal(isConfirmTextDisplayed, true, 'Text "You selected Ok" has not appeared on page');
 
         await alertsPage.clickPromptButton();
         const alertText3 = await browserUtils.getAlertText();
@@ -45,8 +45,8 @@ describe('Test scenario: #1. Alerts', function(){
 
         await browserUtils.enterTextToAlert(configManager.getTestData().randomText);
         await browserUtils.acceptAlert();
-        const bool6 = await browserUtils.alertIsDisplayed();
-        chai.assert.equal(bool6, false, 'Alert has not closed');
+        const isThirdAlertDisplayed = await browserUtils.alertIsDisplayed();
+        chai.assert.equal(isThirdAlertDisplayed, false, 'Alert has not closed');
         const enteredText = await alertsPage.getEnteredText();
         chai.assert.equal(enteredText, configManager.getTestData().labelText + configManager.getTestData().randomText, "Appeared text not equals to the one you've entered before");
     });

@@ -5,8 +5,8 @@ class BrowserUtils {
     async initTheDriver(browser) {
         this.driver = await Singleton.getInstance(browser);
     }
-    async go_to_url(theURL) {
-        await this.driver.get(theURL);
+    async getUrl(_) {
+        await this.driver.get(_);
     }
     async scrollToTheBottom() {
         await this.driver.executeScript('window.scrollBy(0, document.body.scrollHeight);');

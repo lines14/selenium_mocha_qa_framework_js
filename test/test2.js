@@ -16,15 +16,15 @@ describe('Test scenario: #2. Iframe:', function(){
         await browserUtils.initTheDriver(configManager.getConfigData().browser);
     });
     it('#2. Iframe', async function() {
-        await browserUtils.go_to_url(configManager.getConfigData().url);
-        const bool1 = await mainPage.pageIsDisplayed()
-        chai.assert.equal(bool1, true, 'Main page is not open');
+        await browserUtils.getUrl(configManager.getConfigData().url);
+        const isMainPageDisplayed = await mainPage.pageIsDisplayed()
+        chai.assert.equal(isMainPageDisplayed, true, 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.pageIsDisplayed();
         await leftMenuForm.clickNestedFramesButton();
-        const bool2 = await nestedFramesPage.pageIsDisplayed();
-        chai.assert.equal(bool2, true, 'Page with Nested Frames form is not open');
+        const isNestedFramesPageDisplayed = await nestedFramesPage.pageIsDisplayed();
+        chai.assert.equal(isNestedFramesPageDisplayed, true, 'Page with Nested Frames form is not open');
         await browserUtils.goIntoFrame('frame1');
         const parentFrameText = await frame1.getFrameText();
         chai.assert.equal(parentFrameText, configManager.getTestData().parentFrameText, 'Message "Parent frame" not present on page');
@@ -35,8 +35,8 @@ describe('Test scenario: #2. Iframe:', function(){
         await browserUtils.goOutOfFrame();
 
         await leftMenuForm.clickFramesButton();
-        const bool3 = await framesPage.pageIsDisplayed();
-        chai.assert.equal(bool3, true, 'Page with Frames form is not open');
+        const isFramesPageDisplayed = await framesPage.pageIsDisplayed();
+        chai.assert.equal(isFramesPageDisplayed, true, 'Page with Frames form is not open');
         await browserUtils.goIntoFrame('frame1');
         const firstFrameText = await frame3.getFrameText();
         await browserUtils.goOutOfFrame();
