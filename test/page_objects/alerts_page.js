@@ -1,6 +1,6 @@
-const BaseForm = require('../framework/base_form');
-const Label = require('../framework/base_element_children/label');
-const Button = require('../framework/base_element_children/button');
+const BaseForm = require('../../main/base_form');
+const Label = require('../../main/elements/base_element_children/label');
+const Button = require('../../main/elements/base_element_children/button');
 const {By} = require('selenium-webdriver');
 
 class AlertsPage extends BaseForm {

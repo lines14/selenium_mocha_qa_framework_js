@@ -1,7 +1,7 @@
-const BaseForm = require('../framework/base_form');
-const Button = require('../framework/base_element_children/button');
-const Label = require('../framework/base_element_children/label');
-const TextBox = require('../framework/base_element_children/text_box');
+const BaseForm = require('../../main/base_form');
+const Label = require('../../main/elements/base_element_children/label');
+const Button = require('../../main/elements/base_element_children/button');
+const TextBox = require('../../main/elements/base_element_children/text_box');
 const {By} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
 

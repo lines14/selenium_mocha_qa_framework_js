@@ -1,15 +1,15 @@
 const chai = require('chai');
-const configManager = require('../main/config_manager');
-const mainPage = require('../main/page_objects/main_page');
-const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
-const nestedFramesPage = require('../main/page_objects/nested_frames_page');
-const framesPage = require('../main/page_objects/frames_page');
-const leftMenuForm = require('../main/page_objects/left_menu_form');
-const browserUtils = require('../main/framework/browser_utils');
-const frame1 = require('../main/page_objects/frame1');
-const frame2 = require('../main/page_objects/frame2');
-const frame3 = require('../main/page_objects/frame3');
-const frame4 = require('../main/page_objects/frame4');
+const configManager = require('../main/utils/data/config_manager');
+const mainPage = require('./page_objects/main_page');
+const alertsFrameWindowsPage = require('./page_objects/alerts_frame_windows_page');
+const nestedFramesPage = require('./page_objects/nested_frames_page');
+const framesPage = require('./page_objects/frames_page');
+const leftMenuForm = require('./page_objects/left_menu_form');
+const browserUtils = require('../main/driver/browser_utils');
+const frame1 = require('./page_objects/frame1');
+const frame2 = require('./page_objects/frame2');
+const frame3 = require('./page_objects/frame3');
+const frame4 = require('./page_objects/frame4');
 
 describe('Test scenario: #2. Iframe:', function(){
     before(async function() {

@@ -1,10 +1,10 @@
 const chai = require('chai');
-const configManager = require('../main/config_manager');
-const mainPage = require('../main/page_objects/main_page');
-const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
-const alertsPage = require('../main/page_objects/alerts_page');
-const leftMenuForm = require('../main/page_objects/left_menu_form');
-const browserUtils = require('../main/framework/browser_utils');
+const configManager = require('../main/utils/data/config_manager');
+const mainPage = require('./page_objects/main_page');
+const alertsFrameWindowsPage = require('./page_objects/alerts_frame_windows_page');
+const alertsPage = require('./page_objects/alerts_page');
+const leftMenuForm = require('./page_objects/left_menu_form');
+const browserUtils = require('../main/driver/browser_utils');
 
 describe('Test scenario: #1. Alerts', function(){
     before(async function() {
