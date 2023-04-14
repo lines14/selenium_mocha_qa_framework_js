@@ -1,5 +1,5 @@
 const Singleton = require('./singleton');
-const configManager = require('../config_manager');
+const configManager = require('./config_manager');
 const {until, Key} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
 

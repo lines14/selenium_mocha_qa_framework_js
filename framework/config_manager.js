@@ -1,5 +1,5 @@
-const configureData = require('../main/config_data.json');
-const testData = require('../test/test_data.json');
+const configureData = require('./config_data.json');
+const testData = require('../../test/test_data.json');
 
 class ConfigManager {
     getConfigData() {
