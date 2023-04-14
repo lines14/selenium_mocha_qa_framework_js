@@ -1,5 +1,5 @@
 const Singleton = require('./singleton');
-const configManager = require('../config_manager');
+const configManager = require('../utils/data/config_manager');
 
 class BrowserUtils {
     async initTheDriver(browser) {

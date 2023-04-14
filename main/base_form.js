@@ -1,6 +1,6 @@
-const Singleton = require('./singleton');
+const Singleton = require('./driver/singleton');
 const {until} = require('selenium-webdriver');
-const configManager = require('../config_manager');
+const configManager = require('./utils/data/config_manager');
 
 class BaseForm {
     constructor(pageLocator, pageName) {

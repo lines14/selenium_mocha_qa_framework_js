@@ -1,4 +1,4 @@
-const BaseForm = require('../framework/base_form');
+const BaseForm = require('../../main/base_form');
 const {By} = require('selenium-webdriver');
 
 class ElementsPage extends BaseForm {

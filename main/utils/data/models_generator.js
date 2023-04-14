@@ -1,4 +1,4 @@
-const Employee = require ('./employee');
+const Employee = require ('../../../resources/model_employee');
 
 class ModelsGenerator {
     async modelsGenerator(dataSet, totalCount) {

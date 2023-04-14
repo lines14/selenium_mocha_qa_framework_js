@@ -1,12 +1,12 @@
 const chai = require('chai');
-const configManager = require('../main/config_manager');
-const mainPage = require('../main/page_objects/main_page');
-const alertsFrameWindowsPage = require('../main/page_objects/alerts_frame_windows_page');
-const browserWindowsPage = require('../main/page_objects/browser_windows_page');
-const leftMenuForm = require('../main/page_objects/left_menu_form');
-const samplePage = require('../main/page_objects/sample_page');
-const linksPage = require('../main/page_objects/links_page');
-const browserUtils = require('../main/framework/browser_utils');
+const configManager = require('../main/utils/data/config_manager');
+const mainPage = require('./page_objects/main_page');
+const alertsFrameWindowsPage = require('./page_objects/alerts_frame_windows_page');
+const browserWindowsPage = require('./page_objects/browser_windows_page');
+const leftMenuForm = require('./page_objects/left_menu_form');
+const samplePage = require('./page_objects/sample_page');
+const linksPage = require('./page_objects/links_page');
+const browserUtils = require('../main/driver/browser_utils');
 
 describe('Test scenario: #4. Handles:', function(){
     before(async function() {

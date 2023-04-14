@@ -1,11 +1,11 @@
 const chai = require('chai');
-const configManager = require('../main/config_manager');
-const mainPage = require('../main/page_objects/main_page');
-const elementsPage = require('../main/page_objects/elements_page');
-const leftMenuForm = require('../main/page_objects/left_menu_form');
-const webTablesPage = require('../main/page_objects/web_tables_page');
-const browserUtils = require('../main/framework/browser_utils');
-const modelsGenerator = require('../main/framework/models_generator');
+const configManager = require('../main/utils/data/config_manager');
+const mainPage = require('./page_objects/main_page');
+const elementsPage = require('./page_objects/elements_page');
+const leftMenuForm = require('./page_objects/left_menu_form');
+const webTablesPage = require('./page_objects/web_tables_page');
+const browserUtils = require('../main/driver/browser_utils');
+const modelsGenerator = require('../main/utils/data/models_generator');
 
 describe('Test scenario: #3. Tables:', function(){
     before(async function() {
