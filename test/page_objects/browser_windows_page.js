@@ -1,5 +1,5 @@
-const BaseForm = require('../framework/base_form');
-const Button = require('../framework/base_element_children/button');
+const BaseForm = require('../../main/framework/base_form');
+const Button = require('../../main/framework/base_element_children/button');
 const {By} = require('selenium-webdriver');
 
 class BrowserWindowsPage extends BaseForm {
