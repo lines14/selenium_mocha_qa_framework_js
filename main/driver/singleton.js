@@ -23,7 +23,7 @@ class Singleton {
     }
 
     static getInstance(browser) {
-        new Singleton(browser);
+        new this(browser);
         return this._instance;
     }
     static async deleteInstance() {
