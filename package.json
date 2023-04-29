@@ -6,10 +6,10 @@
     "selenium-webdriver": "^4.8.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha test/test.js --timeout 20000",
-    "test1": "node_modules/.bin/mocha test/test1.js --timeout 20000",
-    "test2": "node_modules/.bin/mocha test/test2.js --timeout 20000",
-    "test3": "node_modules/.bin/mocha test/test3.js --timeout 20000",
-    "test4": "node_modules/.bin/mocha test/test4.js --timeout 20000"
+    "test": "node_modules/.bin/mocha test/*.js --timeout 40000 --require main/base_test --exclude test/test2.js",
+    "test1": "node_modules/.bin/mocha test/test1.js --timeout 20000 --require main/base_test",
+    "test2": "node_modules/.bin/mocha test/test2.js --timeout 20000 --require main/base_test",
+    "test3": "node_modules/.bin/mocha test/test3.js --timeout 20000 --require main/base_test",
+    "test4": "node_modules/.bin/mocha test/test4.js --timeout 20000 --require main/base_test"
   }
 }

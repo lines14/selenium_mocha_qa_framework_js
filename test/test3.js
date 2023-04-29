@@ -8,9 +8,6 @@ const browserUtils = require('../main/driver/browser_utils');
 const modelsGenerator = require('../main/utils/data/models_generator');
 
 describe('Test scenario: #3. Tables:', function(){
-    before(async function() {
-        await browserUtils.initTheDriver(configManager.getConfigData().browser);
-    });
     it('#3. Tables', async function() {
         await browserUtils.getUrl(configManager.getConfigData().url);
         const isMainPageDisplayed = await mainPage.pageIsDisplayed()
@@ -41,8 +38,5 @@ describe('Test scenario: #3. Tables:', function(){
         chai.assert.notEqual(rowsCount1, rowsCount2, 'Number of records in table has not changed');
         const modelsFromTable2 = await modelsGenerator.modelsGenerator(await webTablesPage.getTableRowsText(), await webTablesPage.filledRowsCounter());
         chai.assert.notIncludeMembers(modelsFromTable2, testModel, 'Data of User № has not been deleted from table');
-    });
-    after(async function() {
-        await browserUtils.quitDriver();
     });
 });

@@ -9,9 +9,6 @@ const linksPage = require('./page_objects/links_page');
 const browserUtils = require('../main/driver/browser_utils');
 
 describe('Test scenario: #4. Handles:', function(){
-    before(async function() {
-        await browserUtils.initTheDriver(configManager.getConfigData().browser);
-    });
     it('#4. Handles', async function() {
         await browserUtils.getUrl(configManager.getConfigData().url);
         let isMainPageDisplayed = await mainPage.pageIsDisplayed()
@@ -55,8 +52,5 @@ describe('Test scenario: #4. Handles:', function(){
         await browserUtils.switchDriverToTheOriginalTab(originalTab2);
         isLinksPageDisplayed = await linksPage.pageIsDisplayed();
         chai.assert.equal(isLinksPageDisplayed, true, 'Page with Links form is not open');
-    });
-    after(async function() {
-        await browserUtils.quitDriver();
     });
 });

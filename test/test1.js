@@ -7,9 +7,6 @@ const leftMenuForm = require('./page_objects/left_menu_form');
 const browserUtils = require('../main/driver/browser_utils');
 
 describe('Test scenario: #1. Alerts', function(){
-    before(async function() {
-        await browserUtils.initTheDriver(configManager.getConfigData().browser);
-    });
     it('#1. Alerts', async function() {
         await browserUtils.getUrl(configManager.getConfigData().url);
         const isMainPageDisplayed = await mainPage.pageIsDisplayed()
@@ -49,8 +46,5 @@ describe('Test scenario: #1. Alerts', function(){
         chai.assert.equal(isThirdAlertDisplayed, false, 'Alert has not closed');
         const enteredText = await alertsPage.getEnteredText();
         chai.assert.equal(enteredText, configManager.getTestData().labelText + configManager.getTestData().randomText, "Appeared text not equals to the one you've entered before");
-    });
-    after(async function() {
-        await browserUtils.quitDriver();
     });
 });

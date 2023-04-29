@@ -12,9 +12,6 @@ const frame3 = require('./page_objects/frame3');
 const frame4 = require('./page_objects/frame4');
 
 describe('Test scenario: #2. Iframe:', function(){
-    before(async function() {
-        await browserUtils.initTheDriver(configManager.getConfigData().browser);
-    });
     it('#2. Iframe', async function() {
         await browserUtils.getUrl(configManager.getConfigData().url);
         const isMainPageDisplayed = await mainPage.pageIsDisplayed()
@@ -44,8 +41,5 @@ describe('Test scenario: #2. Iframe:', function(){
         const secondFrameText = await frame4.getFrameText();
         await browserUtils.goOutOfFrame();
         chai.assert.equal(firstFrameText, secondFrameText, 'Message from upper frame is not equal to the message from lower frame');
-    });
-    after(async function() {
-        await browserUtils.quitDriver();
     });
 });
