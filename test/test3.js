@@ -5,7 +5,7 @@ const elementsPage = require('./page_objects/elements_page');
 const leftMenuForm = require('./page_objects/left_menu_form');
 const webTablesPage = require('./page_objects/web_tables_page');
 const browserUtils = require('../main/driver/browser_utils');
-const modelsGenerator = require('../main/utils/data/models_generator');
+const modelsGenerator = require('../main/utils/data/models_generator_deprecated');
 
 describe('Test scenario: #3. Tables:', function(){
     it('#3. Tables', async function() {

@@ -1,11 +1,12 @@
 const browserUtils = require('../main/driver/browser_utils');
-const configManager = require('../main/utils/data/config_manager');
+const logger = require('../main/utils/log/logger');
 
 exports.mochaHooks = {
-    async beforeAll() {
-        await browserUtils.initTheDriver(configManager.getConfigData().browser);
+    beforeAll() {
+        browserUtils.initTheDriver();
     },
     async afterAll() {
-        await browserUtils.quitDriver();
+        browserUtils.quitDriver();
+        await logger.logToFile();
     }
 }

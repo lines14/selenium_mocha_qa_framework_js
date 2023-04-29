@@ -1,78 +1,90 @@
-const Singleton = require('../driver/singleton');
+const Driver = require('../driver/browser_factory');
 const configManager = require('../utils/data/config_manager');
 const {until, Key} = require('selenium-webdriver');
 const {resolveNestedPromises} = require('resolve-nested-promises')
+const logger = require('../utils/log/logger');
 
 class BaseElement {
     constructor(elementLocator, elementName) {
         this.elementLocator = elementLocator;
         this.elementName = elementName;
-        this.driver = Singleton.getInstance(configManager.getConfigData().browser);
     }
+
     async getElement() {
-        await this.driver.wait(until.elementLocated(this.elementLocator), configManager.getConfigData().waitTime);
-        return await this.driver.findElement(this.elementLocator);
+        await Driver.instance.wait(until.elementLocated(this.elementLocator), configManager.getConfigData().waitTime);
+        return await Driver.instance.findElement(this.elementLocator);
     }
+
     async getElements() {
-        return await this.driver.findElements(this.elementLocator);
+        return await Driver.instance.findElements(this.elementLocator);
     }
+
     async getText() {
-        console.log(`    ▶ get displayed ${this.elementName}`)
+        logger.log(`    ▶ get displayed ${this.elementName}`)
         const element = await this.getElement();
         const text = await element.getText();
-        console.log(`    ▶ text contains: "${text}"`)
+        logger.log(`    ▶ text contains: "${text}"`)
         return text;
     }
+
     async clickButton() {
-        console.log(`    ▶ click ${this.elementName}`)
+        logger.log(`    ▶ click ${this.elementName}`)
         const element = await this.getElement();
         await element.click();
     }
+
     async inputText(text) {
-        console.log(`    ▶ input ${this.elementName}`)
+        logger.log(`    ▶ input ${this.elementName}`)
         const element = await this.getElement();
         await element.sendKeys(text);
     }
+
     async enterText(text) {
-        console.log(`    ▶ input ${this.elementName} and submit`)
+        logger.log(`    ▶ input ${this.elementName} and submit`)
         const element = await this.getElement();
         await element.sendKeys(text, Key.ENTER);
     }
+
     async getAttributeValue(attr) {
         const element = await this.getElement();
-        const atr = element.getAttribute(attr);
-        return atr;
+        return element.getAttribute(attr);
     }
+
     async elementIsDisplayed() {
-        console.log(`    ▶ ${this.elementName} is present`)
+        logger.log(`    ▶ ${this.elementName} is present`)
         const element = await this.getElement();
-        const bool = await element.isDisplayed();
-        return bool;
+        return await element.isDisplayed();
     }
+
     async checkElementIsEnabled() {
         const element = await this.getElement();
         return await element.isEnabled();
     }
+
     async parseChildrenForAttr(attr) {
         const children = await this.getElements();
         const childrenAttr = children.map(element => element.getAttribute(attr));
         return resolveNestedPromises(childrenAttr);
     }
+
     async parseChildrenForText() {
         const children = await this.getElements();
         const childrenText = children.map(element => element.getText());
         return resolveNestedPromises(childrenText);
     }
+
     async waitIsVisible() {
-        console.log(`    ▶ wait ${this.elementName} is visible`)
-        await this.driver.wait(until.elementIsVisible(await this.getElement()), configManager.getConfigData().waitTime);
+        logger.log(`    ▶ wait ${this.elementName} is visible`)
+        await Driver.instance.wait(until.elementIsVisible(await this.getElement()), configManager.getConfigData().waitTime);
     }
+
     async waitStalenessOf() {
-        await this.driver.wait(until.stalenessOf(this.elementLocator), configManager.getConfigData().waitTime);
+        await Driver.instance.wait(until.stalenessOf(this.elementLocator), configManager.getConfigData().waitTime);
     }
+    
     async waitIsEnabled() {
-        console.log(`    ▶ wait ${this.elementName} is enabled`)
-        await this.driver.wait(until.elementIsEnabled(await this.getElement(), configManager.getConfigData().waitTime));
+        logger.log(`    ▶ wait ${this.elementName} is enabled`)
+        await Driver.instance.wait(until.elementIsEnabled(await this.getElement(), configManager.getConfigData().waitTime));
     }
 }
     
