@@ -13,27 +13,35 @@ class LeftMenuForm extends BaseForm {
         this.elementsButton = new Button(By.xpath('//div[@class="header-text" and text()="Elements"]'), '"elements" button');
         this.linksButton = new Button(By.xpath('//*[@id="item-5"]'), '"links" button');
     }
+
     async clickAlertsButton() {
         await this.alertsButton.clickButton();
     }
+
     async clickNestedFramesButton() {
         await this.nestedFramesButton.clickButton();
     }
+
     async clickBrowserWindowsButton() {
         await this.browserWindowsButton.clickButton();
     }
+
     async clickFramesButton() {
         await this.framesButton.clickButton();
     }
+
     async clickWebTablesButton() {
         await this.webTablesButton.clickButton();
     }
+
     async clickElementsButton() {
         await this.elementsButton.clickButton();
     }
+
     async waitLinksButtonVisible() {
         await this.linksButton.waitIsVisible();
     }
+    
     async clickLinksButton() {
         await this.linksButton.clickButton();
     }

@@ -7,6 +7,7 @@ class Frame4 extends BaseForm {
         super();
         this.frameText = new Label(By.xpath('//*[@id="sampleHeading"]'), 'text from lower frame');
     }
+    
     async getFrameText() {
         return await this.frameText.getText();
     }

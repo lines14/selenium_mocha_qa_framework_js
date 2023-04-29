@@ -1,10 +1,12 @@
-const Employee = require ('../../../resources/model_employee');
+const Employee = require ('../../../resources/model_employee_deprecated');
+const logger = require('../log/logger');
 
 class ModelsGenerator {
     async modelsGenerator(dataSet, totalCount) {
         if (totalCount !== 1) {
-            console.log('    ▶ check data in table')
+            logger.log('    ▶ get data from table')
         }
+
         let counter = 0;
         const employeesList = [];
         while (counter < totalCount) {
@@ -18,6 +20,7 @@ class ModelsGenerator {
             employeesList.push(employee);
             counter += 1;
         }
+        
         const strEmployeesList = employeesList.map(element => JSON.stringify(element));
         return strEmployeesList;
     }

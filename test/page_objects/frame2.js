@@ -7,6 +7,7 @@ class Frame2 extends BaseForm {
         super();
         this.frameText = new Label(By.xpath('//p[text()="Child Iframe"]'), 'text from child iframe');
     }
+    
     async getFrameText() {
         return await this.frameText.getText();
     }

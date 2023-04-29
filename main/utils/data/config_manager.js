@@ -1,14 +1,38 @@
 const configureData = require('../../../resources/config_data.json');
 const testData = require('../../../resources/test_data.json');
+const statusCode = require('../api/api_codes.json');
+const apiEndpoint = require('../../../resources/api_endpoints.json');
+const apiConfigData = require('../../../resources/api_config_data.json');
+const databaseConfigData = require('../../../resources/db_config_data.json');
+const path = require("path");
 
 class ConfigManager {
     getConfigData() {
-        const path = JSON.parse(JSON.stringify(configureData));
-        return path;
+        return JSON.parse(JSON.stringify(configureData));
     }
+
     getTestData() {
-        const dataList = JSON.parse(JSON.stringify(testData));
-        return dataList;
+        return JSON.parse(JSON.stringify(testData));
+    }
+
+    getTestFile() {
+        return path.join(__dirname, "..", "template.jpg");
+    }
+
+    getStatusCode() {
+        return JSON.parse(JSON.stringify(statusCode));
+    }
+
+    getApiEndpoint() {
+        return JSON.parse(JSON.stringify(apiEndpoint));
+    }
+
+    getApiConfigData() {
+        return JSON.parse(JSON.stringify(apiConfigData));
+    }
+
+    getDatabaseConfigData() {
+        return JSON.parse(JSON.stringify(databaseConfigData));
     }
 }
 

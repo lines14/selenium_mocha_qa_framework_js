@@ -1,32 +1,37 @@
-const Singleton = require('./driver/singleton');
+const Driver = require('./driver/browser_factory');
 const {until} = require('selenium-webdriver');
 const configManager = require('./utils/data/config_manager');
+const logger = require('./utils/log/logger');
 
 class BaseForm {
     constructor(pageLocator, pageName) {
         this.pageLocator = pageLocator;
         this.pageName = pageName;
-        this.driver = Singleton.getInstance(configManager.getConfigData().browser);
     }
+
     async getUniqueElement() {
-        return await this.driver.findElement(this.pageLocator);
+        return await Driver.instance.findElement(this.pageLocator);
     }
+
     async pageIsDisplayed() {
-        console.log(`    ▶ ${this.pageName} is open`)
+        logger.log(`    ▶ ${this.pageName} is open`)
         const uniqueElement = await this.getUniqueElement();
         const bool = await uniqueElement.isDisplayed();
         return bool;
     }
+
     async pageIsEnabled() {
-        console.log(`    ▶ ${this.pageName} is enabled`)
+        logger.log(`    ▶ ${this.pageName} is enabled`)
         const element = await this.getUniqueElement();
         return await element.isEnabled();
     }
+
     async waitPageIsLocated() {
-        await this.driver.wait(until.elementLocated(this.pageLocator), configManager.getConfigData().waitTime);
+        await Driver.instance.wait(until.elementLocated(this.pageLocator), configManager.getConfigData().waitTime);
     }
+    
     async waitPageIsEnabled() {
-        await this.driver.wait(until.elementIsEnabled(await this.getUniqueElement(), configManager.getConfigData().waitTime));
+        await Driver.instance.wait(until.elementIsEnabled(await this.getUniqueElement(), configManager.getConfigData().waitTime));
     }
 }
 

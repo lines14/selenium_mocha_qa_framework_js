@@ -20,19 +20,24 @@ class WebTablesPage extends BaseForm {
         this.searchBox = new TextBox(By.xpath('//*[@id="searchBox"]'), 'search box');
         this.deleteButton = new Button(By.xpath(`//*[@id="delete-record-${index}"]`), '"delete" button');
     }
+
     async clickAddButton() {
         await this.addButton.clickButton();
     }
+
     async waitRegistrationFormVisible() {
         await this.registrationFormHeadingText.waitIsVisible();
     }
+
     async registrationFormIsDisplayed() {
         return await this.registrationFormHeadingText.elementIsDisplayed();
     }
+
     async clickDeletebutton(index) {
         const instance = new WebTablesPage(index);
         await instance.deleteButton.clickButton();
     }
+
     async sendTestData(dataSet) {
         const dataToSend = dataSet.split(',');
         await this.firstNameBox.inputText(dataToSend[0])
@@ -42,6 +47,7 @@ class WebTablesPage extends BaseForm {
         await this.salaryBox.inputText(dataToSend[4])
         await this.departmentBox.enterText(dataToSend[5])
     }
+
     async getTableRowsText() {
         const itemsCount = 10;
         let counter = 1;
@@ -53,8 +59,10 @@ class WebTablesPage extends BaseForm {
             allRowsTextList.push(eachRowTextList);
             counter += 1;   
         }
+
         return resolveNestedPromises(allRowsTextList);
     }
+
     async filledRowsCounter() {
         const allRowsTextList = await this.getTableRowsText();
         const allRowsTextStr = allRowsTextList.map(element => element.toString());
@@ -69,6 +77,7 @@ class WebTablesPage extends BaseForm {
             }
             counter += 1;
         }
+        
         return filledRowsQuantity;
     }
 }
