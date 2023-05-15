@@ -1,8 +1,8 @@
-const Driver = require('../driver/browser_factory');
-const configManager = require('../utils/data/config_manager');
-const {until, Key} = require('selenium-webdriver');
-const {resolveNestedPromises} = require('resolve-nested-promises')
-const logger = require('../utils/log/logger');
+import Driver from '../driver/browser_factory.js';
+import configManager from '../utils/data/config_manager.js';
+import { until, Key } from 'selenium-webdriver';
+import { resolveNestedPromises } from 'resolve-nested-promises';
+import logger from '../utils/log/logger.js';
 
 class BaseElement {
     constructor(elementLocator, elementName) {
@@ -88,4 +88,4 @@ class BaseElement {
     }
 }
     
-module.exports = BaseElement;
+export default BaseElement;

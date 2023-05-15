@@ -1,6 +1,6 @@
-const BaseForm = require('../../main/base_form');
-const Label = require('../../main/elements/base_element_children/label');
-const {By} = require('selenium-webdriver');
+import BaseForm from '../../main/base_form.js';
+import Label from '../../main/elements/base_element_children/label.js';
+import { By } from 'selenium-webdriver';
 
 class LinksPage extends BaseForm {
     constructor() {
@@ -13,4 +13,4 @@ class LinksPage extends BaseForm {
     }
 }
 
-module.exports = new LinksPage();
+export default new LinksPage();

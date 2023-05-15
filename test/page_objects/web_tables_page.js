@@ -1,9 +1,9 @@
-const BaseForm = require('../../main/base_form');
-const Label = require('../../main/elements/base_element_children/label');
-const Button = require('../../main/elements/base_element_children/button');
-const TextBox = require('../../main/elements/base_element_children/text_box');
-const {By} = require('selenium-webdriver');
-const {resolveNestedPromises} = require('resolve-nested-promises')
+import BaseForm from '../../main/base_form.js';
+import Label from '../../main/elements/base_element_children/label.js';
+import Button from '../../main/elements/base_element_children/button.js';
+import TextBox from '../../main/elements/base_element_children/text_box.js';
+import { By } from 'selenium-webdriver';
+import { resolveNestedPromises } from 'resolve-nested-promises';
 
 class WebTablesPage extends BaseForm {
     constructor(index) {
@@ -81,4 +81,4 @@ class WebTablesPage extends BaseForm {
     }
 }
 
-module.exports = new WebTablesPage();
+export default new WebTablesPage();

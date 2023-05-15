@@ -1,5 +1,5 @@
-const BaseForm = require('../../main/base_form');
-const {By} = require('selenium-webdriver');
+import BaseForm from '../../main/base_form.js';
+import { By } from 'selenium-webdriver';
 
 class AlertsFrameWindowsPage extends BaseForm {
     constructor() {
@@ -7,4 +7,4 @@ class AlertsFrameWindowsPage extends BaseForm {
     }
 }
 
-module.exports = new AlertsFrameWindowsPage();
+export default new AlertsFrameWindowsPage();

@@ -7,4 +7,4 @@ class Employee {
     department = null;
 }
 
-module.exports = Employee;
+export default Employee;

@@ -1,4 +1,4 @@
-const BaseElement = require('../base_element');
+import BaseElement from '../base_element.js';
 
 class Button extends BaseElement {
     constructor(locator, name) {
@@ -6,4 +6,4 @@ class Button extends BaseElement {
     }
 }
 
-module.exports = Button;
+export default Button;

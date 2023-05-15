@@ -1,4 +1,4 @@
-const BaseElement = require('../base_element');
+import BaseElement from '../base_element.js';
 
 class TextBox extends BaseElement {
     constructor(locator, name) {
@@ -6,4 +6,4 @@ class TextBox extends BaseElement {
     }
 }
 
-module.exports = TextBox;
+export default TextBox;

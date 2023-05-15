@@ -1,5 +1,5 @@
-const Employee = require ('../../../resources/model_employee_deprecated');
-const logger = require('../log/logger');
+import Employee from '../../../resources/model_employee_deprecated.js';
+import logger from '../log/logger.js';
 
 class ModelsGenerator {
     async modelsGenerator(dataSet, totalCount) {
@@ -25,4 +25,4 @@ class ModelsGenerator {
     }
 }
 
-module.exports = new ModelsGenerator();
+export default new ModelsGenerator();

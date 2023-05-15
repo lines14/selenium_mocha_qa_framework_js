@@ -65,4 +65,4 @@ class Randomizer {
     }
 }
 
-module.exports = new Randomizer();
+export default new Randomizer();
