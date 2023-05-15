@@ -1,8 +1,8 @@
-const path = require("path");
+import path from "path";
 const timeList = [];
 const logList = [];
-const fs = require('fs');
-const moment = require('moment');
+import { createWriteStream } from 'fs';
+import moment from 'moment';
 
 class Logger {
     log(step) {
@@ -14,8 +14,8 @@ class Logger {
     async logToFile() {
         const zip = (a, b) => a.map((k, i) => [k, b[i]]);
         const summaryList = zip(timeList, logList);
-        const stream = fs.createWriteStream(path.join(__dirname, "..", "..", "..", "test", "log.txt"));
-
+        const stream = createWriteStream(path.join(path.resolve(), "test", "log.txt"));
+        
         stream.once('open', function() {
             summaryList.map(element => element.map(elem =>  stream.write(elem)));
             stream.end();
@@ -27,4 +27,4 @@ class Logger {
     }
 }
 
-module.exports = new Logger();
+export default new Logger();

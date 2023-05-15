@@ -1,6 +1,6 @@
-const BaseForm = require('../../main/base_form');
-const Label = require('../../main/elements/base_element_children/label');
-const {By} = require('selenium-webdriver');
+import BaseForm from '../../main/base_form.js';
+import Label from '../../main/elements/base_element_children/label.js';
+import { By } from 'selenium-webdriver';
 
 class Frame1 extends BaseForm {
     constructor() {
@@ -13,4 +13,4 @@ class Frame1 extends BaseForm {
     }
 }
 
-module.exports = new Frame1();
+export default new Frame1();

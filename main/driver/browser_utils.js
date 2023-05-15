@@ -1,6 +1,6 @@
-const Driver = require('./browser_factory');
-const configManager = require('../utils/data/config_manager');
-const logger = require('../utils/log/logger');
+import Driver from './browser_factory.js';
+import configManager from '../utils/data/config_manager.js';
+import logger from '../utils/log/logger.js';
 
 class BrowserUtils {
     initTheDriver() {
@@ -42,22 +42,19 @@ class BrowserUtils {
 
     async getAlertText() {
         logger.log(`    ▶ alert with text is open`);
-        const alert = await this.getAlert();
-        const text = await alert.getText();
+        const text = await (await this.getAlert()).getText();
         logger.log(`    ▶ text contains: "${text}"`);
         return text;
     }
 
     async enterTextToAlert(text) {
         logger.log('    ▶ input text to alert form');
-        const alert = await this.getAlert();
-        await alert.sendKeys(text);
+        await (await this.getAlert()).sendKeys(text);
     }
 
     async acceptAlert() {
         logger.log('    ▶ accept alert');
-        const alert = await this.getAlert();
-        await alert.accept();
+        await (await this.getAlert()).accept();
     }
 
     async alertIsDisplayed() {
@@ -91,4 +88,4 @@ class BrowserUtils {
     }
 }
 
-module.exports = new BrowserUtils();
+export default new BrowserUtils();

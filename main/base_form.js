@@ -1,7 +1,7 @@
-const Driver = require('./driver/browser_factory');
-const {until} = require('selenium-webdriver');
-const configManager = require('./utils/data/config_manager');
-const logger = require('./utils/log/logger');
+import Driver from './driver/browser_factory.js';
+import { until } from 'selenium-webdriver';
+import configManager from './utils/data/config_manager.js';
+import logger from './utils/log/logger.js';
 
 class BaseForm {
     constructor(pageLocator, pageName) {
@@ -15,14 +15,12 @@ class BaseForm {
 
     async pageIsDisplayed() {
         logger.log(`    ▶ ${this.pageName} is open`)
-        const uniqueElement = await this.getUniqueElement();
-        return await uniqueElement.isDisplayed();
+        return await (await this.getUniqueElement()).isDisplayed();
     }
 
     async pageIsEnabled() {
         logger.log(`    ▶ ${this.pageName} is enabled`)
-        const element = await this.getUniqueElement();
-        return await element.isEnabled();
+        return await (await this.getUniqueElement()).isEnabled();
     }
 
     async waitPageIsLocated() {
@@ -34,4 +32,4 @@ class BaseForm {
     }
 }
 
-module.exports = BaseForm;
+export default BaseForm;

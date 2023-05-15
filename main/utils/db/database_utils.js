@@ -1,10 +1,10 @@
-const mysql = require('mysql2/promise');
-const logger = require('../log/logger');
+import { createConnection } from 'mysql2/promise';
+import logger from '../log/logger.js';
 
 class DatabaseUtils {
     constructor(host, user, password, database) {
         logger.log(`[info] ▶ connect to ${database} database`);
-        mysql.createConnection({
+        createConnection({
             host: host,
             user: user,
             password: password,
@@ -17,8 +17,8 @@ class DatabaseUtils {
         await this.connection.end();
     }
 
-    async sqlQuery(query, values, log) {
-        logger.log(log);
+    async sqlQuery(query, values, logString) {
+        logger.log(logString);
         const [rows] = await this.connection.query(query, [values]);
         return rows;
     }
@@ -66,4 +66,4 @@ class DatabaseUtils {
     }
 }
 
-module.exports = DatabaseUtils;
+export default DatabaseUtils;

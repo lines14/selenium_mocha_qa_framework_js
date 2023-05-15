@@ -1,10 +1,10 @@
-const Employee = require ('../../../resources/model_employee_deprecated');
-const logger = require('../log/logger');
+import Employee from '../../../resources/model_employee_deprecated.js';
+import logger from '../log/logger.js';
 
 class ModelsGenerator {
     async modelsGenerator(dataSet, totalCount) {
         if (totalCount !== 1) {
-            logger.log('    ▶ get data from table')
+            logger.log('    ▶ get json from table')
         }
 
         let counter = 0;
@@ -25,4 +25,4 @@ class ModelsGenerator {
     }
 }
 
-module.exports = new ModelsGenerator();
+export default new ModelsGenerator();

@@ -1,8 +1,8 @@
-const Driver = require('../driver/browser_factory');
-const configManager = require('../utils/data/config_manager');
-const {until, Key} = require('selenium-webdriver');
-const {resolveNestedPromises} = require('resolve-nested-promises')
-const logger = require('../utils/log/logger');
+import Driver from '../driver/browser_factory.js';
+import configManager from '../utils/data/config_manager.js';
+import { until, Key } from 'selenium-webdriver';
+import { resolveNestedPromises } from 'resolve-nested-promises';
+import logger from '../utils/log/logger.js';
 
 class BaseElement {
     constructor(elementLocator, elementName) {
@@ -21,55 +21,46 @@ class BaseElement {
 
     async getText() {
         logger.log(`    ▶ get displayed ${this.elementName}`)
-        const element = await this.getElement();
-        const text = await element.getText();
+        const text = await (await this.getElement()).getText();
         logger.log(`    ▶ text contains: "${text}"`)
         return text;
     }
 
     async clickButton() {
         logger.log(`    ▶ click ${this.elementName}`)
-        const element = await this.getElement();
-        await element.click();
+        await (await this.getElement()).click();
     }
 
     async inputText(text) {
         logger.log(`    ▶ input ${this.elementName}`)
-        const element = await this.getElement();
-        await element.sendKeys(text);
+        await (await this.getElement()).sendKeys(text);
     }
 
     async enterText(text) {
         logger.log(`    ▶ input ${this.elementName} and submit`)
-        const element = await this.getElement();
-        await element.sendKeys(text, Key.ENTER);
+        await (await this.getElement()).sendKeys(text, Key.ENTER);
     }
 
     async getAttributeValue(attr) {
-        const element = await this.getElement();
-        return element.getAttribute(attr);
+        return (await this.getElement()).getAttribute(attr);
     }
 
     async elementIsDisplayed() {
         logger.log(`    ▶ ${this.elementName} is present`)
-        const element = await this.getElement();
-        return await element.isDisplayed();
+        return await (await this.getElement()).isDisplayed();
     }
 
     async checkElementIsEnabled() {
-        const element = await this.getElement();
-        return await element.isEnabled();
+        return await (await this.getElement()).isEnabled();
     }
 
     async parseChildrenForAttr(attr) {
-        const children = await this.getElements();
-        const childrenAttr = children.map(element => element.getAttribute(attr));
+        const childrenAttr = (await this.getElements()).map(element => element.getAttribute(attr));
         return resolveNestedPromises(childrenAttr);
     }
 
     async parseChildrenForText() {
-        const children = await this.getElements();
-        const childrenText = children.map(element => element.getText());
+        const childrenText = (await this.getElements()).map(element => element.getText());
         return resolveNestedPromises(childrenText);
     }
 
@@ -88,4 +79,4 @@ class BaseElement {
     }
 }
     
-module.exports = BaseElement;
+export default BaseElement;
