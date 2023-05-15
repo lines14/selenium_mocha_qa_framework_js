@@ -1,6 +1,6 @@
-const BaseForm = require('../../main/base_form');
-const Button = require('../../main/elements/base_element_children/button');
-const {By} = require('selenium-webdriver');
+import BaseForm from '../../main/base_form.js';
+import Button from '../../main/elements/base_element_children/button.js';
+import { By } from 'selenium-webdriver';
 
 class LeftMenuForm extends BaseForm {
     constructor() {
@@ -47,4 +47,4 @@ class LeftMenuForm extends BaseForm {
     }
 }
 
-module.exports = new LeftMenuForm();
+export default new LeftMenuForm();

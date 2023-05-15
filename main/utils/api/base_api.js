@@ -1,13 +1,13 @@
-const axios = require('axios');
-const logger = require('../log/logger');
+import axios from 'axios';
+import logger from '../log/logger.js';
+import qs from 'qs';
 
 class BaseApi {
-    constructor(baseURL, log, timeout, headers) {
-        this.axios = axios;
-        log ? logger.log(`${log} ${baseURL}`) : log;
-        this.axios.defaults.baseURL = baseURL;
-        this.axios.defaults.timeout = timeout;
-        this.axios.defaults.headers = headers;
+    constructor(baseURL, logString, timeout, headers) {
+        logString ? logger.log(`${logString} ${baseURL}`) : logString;
+        axios.defaults.baseURL = baseURL;
+        axios.defaults.timeout = timeout;
+        axios.defaults.headers = headers;
     }
 
     async get(endpoint) {
@@ -25,7 +25,7 @@ class BaseApi {
     async post(endpoint, params) {
         try {
             logger.log(`[info] ▶ post ${JSON.stringify(params)} to ${endpoint}:`);
-            const response = await axios.post(`/${endpoint}`, params);
+            const response = await axios.post(`/${endpoint}`, qs.stringify(params));
             logger.log(`[info]   status code: ${response.status}`);
             return response;
         } catch (error) {
@@ -71,4 +71,4 @@ class BaseApi {
     }
 }
 
-module.exports = BaseApi;
+export default BaseApi;

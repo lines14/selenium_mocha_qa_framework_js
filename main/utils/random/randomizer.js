@@ -7,6 +7,7 @@ class Randomizer {
         do {
             element = baseElementsList[Math.floor(Math.random() * baseElementsList.length)];
         } while ((exceptionsList.map(elem => elem.elementId)).includes(element.elementId));
+
         return element;
     }
 
@@ -28,20 +29,25 @@ class Randomizer {
         if (hasUpperCase) {
             requiredCharacters += upperCaseLetters.charAt(Math.floor(Math.random() * upperCaseLetters.length));
         }
+
         if (hasNumber) {
             requiredCharacters += numbers.charAt(Math.floor(Math.random() * numbers.length));
         }
+
         if (hasCyrillic) {
             requiredCharacters += cyrillicLetters.charAt(Math.floor(Math.random() * cyrillicLetters.length));
         }
+
         randomString += requiredCharacters;
       
         const characters = (hasUpperCase ? upperCaseLetters : '') + lowerCaseLetters + (hasNumber ? numbers : '') + (hasCyrillic ? cyrillicLetters : '');
         const charactersLength = characters.length;
         const randomLength = length - randomString.length;
+
         for (let i = 0; i < randomLength; i++) {
             randomString += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
+
         return await this.stringShuffler(randomString);
     }
 
@@ -54,6 +60,7 @@ class Randomizer {
         let currentIndex = array.length;
         let temporaryValue;
         let randomIndex;
+
         while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
@@ -61,8 +68,9 @@ class Randomizer {
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
         }
+        
         return array.join('');
     }
 }
 
-module.exports = new Randomizer();
+export default new Randomizer();

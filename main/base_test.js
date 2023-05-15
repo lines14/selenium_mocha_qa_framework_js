@@ -1,7 +1,7 @@
-const browserUtils = require('../main/driver/browser_utils');
-const logger = require('../main/utils/log/logger');
+import browserUtils from '../main/driver/browser_utils.js';
+import logger from '../main/utils/log/logger.js';
 
-exports.mochaHooks = {
+export const mochaHooks = {
     beforeAll() {
         browserUtils.initTheDriver();
     },

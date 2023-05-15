@@ -1,6 +1,6 @@
-const BaseForm = require('../../main/base_form');
-const Button = require('../../main/elements/base_element_children/button');
-const {By} = require('selenium-webdriver');
+import BaseForm from '../../main/base_form.js';
+import Button from '../../main/elements/base_element_children/button.js';
+import { By } from 'selenium-webdriver';
 
 class MainPage extends BaseForm {
     constructor() {
@@ -18,4 +18,4 @@ class MainPage extends BaseForm {
     }
 }
 
-module.exports = new MainPage();
+export default new MainPage();

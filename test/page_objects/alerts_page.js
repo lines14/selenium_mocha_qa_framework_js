@@ -1,7 +1,7 @@
-const BaseForm = require('../../main/base_form');
-const Label = require('../../main/elements/base_element_children/label');
-const Button = require('../../main/elements/base_element_children/button');
-const {By} = require('selenium-webdriver');
+import BaseForm from '../../main/base_form.js';
+import Label from '../../main/elements/base_element_children/label.js';
+import Button from '../../main/elements/base_element_children/button.js';
+import { By } from 'selenium-webdriver';
 
 class AlertsPage extends BaseForm {
     constructor() {
@@ -34,4 +34,4 @@ class AlertsPage extends BaseForm {
     }
 }
 
-module.exports = new AlertsPage();
+export default new AlertsPage();
