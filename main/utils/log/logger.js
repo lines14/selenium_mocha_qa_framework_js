@@ -1,29 +1,33 @@
 import path from "path";
-const timeList = [];
-const logList = [];
 import { createWriteStream } from 'fs';
 import moment from 'moment';
+const timeList = [];
+const logList = [];
 
 class Logger {
     log(step) {
         console.log(step);
         logList.push(` ${step}\n`);
-        timeList.push(`${moment().format().slice(0, 19).replace('T', ' ')}`);
+        const timeStamp = moment()
+        .format()
+        .slice(0, 19)
+        .replace('T', ' ');
+
+        timeList.push(`${timeStamp}`);
     }
 
     async logToFile() {
         const zip = (a, b) => a.map((k, i) => [k, b[i]]);
         const summaryList = zip(timeList, logList);
         const stream = createWriteStream(path.join(path.resolve(), "test", "log.txt"));
-        
-        stream.once('open', function() {
-            summaryList.map(element => element.map(elem =>  stream.write(elem)));
+        stream.once('open', () => {
+            summaryList.forEach((element) => element.forEach((elem) => stream.write(elem)));
             stream.end();
         });
     }
 
     async getTimings() {
-        return Object.assign([], timeList);
+        return [...timeList];
     }
 }
 
