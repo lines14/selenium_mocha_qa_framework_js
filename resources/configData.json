@@ -1,0 +1,6 @@
+{
+  "browser": "chrome",
+  "isMaximize": true,
+  "baseURL": "https://demoqa.com/",
+  "waitTime": 19000
+}

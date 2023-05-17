@@ -1,14 +1,15 @@
 import { assert } from 'chai';
-import configManager from '../main/utils/data/config_manager.js';
-import browserUtils from '../main/driver/browser_utils.js';
-import mainPage from './page_objects/main_page.js';
-import alertsFrameWindowsPage from './page_objects/alerts_frame_windows_page.js';
-import alertsPage from './page_objects/alerts_page.js';
-import leftMenuForm from './page_objects/left_menu_form.js';
+import configManager from '../main/utils/data/configManager.js';
+import browserUtils from '../main/driver/browserUtils.js';
+import mainPage from './pageObjects/mainPage.js';
+import alertsFrameWindowsPage from './pageObjects/alertsFrameWindowsPage.js';
+import alertsPage from './pageObjects/alertsPage.js';
+import leftMenuForm from './pageObjects/leftMenuForm.js';
+import randomizer from '../main/utils/random/randomizer.js';
 
-describe('Test scenario: #1. Alerts', function(){
-    it('#1. Alerts', async function() {
-        await browserUtils.getUrl(configManager.getConfigData().url);
+describe('Test scenario: #1. Alerts', () => {
+    it('#1. Alerts', async () => {
+        await browserUtils.getUrl(configManager.getConfigData().baseURL);
         assert.isTrue(await mainPage.pageIsDisplayed(), 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
@@ -32,9 +33,10 @@ describe('Test scenario: #1. Alerts', function(){
         await alertsPage.clickPromptButton();
         assert.equal(await browserUtils.getAlertText(), configManager.getTestData().alertText3, 'Alert with text "Please enter your name" is not open');
 
-        await browserUtils.enterTextToAlert(configManager.getTestData().randomText);
+        const randomText = await randomizer.getRandomString(true, true, true);
+        await browserUtils.enterTextToAlert(randomText);
         await browserUtils.acceptAlert();
         assert.isFalse(await browserUtils.alertIsDisplayed(), 'Alert has not closed');
-        assert.equal(await alertsPage.getEnteredText(), configManager.getTestData().labelText + configManager.getTestData().randomText, "Appeared text not equals to the one you've entered before");
+        assert.equal(await alertsPage.getEnteredText(), configManager.getTestData().labelText + randomText, "Appeared text not equals to the one you've entered before");
     });
 });
