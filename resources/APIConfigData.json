@@ -1,0 +1,5 @@
+{
+    "APIBaseURL": null,
+    "APITimeout": 1500,
+    "APIRequestsLimit": 5
+}

@@ -1,0 +1,13 @@
+{
+  "alertText1": "You clicked a button",
+  "alertText2": "Do you confirm action?",
+  "alertText3": "Please enter your name",
+  "labelText": "You entered ",
+  "parentFrameText": "Parent frame",
+  "childIframeText": "Child Iframe",
+  "user1": "Jon,Snow,30,knownothing@gmail.com,3000,alpha,",
+  "user2": "Buttercup,Cumbersnatch,41,BudapestCandygram@mail.io,2000,beta,",
+  "frame1": "frame1",
+  "frame2": "frame2",
+  "frameNoName": 0
+}
