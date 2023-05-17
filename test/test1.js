@@ -1,14 +1,14 @@
 import { assert } from 'chai';
-import configManager from '../main/utils/data/config_manager.js';
-import browserUtils from '../main/driver/browser_utils.js';
-import mainPage from './page_objects/main_page.js';
-import alertsFrameWindowsPage from './page_objects/alerts_frame_windows_page.js';
-import alertsPage from './page_objects/alerts_page.js';
-import leftMenuForm from './page_objects/left_menu_form.js';
+import configManager from '../main/utils/data/configManager.js';
+import browserUtils from '../main/driver/browserUtils.js';
+import mainPage from './pageObjects/mainPage.js';
+import alertsFrameWindowsPage from './pageObjects/alertsFrameWindowsPage.js';
+import alertsPage from './pageObjects/alertsPage.js';
+import leftMenuForm from './pageObjects/leftMenuForm.js';
 
-describe('Test scenario: #1. Alerts', function(){
-    it('#1. Alerts', async function() {
-        await browserUtils.getUrl(configManager.getConfigData().url);
+describe('Test scenario: #1. Alerts', () => {
+    it('#1. Alerts', async () => {
+        await browserUtils.getUrl(configManager.getConfigData().baseURL);
         assert.isTrue(await mainPage.pageIsDisplayed(), 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
