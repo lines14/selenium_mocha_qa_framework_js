@@ -2,41 +2,29 @@ class Randomizer {
     async getRandomElement(...allElementsLists) {
         const baseElementsList = allElementsLists[0].slice(0, allElementsLists[0].length);
         const exceptionsList = allElementsLists[1];
-    
         let element;
         do {
             element = baseElementsList[Math.floor(Math.random() * baseElementsList.length)];
-        } while ((exceptionsList.map(elem => elem.elementId)).includes(element.elementId));
+        } while ((exceptionsList.map((elem) => elem.elementId)).includes(element.elementId));
 
         return element;
     }
 
-    async getRandomString(hasUpperCase, hasNumber, hasCyrillic, chosenLetter, minLength=0, maxLength=10) {
+    async getRandomString(hasUpperCase=false, hasNumber=false, hasCyrillic=false, chosenLetter=false, minLength=1, maxLength=10) {
         const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz';
         const numbers = '0123456789';
         const cyrillicLetters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
       
-        let length = await this.getRandomNumber(minLength, maxLength);
+        let length = await this.getRandomNumber(maxLength, minLength);
       
         let randomString = '';
-      
-        if (chosenLetter !== false) {
-            randomString += chosenLetter;
-        }
+        if (chosenLetter) randomString += chosenLetter;
       
         let requiredCharacters = '';
-        if (hasUpperCase) {
-            requiredCharacters += upperCaseLetters.charAt(Math.floor(Math.random() * upperCaseLetters.length));
-        }
-
-        if (hasNumber) {
-            requiredCharacters += numbers.charAt(Math.floor(Math.random() * numbers.length));
-        }
-
-        if (hasCyrillic) {
-            requiredCharacters += cyrillicLetters.charAt(Math.floor(Math.random() * cyrillicLetters.length));
-        }
+        if (hasUpperCase) requiredCharacters += upperCaseLetters.charAt(Math.floor(Math.random() * upperCaseLetters.length));
+        if (hasNumber) requiredCharacters += numbers.charAt(Math.floor(Math.random() * numbers.length));
+        if (hasCyrillic) requiredCharacters += cyrillicLetters.charAt(Math.floor(Math.random() * cyrillicLetters.length));
 
         randomString += requiredCharacters;
       
@@ -51,16 +39,15 @@ class Randomizer {
         return await this.stringShuffler(randomString);
     }
 
-    async getRandomNumber(maxLength=9, minLength=1) {
-        return Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+    async getRandomNumber(max=9, min=1) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     async stringShuffler(inputString) {
-        let array = inputString.split('');
+        const array = inputString.split('');
         let currentIndex = array.length;
         let temporaryValue;
         let randomIndex;
-
         while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
