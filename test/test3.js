@@ -1,42 +1,37 @@
-const chai = require('chai');
-const configManager = require('../main/utils/data/config_manager');
-const mainPage = require('./page_objects/main_page');
-const elementsPage = require('./page_objects/elements_page');
-const leftMenuForm = require('./page_objects/left_menu_form');
-const webTablesPage = require('./page_objects/web_tables_page');
-const browserUtils = require('../main/driver/browser_utils');
-const modelsGenerator = require('../main/utils/data/models_generator');
+import { assert } from 'chai';
+import mainPage from './pageObjects/mainPage.js';
+import elementsPage from './pageObjects/elementsPage.js';
+import leftMenuForm from './pageObjects/leftMenuForm.js';
+import webTablesPage from './pageObjects/webTablesPage.js';
+import ConfigManager from '../main/utils/data/configManager.js';
+import JSONUtils from '../main/utils/data/JSONUtils.js';
+import BrowserUtils from '../main/driver/browserUtils.js';
 
-describe('Test scenario: #3. Tables:', function(){
-    it('#3. Tables', async function() {
-        await browserUtils.getUrl(configManager.getConfigData().url);
-        const isMainPageDisplayed = await mainPage.pageIsDisplayed()
-        chai.assert.equal(isMainPageDisplayed, true, 'Main page is not open');
+describe('Test scenario: #3. Tables:', () => {
+    it('#3. Tables', async () => {
+        await BrowserUtils.getUrl(ConfigManager.getConfigData().baseURL);
+        assert.isTrue(await mainPage.pageIsDisplayed(), 'Main page is not open');
 
         await mainPage.clickElementsButton();
         await elementsPage.pageIsDisplayed();
         await leftMenuForm.clickWebTablesButton();
-        const isWebTablesPageDisplayed = await webTablesPage.pageIsDisplayed();
-        chai.assert.equal(isWebTablesPageDisplayed, true, 'Page with Web Tables form is not open');
+        assert.isTrue(await webTablesPage.pageIsDisplayed(), 'Page with Web Tables form is not open');
 
         await webTablesPage.clickAddButton();
         await webTablesPage.waitRegistrationFormVisible();
-        const isRegistrationFormDisplayed = await webTablesPage.registrationFormIsDisplayed();
-        chai.assert.equal(isRegistrationFormDisplayed, true, 'Registration Form has not appeared on page');
+        assert.isTrue(await webTablesPage.registrationFormIsDisplayed(), 'Registration Form has not appeared on page');
 
-        await webTablesPage.sendTestData(configManager.getTestData().User1);
+        await webTablesPage.sendTestData(ConfigManager.getTestData().user1);
         await webTablesPage.waitPageIsEnabled();
-        const isWebTablesPageEnabled = await webTablesPage.pageIsEnabled();
-        chai.assert.isTrue(isWebTablesPageEnabled, 'Registration Form has not closed');
-        const rowsCount1 = await webTablesPage.filledRowsCounter();
-        const testModel = await modelsGenerator.modelsGenerator([configManager.getTestData().User1.split(',')], 1);
-        const modelsFromTable1 = await modelsGenerator.modelsGenerator(await webTablesPage.getTableRowsText(), await webTablesPage.filledRowsCounter());
-        chai.assert.includeMembers(modelsFromTable1, testModel, 'Data of User № has not appeared in a table');
+        assert.isTrue(await webTablesPage.pageIsEnabled(), 'Registration Form has not closed');
+        const rowsCount = await webTablesPage.filledRowsCounter();
+        const testModel = await JSONUtils.createJson([ConfigManager.getTestData().user1.split(',')]);
+        let modelsFromTable = await JSONUtils.createJson(await webTablesPage.getTableRowsText(), await webTablesPage.filledRowsCounter());
+        assert.includeMembers(modelsFromTable, testModel, 'Data of user № has not appeared in a table');
         
-        await webTablesPage.clickDeletebutton(rowsCount1);
-        const rowsCount2 = await webTablesPage.filledRowsCounter();
-        chai.assert.notEqual(rowsCount1, rowsCount2, 'Number of records in table has not changed');
-        const modelsFromTable2 = await modelsGenerator.modelsGenerator(await webTablesPage.getTableRowsText(), await webTablesPage.filledRowsCounter());
-        chai.assert.notIncludeMembers(modelsFromTable2, testModel, 'Data of User № has not been deleted from table');
+        await webTablesPage.clickDeletebutton(rowsCount);
+        assert.notEqual(rowsCount, await webTablesPage.filledRowsCounter(), 'Number of records in table has not changed');
+        modelsFromTable = await JSONUtils.createJson(await webTablesPage.getTableRowsText(), await webTablesPage.filledRowsCounter());
+        assert.notIncludeMembers(modelsFromTable, testModel, 'Data of user № has not been deleted from table');
     });
 });

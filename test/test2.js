@@ -1,45 +1,38 @@
-const chai = require('chai');
-const configManager = require('../main/utils/data/config_manager');
-const mainPage = require('./page_objects/main_page');
-const alertsFrameWindowsPage = require('./page_objects/alerts_frame_windows_page');
-const nestedFramesPage = require('./page_objects/nested_frames_page');
-const framesPage = require('./page_objects/frames_page');
-const leftMenuForm = require('./page_objects/left_menu_form');
-const browserUtils = require('../main/driver/browser_utils');
-const frame1 = require('./page_objects/frame1');
-const frame2 = require('./page_objects/frame2');
-const frame3 = require('./page_objects/frame3');
-const frame4 = require('./page_objects/frame4');
+import { assert } from 'chai';
+import mainPage from './pageObjects/mainPage.js';
+import alertsFrameWindowsPage from './pageObjects/alertsFrameWindowsPage.js';
+import nestedFramesPage from './pageObjects/nestedFramesPage.js';
+import framesPage from './pageObjects/framesPage.js';
+import leftMenuForm from './pageObjects/leftMenuForm.js';
+import frame1 from './pageObjects/frame1.js';
+import frame2 from './pageObjects/frame2.js';
+import frame3 from './pageObjects/frame3.js';
+import frame4 from './pageObjects/frame4.js';
+import BrowserUtils from '../main/driver/browserUtils.js';
+import ConfigManager from '../main/utils/data/configManager.js';
 
-describe('Test scenario: #2. Iframe:', function(){
-    it('#2. Iframe', async function() {
-        await browserUtils.getUrl(configManager.getConfigData().url);
-        const isMainPageDisplayed = await mainPage.pageIsDisplayed()
-        chai.assert.equal(isMainPageDisplayed, true, 'Main page is not open');
+describe('Test scenario: #2. Iframe:', () => {
+    it('#2. Iframe', async () => {
+        await BrowserUtils.getUrl(ConfigManager.getConfigData().baseURL);
+        assert.isTrue(await mainPage.pageIsDisplayed(), 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.pageIsDisplayed();
         await leftMenuForm.clickNestedFramesButton();
-        const isNestedFramesPageDisplayed = await nestedFramesPage.pageIsDisplayed();
-        chai.assert.equal(isNestedFramesPageDisplayed, true, 'Page with Nested Frames form is not open');
-        await browserUtils.goIntoFrame('frame1');
-        const parentFrameText = await frame1.getFrameText();
-        chai.assert.equal(parentFrameText, configManager.getTestData().parentFrameText, 'Message "Parent frame" not present on page');
-        await browserUtils.goIntoFrame(0);
-        const childIframeText = await frame2.getFrameText();
-        chai.assert.equal(childIframeText, configManager.getTestData().childIframeText, 'Message "Child Iframe" not present on page');
-        await browserUtils.goOutOfFrame();
-        await browserUtils.goOutOfFrame();
+        assert.isTrue(await nestedFramesPage.pageIsDisplayed(), 'Page with Nested Frames form is not open');
+        await BrowserUtils.goIntoFrame(ConfigManager.getTestData().frame1);
+        assert.equal(await frame1.getFrameText(), ConfigManager.getTestData().parentFrameText, 'Message "Parent frame" not present on page');
+        await BrowserUtils.goIntoFrame(ConfigManager.getTestData().frameNoName);
+        assert.equal(await frame2.getFrameText(), ConfigManager.getTestData().childIframeText, 'Message "Child Iframe" not present on page');
+        await BrowserUtils.goOutOfFrame();
+        await BrowserUtils.goOutOfFrame();
 
         await leftMenuForm.clickFramesButton();
-        const isFramesPageDisplayed = await framesPage.pageIsDisplayed();
-        chai.assert.equal(isFramesPageDisplayed, true, 'Page with Frames form is not open');
-        await browserUtils.goIntoFrame('frame1');
+        assert.isTrue(await framesPage.pageIsDisplayed(), 'Page with Frames form is not open');
+        await BrowserUtils.goIntoFrame(ConfigManager.getTestData().frame1);
         const firstFrameText = await frame3.getFrameText();
-        await browserUtils.goOutOfFrame();
-        await browserUtils.goIntoFrame('frame2');
-        const secondFrameText = await frame4.getFrameText();
-        await browserUtils.goOutOfFrame();
-        chai.assert.equal(firstFrameText, secondFrameText, 'Message from upper frame is not equal to the message from lower frame');
+        await BrowserUtils.goOutOfFrame();
+        await BrowserUtils.goIntoFrame(ConfigManager.getTestData().frame2);
+        assert.equal(firstFrameText, await frame4.getFrameText(), 'Message from upper frame is not equal to the message from lower frame');
     });
 });

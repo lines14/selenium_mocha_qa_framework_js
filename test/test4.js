@@ -1,56 +1,47 @@
-const chai = require('chai');
-const configManager = require('../main/utils/data/config_manager');
-const mainPage = require('./page_objects/main_page');
-const alertsFrameWindowsPage = require('./page_objects/alerts_frame_windows_page');
-const browserWindowsPage = require('./page_objects/browser_windows_page');
-const leftMenuForm = require('./page_objects/left_menu_form');
-const samplePage = require('./page_objects/sample_page');
-const linksPage = require('./page_objects/links_page');
-const browserUtils = require('../main/driver/browser_utils');
+import { assert } from 'chai';
+import mainPage from './pageObjects/mainPage.js';
+import alertsFrameWindowsPage from './pageObjects/alertsFrameWindowsPage.js';
+import browserWindowsPage from './pageObjects/browserWindowsPage.js';
+import leftMenuForm from './pageObjects/leftMenuForm.js';
+import samplePage from './pageObjects/samplePage.js';
+import linksPage from './pageObjects/linksPage.js';
+import BrowserUtils from '../main/driver/browserUtils.js';
+import ConfigManager from '../main/utils/data/configManager.js';
 
-describe('Test scenario: #4. Handles:', function(){
-    it('#4. Handles', async function() {
-        await browserUtils.getUrl(configManager.getConfigData().url);
-        let isMainPageDisplayed = await mainPage.pageIsDisplayed()
-        chai.assert.equal(isMainPageDisplayed, true, 'Main page is not open');
+describe('Test scenario: #4. Handles:', () => {
+    it('#4. Handles', async () => {
+        await BrowserUtils.getUrl(ConfigManager.getConfigData().baseURL);
+        assert.isTrue(await mainPage.pageIsDisplayed(), 'Main page is not open');
 
         await mainPage.clickAlertsFrameWindowsButton();
         await alertsFrameWindowsPage.pageIsDisplayed();
         await leftMenuForm.clickBrowserWindowsButton();
-        let isBrowserWindowsPageDisplayed = await browserWindowsPage.pageIsDisplayed();
-        chai.assert.equal(isBrowserWindowsPageDisplayed, true, 'Page with Browser Windows form is not open');
+        assert.isTrue(await browserWindowsPage.pageIsDisplayed(), 'Page with Browser Windows form is not open');
 
-        const originalTab1 = await browserUtils.handleOriginalTab();
-        let prevTabsCount = await browserUtils.getTabsCount();
+        let originalTab = await BrowserUtils.handleOriginalTab();
+        let prevTabsCount = await BrowserUtils.getTabsCount();
         await browserWindowsPage.clickNewTabButton()
-        const tabsCount1 = await browserUtils.getTabsCount();
-        chai.assert.isTrue(tabsCount1 > prevTabsCount, 'New tab is not open');
-        await browserUtils.switchDriverToTheAnotherTab(prevTabsCount, 1);
-        const isSamplePageDisplayed = await samplePage.pageIsDisplayed();
-        chai.assert.equal(isSamplePageDisplayed, true, 'Sample page is not open');
+        assert.isTrue(await BrowserUtils.getTabsCount() > prevTabsCount, 'New tab is not open');
+        await BrowserUtils.switchDriverToTheAnotherTab(prevTabsCount, originalTab);
+        assert.isTrue(await samplePage.pageIsDisplayed(), 'Sample page is not open');
 
-        await browserUtils.closeTab();
-        await browserUtils.switchDriverToTheOriginalTab(originalTab1);
-        isBrowserWindowsPageDisplayed = await browserWindowsPage.pageIsDisplayed();
-        chai.assert.equal(isBrowserWindowsPageDisplayed, true, 'Page with Browser Windows form is not open');
+        await BrowserUtils.closeTab();
+        await BrowserUtils.switchDriverToTheOriginalTab(originalTab);
+        assert.isTrue(await browserWindowsPage.pageIsDisplayed(), 'Page with Browser Windows form is not open');
 
         await leftMenuForm.clickElementsButton();
         await leftMenuForm.waitLinksButtonVisible();
         await leftMenuForm.clickLinksButton();
-        let isLinksPageDisplayed = await linksPage.pageIsDisplayed();
-        chai.assert.equal(isLinksPageDisplayed, true, 'Page with Links form is not open');
+        assert.isTrue(await linksPage.pageIsDisplayed(), 'Page with Links form is not open');
 
-        const originalTab2 = await browserUtils.handleOriginalTab();
-        prevTabsCount = await browserUtils.getTabsCount();
+        originalTab = await BrowserUtils.handleOriginalTab();
+        prevTabsCount = await BrowserUtils.getTabsCount();
         await linksPage.clickHomeLink();
-        const tabsCount2 = await browserUtils.getTabsCount();
-        chai.assert.isTrue(tabsCount2 > prevTabsCount, 'New tab is not open');
-        await browserUtils.switchDriverToTheAnotherTab(prevTabsCount, 1);
-        isMainPageDisplayed = await mainPage.pageIsDisplayed()
-        chai.assert.equal(isMainPageDisplayed, true, 'Main page is not open');
+        assert.isTrue(await BrowserUtils.getTabsCount() > prevTabsCount, 'New tab is not open');
+        await BrowserUtils.switchDriverToTheAnotherTab(prevTabsCount, originalTab);
+        assert.isTrue(await mainPage.pageIsDisplayed(), 'Main page is not open');
 
-        await browserUtils.switchDriverToTheOriginalTab(originalTab2);
-        isLinksPageDisplayed = await linksPage.pageIsDisplayed();
-        chai.assert.equal(isLinksPageDisplayed, true, 'Page with Links form is not open');
+        await BrowserUtils.switchDriverToTheOriginalTab(originalTab);
+        assert.isTrue(await linksPage.pageIsDisplayed(), 'Page with Links form is not open');
     });
 });
