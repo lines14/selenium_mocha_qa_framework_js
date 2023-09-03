@@ -1,12 +1,12 @@
 import { Capabilities, Builder } from 'selenium-webdriver';
-import configManager from '../utils/data/configManager.js';
+import ConfigManager from '../utils/data/configManager.js';
 
 class BrowserFactory {
     static #instance = null;
 
     static createInstance() {
         if (!this.#instance) {
-            if (configManager.getConfigData().browser === 'chrome') {
+            if (ConfigManager.getConfigData().browser === 'chrome') {
                 const chromeCapabilities = Capabilities.chrome();
                 const chromeOptions = {'args': ['--incognito']};
                 chromeCapabilities.set("goog:chromeOptions", chromeOptions);
@@ -14,14 +14,14 @@ class BrowserFactory {
                 .withCapabilities(chromeCapabilities)
                 .build();
 
-                if (configManager.getConfigData().isMaximize) {
+                if (ConfigManager.getConfigData().isMaximize) {
                     this.#instance.manage()
                     .window()
                     .maximize();
                 }
 
                 Object.freeze(this.#instance);
-            } else if (configManager.getConfigData().browser === 'firefox') {
+            } else if (ConfigManager.getConfigData().browser === 'firefox') {
                 const firefoxCapabilities = Capabilities.firefox();
                 const firefoxOptions = {'args': ['-private']};
                 firefoxCapabilities.set("moz:firefoxOptions", firefoxOptions);
@@ -29,7 +29,7 @@ class BrowserFactory {
                 .withCapabilities(firefoxCapabilities)
                 .build();
 
-                if (configManager.getConfigData().isMaximize) {
+                if (ConfigManager.getConfigData().isMaximize) {
                     this.#instance.manage()
                     .window()
                     .maximize();

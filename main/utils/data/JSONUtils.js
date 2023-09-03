@@ -1,16 +1,16 @@
-import logger from '../log/logger.js';
+import Logger from '../log/logger.js';
 
 class JSONUtils {
-    async isJson(response) {
+    static async isJson(response) {
         typeof response !== "object" 
-        ? logger.log(`[error]▶ api response is ${typeof response} instead of json object!`) 
-        : logger.log('[info] ▶ api response is json object');
+        ? Logger.log(`[error]▶ api response is ${typeof response} instead of json object!`) 
+        : Logger.log('[info] ▶ api response is json object');
 
         return typeof response === "object" ? true : false;
     }
 
-    async createJson(dataSet, totalCount=1) {
-        if (totalCount !== 1) logger.log('    ▶ get json from table');
+    static async createJson(dataSet, totalCount=1) {
+        if (totalCount !== 1) Logger.log('    ▶ get json from table');
         const employeesList = [];
         for (let i = 0; i < totalCount; i++) {
             const employee = {};
@@ -27,4 +27,4 @@ class JSONUtils {
     }
 }
 
-export default new JSONUtils();
+export default JSONUtils;

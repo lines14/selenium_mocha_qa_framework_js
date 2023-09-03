@@ -1,8 +1,8 @@
 import BrowserFactory from '../driver/browserFactory.js';
-import configManager from '../utils/data/configManager.js';
+import ConfigManager from '../utils/data/configManager.js';
 import { until, Key } from 'selenium-webdriver';
 import { resolveNestedPromises } from 'resolve-nested-promises';
-import logger from '../utils/log/logger.js';
+import Logger from '../utils/log/logger.js';
 
 class BaseElement {
     constructor(elementLocator, elementName) {
@@ -11,7 +11,7 @@ class BaseElement {
     }
 
     async getElement() {
-        await BrowserFactory.instance.wait(until.elementLocated(this.elementLocator), configManager.getConfigData().waitTime);
+        await BrowserFactory.instance.wait(until.elementLocated(this.elementLocator), ConfigManager.getConfigData().waitTime);
         return await BrowserFactory.instance.findElement(this.elementLocator);
     }
 
@@ -20,24 +20,24 @@ class BaseElement {
     }
 
     async getText() {
-        logger.log(`    ▶ get displayed ${this.elementName}`)
+        Logger.log(`    ▶ get displayed ${this.elementName}`)
         const text = await (await this.getElement()).getText();
-        logger.log(`    ▶ text contains: "${text}"`)
+        Logger.log(`    ▶ text contains: "${text}"`)
         return text;
     }
 
     async clickButton() {
-        logger.log(`    ▶ click ${this.elementName}`)
+        Logger.log(`    ▶ click ${this.elementName}`)
         await (await this.getElement()).click();
     }
 
     async inputText(text) {
-        logger.log(`    ▶ input ${this.elementName}`)
+        Logger.log(`    ▶ input ${this.elementName}`)
         await (await this.getElement()).sendKeys(text);
     }
 
     async enterText(text) {
-        logger.log(`    ▶ input ${this.elementName} and submit`)
+        Logger.log(`    ▶ input ${this.elementName} and submit`)
         await (await this.getElement()).sendKeys(text, Key.ENTER);
     }
 
@@ -46,7 +46,7 @@ class BaseElement {
     }
 
     async elementIsDisplayed() {
-        logger.log(`    ▶ ${this.elementName} is present`)
+        Logger.log(`    ▶ ${this.elementName} is present`)
         return await (await this.getElement()).isDisplayed();
     }
 
@@ -65,17 +65,17 @@ class BaseElement {
     }
 
     async waitIsVisible() {
-        logger.log(`    ▶ wait ${this.elementName} is visible`)
-        await BrowserFactory.instance.wait(until.elementIsVisible(await this.getElement()), configManager.getConfigData().waitTime);
+        Logger.log(`    ▶ wait ${this.elementName} is visible`)
+        await BrowserFactory.instance.wait(until.elementIsVisible(await this.getElement()), ConfigManager.getConfigData().waitTime);
     }
 
     async waitStalenessOf() {
-        await BrowserFactory.instance.wait(until.stalenessOf(this.elementLocator), configManager.getConfigData().waitTime);
+        await BrowserFactory.instance.wait(until.stalenessOf(this.elementLocator), ConfigManager.getConfigData().waitTime);
     }
     
     async waitIsEnabled() {
-        logger.log(`    ▶ wait ${this.elementName} is enabled`)
-        await BrowserFactory.instance.wait(until.elementIsEnabled(await this.getElement(), configManager.getConfigData().waitTime));
+        Logger.log(`    ▶ wait ${this.elementName} is enabled`)
+        await BrowserFactory.instance.wait(until.elementIsEnabled(await this.getElement(), ConfigManager.getConfigData().waitTime));
     }
 }
     

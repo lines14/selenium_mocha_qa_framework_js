@@ -7,33 +7,33 @@ import DBConfigData from '../../../resources/DBConfigData.json' assert { type: "
 import path from "path";
 
 class ConfigManager {
-    getConfigData() {
+    static getConfigData() {
         return JSON.parse(JSON.stringify(configData));
     }
 
-    getTestData() {
+    static getTestData() {
         return JSON.parse(JSON.stringify(testData));
     }
 
-    getTestFile() {
+    static getTestFile() {
         return path.join(path.resolve(), "test", "template.jpg");
     }
 
-    getStatusCode() {
+    static getStatusCode() {
         return JSON.parse(JSON.stringify(APICodes));
     }
 
-    getAPIEndpoint() {
+    static getAPIEndpoint() {
         return JSON.parse(JSON.stringify(APIEndpoints));
     }
 
-    getAPIConfigData() {
+    static getAPIConfigData() {
         return JSON.parse(JSON.stringify(APIConfigData));
     }
 
-    getDBConfigData() {
+    static getDBConfigData() {
         return JSON.parse(JSON.stringify(DBConfigData));
     }
 }
 
-export default new ConfigManager();
+export default ConfigManager;

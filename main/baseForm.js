@@ -1,7 +1,7 @@
 import BrowserFactory from './driver/browserFactory.js';
 import { until } from 'selenium-webdriver';
-import configManager from './utils/data/configManager.js';
-import logger from './utils/log/logger.js';
+import ConfigManager from './utils/data/configManager.js';
+import Logger from './utils/log/logger.js';
 
 class BaseForm {
     constructor(pageLocator, pageName) {
@@ -14,21 +14,21 @@ class BaseForm {
     }
 
     async pageIsDisplayed() {
-        logger.log(`    ▶ ${this.pageName} is open`)
+        Logger.log(`    ▶ ${this.pageName} is open`)
         return await (await this.getUniqueElement()).isDisplayed();
     }
 
     async pageIsEnabled() {
-        logger.log(`    ▶ ${this.pageName} is enabled`)
+        Logger.log(`    ▶ ${this.pageName} is enabled`)
         return await (await this.getUniqueElement()).isEnabled();
     }
 
     async waitPageIsLocated() {
-        await BrowserFactory.instance.wait(until.elementLocated(this.pageLocator), configManager.getConfigData().waitTime);
+        await BrowserFactory.instance.wait(until.elementLocated(this.pageLocator), ConfigManager.getConfigData().waitTime);
     }
     
     async waitPageIsEnabled() {
-        await BrowserFactory.instance.wait(until.elementIsEnabled(await this.getUniqueElement(), configManager.getConfigData().waitTime));
+        await BrowserFactory.instance.wait(until.elementIsEnabled(await this.getUniqueElement(), ConfigManager.getConfigData().waitTime));
     }
 }
 

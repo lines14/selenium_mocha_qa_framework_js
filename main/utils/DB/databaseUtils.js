@@ -1,9 +1,9 @@
 import { createConnection } from 'mysql2/promise';
-import logger from '../log/logger.js';
+import Logger from '../log/logger.js';
 
 class DatabaseUtils {
     constructor(host, user, password, database) {
-        logger.log(`[info] ▶ connect to ${database} database`);
+        Logger.log(`[info] ▶ connect to ${database} database`);
         createConnection({
             host,
             user,
@@ -15,12 +15,12 @@ class DatabaseUtils {
     }
 
     async closeConnection() {
-        logger.log(`[info] ▶ close connection to database`);
+        Logger.log(`[info] ▶ close connection to database`);
         await this.connection.end();
     }
 
     async sqlQuery(query, values, logString) {
-        logger.log(logString);
+        Logger.log(logString);
         const [rows] = await this.connection.query(query, [values]);
         return rows;
     }

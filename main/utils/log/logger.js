@@ -5,7 +5,7 @@ const timeList = [];
 const logList = [];
 
 class Logger {
-    log(step) {
+    static log(step) {
         console.log(step);
         logList.push(` ${step}\n`);
         const timeStamp = moment()
@@ -16,7 +16,7 @@ class Logger {
         timeList.push(`${timeStamp}`);
     }
 
-    async logToFile() {
+    static async logToFile() {
         const zip = (a, b) => a.map((k, i) => [k, b[i]]);
         const summaryList = zip(timeList, logList);
         const stream = createWriteStream(path.join(path.resolve(), "test", "log.txt"));
@@ -26,9 +26,9 @@ class Logger {
         });
     }
 
-    async getTimings() {
+    static async getTimings() {
         return [...timeList];
     }
 }
 
-export default new Logger();
+export default Logger;
